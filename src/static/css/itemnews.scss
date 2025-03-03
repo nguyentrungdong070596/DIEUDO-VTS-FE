@@ -1,0 +1,31 @@
+.item-news {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: start;
+
+    .item-news-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        padding-bottom: 10px;
+    }
+
+    .item-news-time {
+        font-size: 14px;
+        color: #007CF9;
+        padding-bottom: 10px;
+    }
+}
+
+.item-news .item-news-img {
+    width: 30%;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.item-news .item-news-content {
+    width: 70%;
+    margin-bottom: 20px;
+
+}

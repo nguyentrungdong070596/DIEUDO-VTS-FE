@@ -1,0 +1,93 @@
+.footer {
+    background-color: #0196da;
+    color: #fff;
+    padding: 40px 100px;
+    width: 100%;
+    position: relative;
+
+    .footer-content {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        max-width: 1200px;
+        margin: 0px auto;
+        margin-bottom: 40px;
+
+        align-items: start; // Giúp các cột cân bằng
+    }
+
+    .footer-section {
+        display: flex;
+        flex-direction: column;
+        min-height: 200px; // Đảm bảo chiều cao đồng đều
+    }
+
+    h3 {
+        font-size: 22px;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        color: #ffcc00; // Màu vàng nổi bật
+    }
+
+    p,
+    li {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    ul {
+        padding: 0;
+        list-style: none;
+
+        li {
+            margin-bottom: 8px;
+
+            a {
+                text-decoration: none;
+                color: white;
+                transition: 0.3s;
+
+                &:hover {
+                    color: #ffcc00; // Đổi màu khi hover
+                }
+            }
+        }
+    }
+
+    .newsletter {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-copyright {
+        background-color: #0073AA;
+        text-align: center;
+        font-size: 14px;
+        padding: 15px 0;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    // Responsive cho điện thoại
+    @media (max-width: 768px) {
+        padding: 30px 20px;
+
+        .footer-content {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            text-align: center; // Canh giữa nội dung
+        }
+
+        .footer-section {
+            align-items: center; // Giúp cột trông đẹp hơn trên mobile
+        }
+
+        .newsletter {
+            width: 100%;
+        }
+    }
+}

@@ -1,0 +1,120 @@
+.header {
+    background-color: white;
+    color: #007CF9;
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    padding: 10px 100px;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    /* padding-left: 100px; */
+}
+
+.header-container>div {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.header-text {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-left: 4px !important;
+}
+
+.company-name {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.branch-name {
+    font-size: 0.9rem;
+    font-weight: bold;
+
+    color: red;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: white;
+    width: 250px;
+    margin-left: auto;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.search-icon {
+    font-size: 16px;
+    color: gray;
+    margin-right: 5px;
+}
+
+
+.changelanguage {
+    display: flex !important;
+}
+
+.avatar {
+    margin-left: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+@media (max-width: 960px) {
+    .header-container {
+        display: flex;
+        width: 100%;
+    }
+
+    .header {
+        position: relative;
+
+    }
+
+    .search-box {
+        position: absolute;
+        bottom: 5px;
+        z-index: 10000;
+        left: 50%;
+        transform: translateX(-50%);
+
+    }
+
+
+
+    .english {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+
+
+    }
+
+    .vietnam {
+        position: absolute;
+        top: 5px;
+        right: 50px
+    }
+
+
+}
