@@ -1,0 +1,50 @@
+@media (max-width: 960px) {
+    .carousel-box2 .slick-list {
+        height: 200px !important;
+    }
+
+    /* Đảm bảo ảnh giữ đúng tỷ lệ */
+    .carousel-box2 .slick-list img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        /* hoặc contain tùy theo yêu cầu */
+    }
+
+
+
+    .carousel-overlay {
+        display: hidden;
+    }
+
+    .carousel-overlay h5,
+    .carousel-overlay h4 {
+        display: hidden;
+
+    }
+
+    .carousel-overlay button {
+        display: hidden;
+    }
+
+}
+
+
+
+.carousel-overlay {
+    display: hidden;
+}
+
+.carousel-overlay h5,
+.carousel-overlay h4 {
+    display: hidden;
+
+}
+
+.carousel-overlay button {
+    display: hidden;
+}
+
+.carousel-box2 .slick-list {
+    height: 200px !important;
+}

@@ -1,0 +1,207 @@
+/* Navbar chính */
+.nav-menu {
+    background-color: #0196da;
+    padding: 20px;
+    position: relative;
+}
+
+/* Menu trên màn hình lớn */
+.menu-items {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 14px;
+}
+
+/* Mục menu */
+.item-menu {
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Hover */
+.item-menu:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    height: 100%;
+}
+
+.item-menu span {
+    font-size: 14px;
+}
+
+/* Ẩn nút menu trên màn hình lớn */
+.menu-button {
+    display: none;
+}
+
+/* Mặc định ẩn menu sidebar */
+.mobile-menu {
+    display: none;
+}
+
+/* Khi màn hình nhỏ hơn 960px */
+@media (max-width: 960px) {
+    .menu-button {
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: white;
+        z-index: 10001;
+    }
+
+    .menu-items {
+        display: none;
+    }
+
+    .nav-menu {
+        padding-bottom: 40px;
+    }
+
+    .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: white;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 100000 !important;
+    }
+
+    .mobile-menu.open {
+        transform: translateX(0);
+    }
+
+    .close-button {
+        display: block;
+        background: none;
+        border: none;
+        font-size: 24px;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+    }
+
+    .item-menu {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        width: 100%;
+    }
+
+    .item-menu a {
+        text-decoration: none;
+        color: black;
+        font-size: 16px;
+        display: block;
+    }
+}
+
+/* Hiển thị icon submenu */
+.submenu-container {
+    position: relative;
+    cursor: pointer;
+    z-index: 100000;
+
+    .submenu-icon {
+        display: inline-block;
+        margin-left: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .submenu-icon.open {
+        transform: rotate(180deg);
+    }
+
+    .submenu {
+        position: absolute;
+        top: 170%;
+        left: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        width: 200px;
+        padding: 10px;
+        opacity: 0;
+        transform: perspective(600px) rotateX(90deg);
+        transform-origin: bottom;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .submenu.open {
+        opacity: 1;
+        transform: perspective(600px) rotateX(0deg);
+    }
+
+    .submenu-item {
+        display: block;
+        padding: 10px;
+        text-decoration: none;
+        color: black;
+        transition: background 0.2s;
+
+        &:hover {
+            background: #f0f0f0;
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .submenu {
+        position: relative;
+        display: block;
+        background: #f9f9f9;
+        padding-left: 15px;
+        transition: max-height 0.3s ease;
+        max-height: 0;
+        overflow: hidden;
+    }
+
+    .submenu.open {
+        max-height: 300px;
+    }
+
+    .submenu-container {
+        width: 100%;
+    }
+
+    .submenu-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .submenu-icon {
+        transition: transform 0.3s ease;
+    }
+
+    .submenu-icon.open {
+        transform: rotate(180deg);
+    }
+
+    .submenu-item {
+        display: block;
+        padding: 10px 0;
+        text-decoration: none;
+        color: black;
+    }
+
+    .submenu-item:hover {
+        background: #ddd;
+    }
+}

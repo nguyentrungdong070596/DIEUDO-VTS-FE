@@ -1,35 +1,92 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { ChangeEvent, useState } from "react";
+import logo from "./logo.svg";
+import { Button, TextField } from "@mui/material";
+import { v4 as uuidv4 } from "uuid";
+import Header from "./layout/Header";
+import Carousel from "./components/Carousel";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Footer from "./layout/Footer";
+import Kehoachdantau from "./pages/Kehoachdantau";
+import Giodieudong from "./pages/Giodieudong";
+import Dathangdichvu from "./pages/Dathangdichvu";
+import Giadichvu from "./pages/Giadichvu";
+import Danhsachhoatieu from "./pages/Danhsachhoatieu";
+import Vunghoatieu from "./pages/Vunghoatieu";
+import News from "./pages/News";
+
+// type Todo = { id: string; name: string };
+
+// function App() {
+//   const [todolist, SetToDoList] = useState<Todo[]>([]); // state, setState
+//   const [newTodoString, setNewTodoString] = useState("");
+//   const onNewTodoChange = (e: ChangeEvent<HTMLInputElement>) => {
+//     setNewTodoString(e.target.value);
+//   };
+
+//   const onAdding = () => {
+//     const itemnew = {
+//       id: uuidv4(),
+//       name: newTodoString,
+//     };
+//     SetToDoList([...todolist, itemnew]);
+//     setNewTodoString("");
+//   };
+//   console.log({ newTodoString });
+//   return (
+//     <>
+//       <div>
+//         <p>this is todo app</p>
+//         <TextField
+//           value={newTodoString}
+//           onChange={onNewTodoChange}
+//           id="outlined-basic"
+//           label="Outlined"
+//           variant="outlined"
+//         />
+//         <Button variant="contained" onClick={onAdding}>
+//           Thêm
+//         </Button>
+//       </div>
+
+//       <div>
+//         {todolist.map((todo) => {
+//           return <Todo name={todo.name} />;
+//         })}
+//       </div>
+//     </>
+//   );
+// }
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      {/* <div className="bg-green-500 text-white p-5 text-center">
+        Tailwind hoạt động!
+      </div> */}
+
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/ke-hoach-dan-tau" element={<Kehoachdantau />} />
+        <Route path="/gio-dieu-dong" element={<Giodieudong />} />
+        <Route path="/dat-hang-dich-vu" element={<Dathangdichvu />} />
+        <Route path="/gia-dich-vu" element={<Giadichvu />} />
+        <Route path="/danh-sach-hoa-tieu" element={<Danhsachhoatieu />} />
+        <Route path="/vung-hoa-tieu" element={<Vunghoatieu />} />
+        <Route path="/tin-tuc" element={<News />} />
+      </Routes>
+      <Footer />
+
+    </BrowserRouter>
+
+    // <>
+    //   <Header />
+    //   <Carousel />
+
+    //   <footer />
+    // </>
+  );
 }
 
-export default App
+export default App;
