@@ -12,34 +12,40 @@ import Itemhoatieu from '../components/Itemhoatieu'
 import news1 from '../static/img/news1.png'
 import Carousel2 from '../components/Carousel2'
 import Itemnews from '../components/Itemnews'
+import { Link } from 'react-router-dom'
 
 
 const hoaTieuList = [
     {
+        Id: 1,
         title: 'GẶP GỠ LÃNH ĐẠO 25/5/2024 | BR-VT PHÁT TRIỂN NGÀNH DỊCH VỤ HỖ TRỢ KINH TẾ HÀNG HẢI',
         desc: ' Trong hai ngày 29 - 30/3, siêu tàu container M/V OOCL SPAIN đã cập cảng Gemalink (cụm cảng Cái Mép - Thị Vải, thị xã Phú Mỹ, tỉnh Bà Rịa - Vũng Tàu) an toàn, hoàn tất quá trình xếp dỡ hàng hóa và siêu tàu M/V OOCL SPAIN xuất bến hành trình đến Singapore..',
         img: news1,
         time: '2024-03-03 10:00'
     },
     {
+        Id: 2,
         title: 'GẶP GỠ LÃNH ĐẠO 25/5/2024 | BR-VT PHÁT TRIỂN NGÀNH DỊCH VỤ HỖ TRỢ KINH TẾ HÀNG HẢI',
         desc: ' Trong hai ngày 29 - 30/3, siêu tàu container M/V OOCL SPAIN đã cập cảng Gemalink (cụm cảng Cái Mép - Thị Vải, thị xã Phú Mỹ, tỉnh Bà Rịa - Vũng Tàu) an toàn, hoàn tất quá trình xếp dỡ hàng hóa và siêu tàu M/V OOCL SPAIN xuất bến hành trình đến Singapore..',
         img: news1,
         time: '2024-03-02 15:30'
     },
     {
+        Id: 3,
         title: 'GẶP GỠ LÃNH ĐẠO 25/5/2024 | BR-VT PHÁT TRIỂN NGÀNH DỊCH VỤ HỖ TRỢ KINH TẾ HÀNG HẢI',
         desc: ' Trong hai ngày 29 - 30/3, siêu tàu container M/V OOCL SPAIN đã cập cảng Gemalink (cụm cảng Cái Mép - Thị Vải, thị xã Phú Mỹ, tỉnh Bà Rịa - Vũng Tàu) an toàn, hoàn tất quá trình xếp dỡ hàng hóa và siêu tàu M/V OOCL SPAIN xuất bến hành trình đến Singapore..',
         img: news1,
         time: '2024-03-02 15:30'
     },
     {
+        Id: 4,
         title: 'GẶP GỠ LÃNH ĐẠO 25/5/2024 | BR-VT PHÁT TRIỂN NGÀNH DỊCH VỤ HỖ TRỢ KINH TẾ HÀNG HẢI',
         desc: ' Trong hai ngày 29 - 30/3, siêu tàu container M/V OOCL SPAIN đã cập cảng Gemalink (cụm cảng Cái Mép - Thị Vải, thị xã Phú Mỹ, tỉnh Bà Rịa - Vũng Tàu) an toàn, hoàn tất quá trình xếp dỡ hàng hóa và siêu tàu M/V OOCL SPAIN xuất bến hành trình đến Singapore..',
         img: news1,
         time: '2024-03-02 15:30'
     },
     {
+        Id: 5,
         title: 'GẶP GỠ LÃNH ĐẠO 25/5/2024 | BR-VT PHÁT TRIỂN NGÀNH DỊCH VỤ HỖ TRỢ KINH TẾ HÀNG HẢI',
         desc: ' Trong hai ngày 29 - 30/3, siêu tàu container M/V OOCL SPAIN đã cập cảng Gemalink (cụm cảng Cái Mép - Thị Vải, thị xã Phú Mỹ, tỉnh Bà Rịa - Vũng Tàu) an toàn, hoàn tất quá trình xếp dỡ hàng hóa và siêu tàu M/V OOCL SPAIN xuất bến hành trình đến Singapore..',
         img: news1,
@@ -62,13 +68,18 @@ const News = () => {
 
                             <Titlepage name='TIN TỨC' />
 
+
                             <div className="danhsach-news">
                                 {hoaTieuList.map((item, index) => (
-                                    <Itemnews key={index} title={item.title} time={item.time} img={item.img} desc={item.desc} />
+                                    <Link
+                                        key={index}
+                                        to={`/tin-tuc/${item.Id}`}
+                                        style={{ textDecoration: 'none', color: 'inherit' }}
+                                    >
+                                        <Itemnews title={item.title} time={item.time} img={item.img} desc={item.desc} />
+                                    </Link>
                                 ))}
                             </div>
-
-
                         </div>
 
 

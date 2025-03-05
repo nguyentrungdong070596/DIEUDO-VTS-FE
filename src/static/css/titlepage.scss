@@ -1,7 +1,14 @@
 .titlepage {
     color: #0196DA;
     padding: 20px;
-    font-size: 25px;
+    font-size: 21px;
     font-weight: 700;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    /* Sửa thành text-transform thay vì text-decoration */
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+    border: 0.5px solid #0196DA;
+    margin-bottom: 20px;
 }

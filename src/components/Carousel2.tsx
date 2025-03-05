@@ -63,6 +63,8 @@ function Carousel2(name: any) {
                         textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
                         mt: 1,
                         fontSize: "1.8rem",
+                        textTransform: "uppercase",
+
                     }}
                 >
                     {name.name}
@@ -70,7 +72,7 @@ function Carousel2(name: any) {
             </Box>
 
 
-        </Box>
+        </Box >
     );
 }
 

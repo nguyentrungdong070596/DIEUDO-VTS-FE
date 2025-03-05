@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { Link } from "react-router-dom";
@@ -8,6 +8,7 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
   const [openMobileSubMenu, setOpenMobileSubMenu] = useState<number | null>(null);
+  const [isFixed, setIsFixed] = useState(false); // Trạng thái fixed của Navbar
 
   const menuItems = [
     { path: "/", label: "TRANG CHỦ" },
@@ -29,8 +30,20 @@ const Navbar: React.FC = () => {
     },
   ];
 
+  // Theo dõi vị trí cuộn để cố định Navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const threshold = 100; // Khoảng cách cuộn để Navbar trở thành fixed
+      setIsFixed(scrollPosition > threshold);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll); // Cleanup khi unmount
+  }, []);
+
   return (
-    <div className="nav-menu">
+    <div className={`nav-menu ${isFixed ? "fixed" : ""}`}>
       {/* Nút mở menu trên mobile */}
       <button className="menu-button" onClick={() => setIsOpen(true)}>
         <MenuIcon fontSize="large" />
@@ -79,11 +92,18 @@ const Navbar: React.FC = () => {
                     }
                   >
                     {item.label}
-                    <span className={`submenu-icon ${openMobileSubMenu === index ? "open" : ""}`}>▼</span>
+                    <span className={`submenu-icon ${openMobileSubMenu === index ? "open" : ""}`}>
+                      ▼
+                    </span>
                   </div>
                   <div className={`submenu ${openMobileSubMenu === index ? "open" : ""}`}>
                     {item.submenu.map((subItem, subIndex) => (
-                      <Link key={subIndex} to={subItem.path} className="submenu-item" onClick={() => setIsOpen(false)}>
+                      <Link
+                        key={subIndex}
+                        to={subItem.path}
+                        className="submenu-item"
+                        onClick={() => setIsOpen(false)}
+                      >
                         {subItem.label}
                       </Link>
                     ))}

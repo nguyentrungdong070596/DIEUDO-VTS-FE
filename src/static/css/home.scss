@@ -2,6 +2,7 @@
     display: flex !important;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .about {
@@ -28,9 +29,11 @@
     display: flex !important;
     flex-direction: row;
     flex-wrap: wrap-reverse;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     align-content: center;
+    box-sizing: border-box;
+
 }
 
 
@@ -51,7 +54,13 @@
 .right-about p {
     margin-bottom: 20px;
     line-height: 1.6;
+
     /* Điều chỉnh khoảng cách giữa các dòng */
+}
+
+.right-about {
+    padding: 10px;
+    padding-bottom: 20px;
 }
 
 .left-about img {
@@ -71,6 +80,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     margin-bottom: 100px !important;
 }
 

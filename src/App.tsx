@@ -14,6 +14,12 @@ import Giadichvu from "./pages/Giadichvu";
 import Danhsachhoatieu from "./pages/Danhsachhoatieu";
 import Vunghoatieu from "./pages/Vunghoatieu";
 import News from "./pages/News";
+import Newsdetail from "./pages/Newsdetail";
+import Hethongcangbien from "./pages/Hethongcangbien";
+import Tuyenluong from "./pages/Tuyenluong";
+import Tuyenluongthivai from "./pages/Tuyenluongthivai";
+import Tuyenluongsongdinh from "./pages/Tuyenluongsongdinh";
+import DetailService from "./pages/DetailService";
 
 // type Todo = { id: string; name: string };
 
@@ -75,6 +81,12 @@ function App() {
         <Route path="/danh-sach-hoa-tieu" element={<Danhsachhoatieu />} />
         <Route path="/vung-hoa-tieu" element={<Vunghoatieu />} />
         <Route path="/tin-tuc" element={<News />} />
+        <Route path="/tin-tuc/:id" element={<Newsdetail />} />
+        <Route path="/dich-vu/:id" element={<DetailService />} />
+        <Route path="/he-thong-cang-bien" element={<Hethongcangbien />} />
+        <Route path="/tuyen-luong" element={<Tuyenluong />} />
+        <Route path="/tuyen-luong-thi-vai" element={<Tuyenluongthivai />} />
+        <Route path="/tuyen-luong-song-dinh" element={<Tuyenluongsongdinh />} />
       </Routes>
       <Footer />
 

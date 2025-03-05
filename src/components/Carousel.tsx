@@ -33,6 +33,8 @@ function Carousel() {
                 height: "550px",
                 objectFit: "cover",
                 borderRadius: "0px",
+                filter: "brightness(50%)"
+
               }}
             />
           </Box>

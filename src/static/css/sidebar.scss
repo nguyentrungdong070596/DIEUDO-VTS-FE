@@ -1,0 +1,40 @@
+@media screen and (max-width: 960px) {
+
+
+    .side-bar {
+        display: none;
+
+        .css-ojpllg {
+            width: 1050px !important;
+        }
+    }
+
+
+
+    .sidebar-toggle {
+        position: fixed;
+        top: 300px;
+        right: 20px;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        z-index: 5000000;
+    }
+
+
+    .sidebar-toggle:hover .MuiSvgIcon-root {
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+}

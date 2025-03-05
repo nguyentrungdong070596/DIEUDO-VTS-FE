@@ -22,6 +22,10 @@
         left: 0;
         width: 100%;
         background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
         text-align: center;
         padding: 15px;
         transition: transform 0.3s ease-in-out;
@@ -44,7 +48,7 @@
 
     .service-button-detail {
         display: block;
-        color: blue;
+        color: #0196da;
         font-weight: bold;
         text-decoration: none;
         margin-top: 10px;

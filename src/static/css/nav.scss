@@ -3,6 +3,19 @@
     background-color: #0196da;
     padding: 20px;
     position: relative;
+    transition: all 0.3s ease;
+    /* Hiệu ứng chuyển đổi mượt mà */
+
+    &.fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        /* Đảm bảo Navbar ở trên cùng */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        /* Thêm bóng đổ khi fixed */
+    }
 }
 
 /* Menu trên màn hình lớn */

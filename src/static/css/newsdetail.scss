@@ -1,0 +1,33 @@
+.detail-news {
+    display: flex;
+    flex-direction: column;
+    /* Hiển thị phần tử theo chiều dọc */
+    align-items: center;
+    /* Căn giữa theo trục ngang */
+    text-align: justify;
+    /* Căn đều hai bên cho chữ */
+    max-width: 800px;
+    /* Giới hạn độ rộng của nội dung */
+    margin: auto;
+    /* Căn giữa toàn bộ phần tử */
+    gap: 20px;
+    /* Tạo khoảng cách giữa ảnh và chữ */
+}
+
+.detail-news img {
+    min-width: 700px !important;
+    /* Giúp ảnh tự động điều chỉnh */
+    height: auto;
+    /* Đảm bảo giữ tỷ lệ ảnh */
+    object-fit: cover;
+    /* Tránh ảnh bị méo */
+    border-radius: 8px;
+    /* Làm bo góc nhẹ */
+}
+
+.detail-news p {
+    font-size: 16px;
+    line-height: 1.6;
+    /* Tạo lề hai bên */
+    text-align: justify;
+}
