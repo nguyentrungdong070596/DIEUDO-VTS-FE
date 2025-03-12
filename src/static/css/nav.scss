@@ -1,8 +1,19 @@
 /* Navbar chính */
 .nav-menu {
     background-color: #0196da;
-    padding: 20px;
     position: relative;
+    transition: all 0.3s ease;
+    padding: 20px !important;
+
+
+    &.fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
 }
 
 /* Menu trên màn hình lớn */
@@ -41,74 +52,7 @@
     display: none;
 }
 
-/* Khi màn hình nhỏ hơn 960px */
-@media (max-width: 960px) {
-    .menu-button {
-        display: block;
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: white;
-        z-index: 10001;
-    }
-
-    .menu-items {
-        display: none;
-    }
-
-    .nav-menu {
-        padding-bottom: 40px;
-    }
-
-    .mobile-menu {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 250px;
-        height: 100%;
-        background-color: white;
-        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-        transform: translateX(-100%);
-        transition: transform 0.3s ease-in-out;
-        z-index: 100000 !important;
-    }
-
-    .mobile-menu.open {
-        transform: translateX(0);
-    }
-
-    .close-button {
-        display: block;
-        background: none;
-        border: none;
-        font-size: 24px;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-    }
-
-    .item-menu {
-        padding: 15px;
-        border-bottom: 1px solid #ddd;
-        width: 100%;
-    }
-
-    .item-menu a {
-        text-decoration: none;
-        color: black;
-        font-size: 16px;
-        display: block;
-    }
-}
-
-/* Hiển thị icon submenu */
+/* Submenu cho desktop */
 .submenu-container {
     position: relative;
     cursor: pointer;
@@ -157,19 +101,102 @@
     }
 }
 
-@media (max-width: 960px) {
-    .submenu {
+/* Khi màn hình nhỏ hơn 760px */
+@media (max-width: 760px) {
+
+    /* Navbar chính */
+    .nav-menu {
+        background-color: #0196da;
         position: relative;
-        display: block;
-        background: #f9f9f9;
-        padding-left: 15px;
-        transition: max-height 0.3s ease;
-        max-height: 0;
-        overflow: hidden;
+        transition: all 0.3s ease;
+        padding: 30px !important;
+        // z-index: 10000;
+
+        &.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
     }
 
-    .submenu.open {
-        max-height: 300px;
+    .menu-button {
+        display: block;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: white;
+        z-index: 10001;
+    }
+
+    .menu-items {
+        display: none;
+    }
+
+    .nav-menu {
+        padding: 15px;
+        /* Giảm padding cho gọn trên mobile */
+    }
+
+    .mobile-menu {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        /* Tăng nhẹ chiều rộng cho thoải mái */
+        height: 100%;
+        background-color: #0196da;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 20000;
+        overflow-y: auto;
+        /* Cho phép cuộn nếu nội dung dài */
+    }
+
+    .mobile-menu.open {
+        transform: translateX(0);
+    }
+
+    .close-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #ffff;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    .mobile-items {
+        padding-top: 60px;
+        /* Khoảng cách từ trên xuống để tránh nút close */
+    }
+
+    .item-menu {
+        padding: 0;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+    }
+
+    .item-menu a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        display: block;
+        padding: 15px 20px;
+        transition: background 0.2s ease;
+    }
+
+    .item-menu a:hover {
+        background: #1abcdc;
     }
 
     .submenu-container {
@@ -180,13 +207,19 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px;
-        font-weight: bold;
+        padding: 15px 20px;
+        font-weight: 700;
+        color: #ffffff;
         cursor: pointer;
-        border-bottom: 1px solid #ddd;
+        transition: background 0.2s ease;
+    }
+
+    .submenu-toggle:hover {
+        background: #1abcdc;
     }
 
     .submenu-icon {
+        font-size: 12px;
         transition: transform 0.3s ease;
     }
 
@@ -194,14 +227,80 @@
         transform: rotate(180deg);
     }
 
+    .submenu {
+        background: #0196da;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .submenu.open {
+        max-height: 500px;
+        /* Giá trị đủ lớn để chứa nội dung */
+    }
+
     .submenu-item {
         display: block;
-        padding: 10px 0;
+        padding: 12px 40px;
+        /* Thụt vào để phân cấp */
         text-decoration: none;
-        color: black;
+        color: #1abcdc;
+        font-size: 15px;
+        transition: background 0.2s ease;
     }
 
     .submenu-item:hover {
-        background: #ddd;
+        background: #1abcdc;
+    }
+
+
+
+    // icon
+
+    .close-button {
+        background: none;
+        border: none;
+        // padding: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .close-icon {
+            font-size: 22px;
+            /* Kích thước lớn tương đương fontSize="large" của MUI */
+            color: #ffffff;
+            /* Màu mặc định */
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #ff0000;
+                /* Màu đỏ khi hover, tùy chỉnh theo ý bạn */
+            }
+        }
+    }
+
+
+    .menu-button {
+        background: none;
+        border: none;
+        // padding: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .menu-icon {
+            font-size: 22px;
+            /* Kích thước lớn tương đương fontSize="large" của MUI */
+            color: #ffffff;
+            /* Màu mặc định */
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #1e73be;
+                /* Màu khi hover, tùy chỉnh theo ý bạn */
+            }
+        }
     }
 }

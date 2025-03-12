@@ -1,18 +1,54 @@
-import React from 'react'
-import '../static/css/itemservice.scss'
-const ItemService = () => {
-    return (
-        <div className="service-item col-custom l-4 m-12 c-12">
-            <img src="/tau1.png" />
+import React, { useEffect, useRef, useState } from 'react';
+import '../static/css/itemservice.scss';
+import '../static/css/gridme.scss';
 
-            <div className="service-info">
-                <p className="service-name">Hoa Tiêu Hàng Hải</p>
-                <p className="service-content">Đại lý Hải quan hàng hóa Xuất nhập khẩu : Bà Rịa - Vũng Tàu , Tp.Hồ Chí Minh, Đồng Nai , Bình Dương , Long An.</p>
-                <a className="service-button-detail" href="#">XEM CHI TIẾT</a>
-
-            </div>
-        </div>
-    )
+interface ItemgiadichvuProps {
+    name: string;
+    desc: string;
+    img: string;
 }
 
-export default ItemService
+const ItemService: React.FC<ItemgiadichvuProps> = ({ name, desc, img }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setIsVisible(true);
+                    } else {
+                        setIsVisible(false); // nếu muốn chạy lại mỗi lần scroll, giữ false
+                    }
+                });
+            },
+            {
+                threshold: 0.2,
+            }
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => {
+            if (ref.current) {
+                observer.unobserve(ref.current);
+            }
+        };
+    }, []);
+
+    return (
+        <div ref={ref} className={`service-item ${isVisible ? 'animate' : ''}`}>
+            <img src={img} alt="service" />
+            <div className="service-info">
+                <p className="service-name">{name}</p>
+                <p className="service-content" dangerouslySetInnerHTML={{ __html: desc }} />
+                <a className="service-button-detail" href="#">XEM CHI TIẾT</a>
+            </div>
+        </div>
+    );
+};
+
+export default ItemService;

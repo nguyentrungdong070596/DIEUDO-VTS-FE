@@ -16,6 +16,17 @@
         color: #007CF9;
         padding-bottom: 10px;
     }
+
+    .item-news-desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        /* Số dòng muốn hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: justify;
+    }
+
 }
 
 .item-news .item-news-img {

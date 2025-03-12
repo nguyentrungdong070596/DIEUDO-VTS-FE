@@ -1,0 +1,66 @@
+// newslistcarousel.scss
+.custom-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+
+    .carousel-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .carousel-track-wrapper {
+        width: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .carousel-track {
+        display: flex;
+    }
+
+    .carousel-slide {
+        flex-shrink: 0;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+
+    .nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        background-color: rgba(255, 255, 255, 0.572);
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        padding: 8px;
+        cursor: pointer;
+        opacity: 0;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            color: #ffffff;
+            transition: color 0.3s;
+        }
+
+        &:hover svg {
+            color: #28BAB2;
+        }
+    }
+
+    .carousel-track-wrapper:hover .nav-btn {
+        opacity: 1;
+    }
+
+    .nav-btn.prev {
+        left: 10px;
+    }
+
+    .nav-btn.next {
+        right: 10px;
+    }
+}

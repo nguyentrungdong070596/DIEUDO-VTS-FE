@@ -16,9 +16,11 @@ const Itemnews: React.FC<ItemnewsProps> = ({ title, desc, time, img }) => {
                     <img src={img} alt="news" />
                 </div>
                 <div className="item-news-content">
-                    <h3 className="item-news-title">{title}</h3>
+                    <h3 className="item-news-title" >{title}</h3>
+
+
                     <p className="item-news-time">{time}</p>
-                    <p className="item-news-desc">{desc}</p>
+                    <p className="item-news-desc" dangerouslySetInnerHTML={{ __html: desc || "" }} ></p>
                 </div>
 
             </div>

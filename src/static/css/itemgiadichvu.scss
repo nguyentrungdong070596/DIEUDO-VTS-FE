@@ -1,0 +1,42 @@
+.itemgiadichvu {
+    box-sizing: border-box;
+    // background-color: #1976d2;
+}
+
+.itemgiadichvu img {
+    width: 400px;
+    padding: 5px;
+
+    box-sizing: border-box;
+
+    max-height: 200px;
+}
+
+.itemgiadichvu-name {
+    padding: 10px;
+}
+
+.custom-button {
+    background: transparent;
+    color: #1976d2; // Màu xanh giống MUI
+    border: 1px solid #1976d2;
+    padding: 8px 16px;
+    margin: 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background: rgba(25, 118, 210, 0.1);
+    }
+
+    &:active {
+        background: rgba(25, 118, 210, 0.2);
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 4px rgba(25, 118, 210, 0.5);
+    }
+}
