@@ -25,9 +25,24 @@
     /* Làm bo góc nhẹ */
 }
 
+.hrbaiviet {
+
+    border: none;
+    color: rgb(47, 41, 41);
+    border-top: 1px solid #ccc;
+
+}
+
 .detail-news p {
     font-size: 16px;
     line-height: 1.6;
     /* Tạo lề hai bên */
     text-align: justify;
+}
+
+
+.detail-news-postdate {
+    float: right;
+    font-size: 14px;
+    color: #666;
 }

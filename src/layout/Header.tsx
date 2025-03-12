@@ -4,7 +4,8 @@ import "../static/css/header.scss";
 import logo from "../static/img/logo.png";
 import vn from "../static/img/vn.png";
 import eng from "../static/img/eng.png";
-import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
+// import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
+import { FaSearch } from "react-icons/fa"; // Import biểu tượng tìm kiếm từ FontAwesome
 import Navbar from "./Navbar";
 
 const Header: React.FC = () => {
@@ -33,7 +34,7 @@ const Header: React.FC = () => {
 
         {/* 🔍 Thanh tìm kiếm có icon */}
         <div className="search-box">
-          <SearchTwoToneIcon />
+          <FaSearch className="search-icon" /> {/* Sử dụng FaSearch */}
           <input
             type="text"
             placeholder="Tìm kiếm..."

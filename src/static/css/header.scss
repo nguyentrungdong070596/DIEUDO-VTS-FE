@@ -4,6 +4,57 @@
     /* padding: 10px; */
     display: flex;
     flex-direction: column;
+
+}
+
+
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    /* Màu nền nhạt */
+    border-radius: 20px;
+    /* Bo góc */
+    padding: 5px 10px;
+    /* Khoảng cách bên trong */
+    width: 100%;
+    /* Đầy đủ chiều rộng container */
+    max-width: 300px;
+    /* Giới hạn chiều rộng tối đa */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Đổ bóng nhẹ */
+
+    .search-icon {
+        font-size: 20px;
+        /* Kích thước biểu tượng */
+        color: #0196da;
+        /* Màu biểu tượng */
+        margin-right: 8px;
+        /* Khoảng cách giữa icon và input */
+    }
+
+    .search-input {
+        border: none;
+        /* Xóa viền mặc định */
+        background: transparent;
+        /* Trong suốt để hòa với search-box */
+        outline: none;
+        /* Xóa viền khi focus */
+        flex-grow: 1;
+        /* Chiếm toàn bộ không gian còn lại */
+        font-size: 14px;
+        /* Kích thước chữ */
+        color: #333;
+        /* Màu chữ */
+
+        &::placeholder {
+            color: #999;
+            /* Màu chữ placeholder */
+            font-style: italic;
+            /* Chữ nghiêng cho placeholder */
+        }
+    }
 }
 
 .header-container {
@@ -33,13 +84,23 @@
 .company-name {
     font-size: 0.9rem;
     font-weight: bold;
+
+
 }
 
 .branch-name {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
     font-weight: bold;
-
+    text-shadow:
+        -1px -1px 0 #ffffff,
+        1px -1px 0 #ffffff,
+        -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff;
     color: red;
+}
+
+.header-logo {
+    width: 70px;
 }
 
 .search-box {
@@ -80,7 +141,23 @@
     border-radius: 50%;
 }
 
-@media (max-width: 960px) {
+
+
+@media (max-width: 1114px) {
+
+
+    .search-box {
+        position: absolute;
+        bottom: 5px;
+        z-index: 1000;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: auto;
+    }
+
+}
+
+@media (max-width: 760px) {
     .header-container {
         display: flex;
         width: 100%;
@@ -97,7 +174,7 @@
         z-index: 1000;
         left: 50%;
         transform: translateX(-50%);
-
+        margin: auto;
     }
 
 

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { List, ListItem, ListItemText, Typography, Divider, Box, IconButton, Drawer } from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
-import { Settings } from "@mui/icons-material"; // Icon bánh răng
+import { Link } from "react-router-dom";
 import "../static/css/sidebar.scss";
+import { FaCog } from "react-icons/fa"; // Biểu tượng bánh răng
 
 const categories = [
   {
@@ -36,135 +35,59 @@ const categories = [
 ];
 
 const SidebarMenu: React.FC = () => {
-  const location = useLocation();
-  const [open, setOpen] = useState(false); // Trạng thái mở/đóng Sidebar
+  const [open, setOpen] = useState(false);
 
-  // Hàm toggle Sidebar
   const toggleDrawer = () => {
-    setOpen(!open);
+    // Chỉ toggle trên mobile (max-width: 1024px)
+    if (window.innerWidth <= 1024) {
+      setOpen(!open);
+      document.body.style.overflow = open ? "auto" : "hidden"; // Ngăn cuộn khi mở menu
+    }
+  };
+
+  // Hàm xử lý khi click vào item trên mobile
+  const handleItemClick = () => {
+    if (window.innerWidth <= 1024) {
+      toggleDrawer(); // Đóng sidebar chỉ trên mobile
+    }
   };
 
   return (
     <>
-      {/* Nút bánh răng với hiệu ứng xoay */}
-      <IconButton
-        className="sidebar-toggle"
-        sx={{
-          display: { xs: "block", md: "none" },
-          position: "fixed",
-          top: 400,
-          right: -20,
-          zIndex: 50000,
-        }}
+      {/* Nút mở sidebar - Chỉ hiển thị trên mobile */}
+      <button
+        className={`sidebar-toggle ${open ? "rotate" : ""} custom-button`}
         onClick={toggleDrawer}
       >
-        <Settings
-          sx={{
-            fontSize: 32,
-            color: "#1976d2",
-            transition: "transform 0.3s ease-in-out",
-            transform: open ? "rotate(180deg)" : "rotate(0deg)", // Xoay khi mở/đóng
-          }}
-        />
-      </IconButton>
+        <FaCog />
+      </button>
 
-      {/* Sidebar dạng Drawer khi ở màn hình nhỏ */}
-      <Drawer
-        anchor="right"
-        open={open}
-        onClose={toggleDrawer} // Đóng khi click ngoài Drawer
-        sx={{ zIndex: 50000 }}
-      >
-        <Box sx={{ width: 250, backgroundColor: "#f5f5f5", height: "100vh", padding: 2 }}>
-          {categories.map((category, index) => (
-            <React.Fragment key={index}>
-              <Typography
-                variant="h6"
-                sx={{ color: "#1976d2", fontWeight: "bold", textTransform: "uppercase", padding: "8px 0" }}
-              >
-                {category.title}
-              </Typography>
-              <List>
-                {category.items.map((item, idx) => {
-                  const isActive = location.pathname === item.path;
-                  return (
-                    <ListItem
-                      key={idx}
-                      onClick={toggleDrawer} // Đóng Drawer khi chọn mục
-                      sx={{
-                        padding: "8px 16px",
-                        borderRadius: "4px",
-                        backgroundColor: isActive ? "#0196da" : "transparent",
-                        color: isActive ? "#fff" : "inherit",
-                        transition: "0.3s",
-                        "&:hover": { backgroundColor: "#e3f2fd" },
-                      }}
-                    >
-                      <Link
-                        to={item.path}
-                        style={{ textDecoration: "none", color: isActive ? "#fff" : "inherit", width: "100%" }}
-                      >
-                        <ListItemText primary={item.name} />
-                      </Link>
-                    </ListItem>
-                  );
-                })}
-              </List>
-              {index < categories.length - 1 && <Divider />}
-            </React.Fragment>
-          ))}
-        </Box>
-      </Drawer>
+      {/* Sidebar */}
+      <div className={`sidebar col-custom l-3 ${open ? "open" : ""}`}>
+        {/* Nút đóng - Chỉ hiển thị trên mobile */}
+        <button className="close-btn" onClick={toggleDrawer}>✖</button>
 
-      {/* Sidebar mặc định trên màn hình lớn */}
-      <div className="side-bar col-custom l-3 m-12 c-12">
-        <Box
-          sx={{
-            width: 250,
-            backgroundColor: "#f5f5f5",
-            padding: 2,
-            borderRadius: "8px",
-            display: { xs: "none", md: "block" },
-          }}
-        >
-          {categories.map((category, index) => (
-            <React.Fragment key={index}>
-              <Typography
-                variant="h6"
-                sx={{ color: "#1976d2", fontWeight: "bold", textTransform: "uppercase", padding: "8px 0" }}
-              >
-                {category.title}
-              </Typography>
-              <List>
-                {category.items.map((item, idx) => {
-                  const isActive = location.pathname === item.path;
-                  return (
-                    <ListItem
-                      key={idx}
-                      sx={{
-                        padding: "8px 16px",
-                        borderRadius: "4px",
-                        backgroundColor: isActive ? "#0196da" : "transparent",
-                        color: isActive ? "#fff" : "inherit",
-                        transition: "0.3s",
-                        "&:hover": { backgroundColor: "#e3f2fd" },
-                      }}
-                    >
-                      <Link
-                        to={item.path}
-                        style={{ textDecoration: "none", color: isActive ? "#fff" : "inherit", width: "100%" }}
-                      >
-                        <ListItemText primary={item.name} />
-                      </Link>
-                    </ListItem>
-                  );
-                })}
-              </List>
-              {index < categories.length - 1 && <Divider />}
-            </React.Fragment>
-          ))}
-        </Box>
+        {categories.map((category, index) => (
+          <div key={index} className="sidebar-section">
+            <h6 className="sidebar-title">{category.title}</h6>
+            <ul className="sidebar-list">
+              {category.items.map((item, idx) => (
+                <li key={idx} className="sidebar-item" onClick={handleItemClick}>
+                  <Link to={item.path} className="sidebar-link">
+                    {"icon" in item && <img src={(item as { icon: string }).icon} alt="" />}
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
+
+      {/* Overlay khi mở sidebar - Chỉ hiển thị trên mobile */}
+      {open && window.innerWidth <= 1024 && (
+        <div className="sidebar-overlay" onClick={toggleDrawer}></div>
+      )}
     </>
   );
 };
