@@ -1,14 +1,14 @@
 // GiaDichVuListCarousel.tsx
 import React, { useState, useEffect, useRef } from 'react';
-import { Giadichvu } from '../interface/InterfaceCommon';
+import { GiaDichVu } from '../interface/InterfaceCommon';
 import '../static/css/giadichvulistcarousel.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Itemgiadichvu from './Itemgiadichvu';
 
 interface GiaDichVuListCarouselProps {
-    items: Giadichvu[];
-    onItemClick?: (item: Giadichvu) => void;
+    items: GiaDichVu[];
+    onItemClick?: (item: GiaDichVu) => void;
     imageBaseUrl?: string;
 }
 
@@ -114,7 +114,7 @@ const GiaDichVuListCarousel: React.FC<GiaDichVuListCarouselProps> = ({
                                 <Link
                                     key={index}
 
-                                    to={`/gia-dich-vu/detail`}
+                                    to={`/gia-dich-vu/detail/${item.id}`}
                                     state={{ giadichvuItem: item }}
                                     style={{ textDecoration: 'none', color: 'inherit' }}
                                     onClick={() => window.scrollTo(0, 0)}
@@ -123,6 +123,8 @@ const GiaDichVuListCarousel: React.FC<GiaDichVuListCarouselProps> = ({
                                         name={item.title}
                                         desc={item.content}
                                         img={`${imageBaseUrl}/${item.image}`}
+                                        pdfurl={item.pdfurl}
+
                                     />
                                 </Link>
                             </div>

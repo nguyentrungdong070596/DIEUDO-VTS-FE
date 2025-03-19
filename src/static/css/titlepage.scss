@@ -4,8 +4,25 @@
     font-size: 21px;
     font-weight: 700;
     text-transform: uppercase;
+    display: flex;
     /* Sửa thành text-transform thay vì text-decoration */
-    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    // text-shadow: -1px -1px -1px rgba(0, 0, 0, 0.557);
+
+
+    /* styles.css */
+    .my-anchor-icon {
+        color: #0196DA;
+        font-size: 32px;
+        padding-right: 5px;
+        transition: 0.3s;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.557);
+
+    }
+
+    .my-anchor-icon:hover {
+        transform: scale(1.1);
+    }
+
 }
 
 hr {

@@ -14,6 +14,7 @@
 
 .itemgiadichvu-name {
     padding: 10px;
+    max-width: 400px;
 }
 
 .custom-button {
@@ -28,9 +29,9 @@
     transition: all 0.3s ease-in-out;
 
     &:hover {
-        background: rgba(25, 118, 210, 0.1);
+        background: rgba(0, 124, 247, 0.1);
     }
-
+    
     &:active {
         background: rgba(25, 118, 210, 0.2);
     }

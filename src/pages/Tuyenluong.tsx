@@ -1,6 +1,6 @@
 import React from 'react'
 import Titlepage from '../components/Titlepage'
-import '../static/css/danhsachhoatieu.scss'
+import '../static/css/tuyenluong.scss'
 import hoatieu1 from '../static/img/hoatieu1.png'
 import hoatieu2 from '../static/img/hoatieu2.png'
 import hoatieu3 from '../static/img/hoatieu3.png'
@@ -39,10 +39,10 @@ const Tuyenluong = () => {
                             <Titlepage name='Tuyến luồng' />
 
                             <div className="danhsach-tuyenluong">
-                                <p><Link to={'/tuyen-luong-thi-vai'}>Tuyến luồng thị vải Vũng tàu</Link></p>
-                                <p><Link to={'/tuyen-luong-song-dinh'}>Tuyến luồng sông Dinh</Link></p>
-                                <p><Link to={'/tuyen-luong-thi-vai'}>Tuyến Luồng Côn Đảo</Link></p>
-                                <p><Link to={'/tuyen-luong-thi-vai'}>Quá Cảnh Sông Tiền</Link></p>
+                                <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-thi-vai'}>Tuyến luồng thị vải Vũng tàu</Link></p>
+                                <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-song-dinh'}>Tuyến luồng sông Dinh</Link></p>
+                                <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-thi-vai'}>Tuyến Luồng Côn Đảo</Link></p>
+                                <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-thi-vai'}>Quá Cảnh Sông Tiền</Link></p>
                             </div>
 
 

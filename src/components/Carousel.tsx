@@ -4,8 +4,10 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../static/css/carousel.scss";
 import Apis, { endpoints, SERVER } from "../configs/Apis";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Spinner from "./Spinner";
+import "animate.css"
+import { useTranslation } from "react-i18next";
 type BannerItem = {
   image: string; // Định nghĩa `image`
 };
@@ -16,7 +18,7 @@ function Carousel() {
 
   const [banner, setBanner] = React.useState<any[]>([]); // Thêm kiểu dữ liệu
   const [loading, setLoading] = useState(true);
-
+  const { t } = useTranslation();
   // useEffect(() => {
   //   // Giả lập API loading
   //   setTimeout(() => setLoading(false), 2000);
@@ -120,15 +122,15 @@ function Carousel() {
 
           {/* Overlay nội dung */}
           <div className="carousel-overlay">
-            <h2 className="company-title">CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU</h2>
-            <h3 className="enterprise-title">XÍ NGHIỆP HOA TIÊU VŨNG TÀU</h3>
+            <h2 className="company-title">{t('companyName')}</h2>
+            <h3 className="enterprise-title">{t('branchName')}</h3>
 
             <div className="carousel-buttons">
               <Link to="/dat-hang-dich-vu">
-                <button className="btn primary-btn">ĐẶT HÀNG DỊCH VỤ</button>
+                <button className="btn primary-btn animate__animated animate__bounce animate__delay-0.5s">{t('orderService')}</button>
               </Link>
               <Link to="/ke-hoach-dan-tau">
-                <button className="btn secondary-btn">KẾ HOẠCH DẪN TÀU</button>
+                <button className="btn secondary-btn animate__animated animate__bounce animate__delay-1s">{t('plan')}</button>
               </Link>
             </div>
           </div>

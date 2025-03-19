@@ -2,7 +2,7 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Titlepage from '../components/Titlepage';
 import '../static/css/danhsachhoatieu.scss';
 import '../static/css/dichvudetail.scss';
@@ -10,13 +10,15 @@ import SidebarMenu from '../layout/Sidebar';
 import Carousel2 from '../components/Carousel2';
 import Apis, { endpoints, SERVER } from '../configs/Apis';
 import NewsListCarousel from '../components/NewsListCarousel';
-import { Giadichvu, Tintuc } from '../interface/InterfaceCommon';
+import { GiaDichVu, Tintuc } from '../interface/InterfaceCommon';
 import GiaDichVuListCarousel from '../components/GiaDichVuListCarousel';
+import { FaHandPointRight } from 'react-icons/fa';
+import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai';
 
 const GiadichvuDetail = () => {
     const location = useLocation();
     const giadichvuItem = location.state?.giadichvuItem; // Lấy dữ liệu từ state
-    const [giadichvus, setGiaDichVu] = useState<Giadichvu[]>([]);
+    const [giadichvus, setGiaDichVu] = useState<GiaDichVu[]>([]);
 
     const loadGiadichvu = async (page: number) => {
         try {
@@ -48,7 +50,7 @@ const GiadichvuDetail = () => {
 
     // Nếu không có dữ liệu từ state, hiển thị thông báo
     if (!giadichvuItem) {
-        console.log("giadichvuItemssss")
+
 
         return (
             <div className="gridme wide">
@@ -57,8 +59,9 @@ const GiadichvuDetail = () => {
         );
     }
     else {
-        console.log("giadichvuItem", giadichvuItem)
+
     }
+    const [isHovered, setIsHovered] = useState(false);
 
 
 
@@ -74,14 +77,44 @@ const GiadichvuDetail = () => {
                         <Titlepage name="Chi tiết" />
                         <div className="detail-dichvu">
                             <h2>{giadichvuItem.title}</h2>
+
                             <p dangerouslySetInnerHTML={{ __html: giadichvuItem.content || "" }} ></p>
                             {/* <span className='detail-dichvu-postdate'>Ngày đăng: {dichvuItem.postdate}</span> */}
 
                             <img src={`${SERVER}/${giadichvuItem.image}`} alt={giadichvuItem.image} />
 
-                            {/* <span className="detail-dichvu-postdate">
-                                Ngày đăng: {new Date(dichvuItem.postdate).toLocaleDateString('vi-VN')}
-                            </span> */}
+                            <span className="detail-dichvu-postdate">
+                                Ngày đăng: {new Date(giadichvuItem.postdate).toLocaleDateString('vi-VN')}
+                            </span>
+
+                            <div className="attention-wrapper">
+                                {/* <span className="hand-pointer">👉</span> */}
+
+                                <span className="hand-pointer"><FaHandPointRight /></span>
+
+                                <a
+                                    href={`${SERVER}/${giadichvuItem.pdfurl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn-pdf-link"
+                                    onMouseEnter={() => setIsHovered(true)}
+                                    onMouseLeave={() => setIsHovered(false)}
+                                >
+                                    <span className="btn-content">
+                                        {isHovered ? (
+                                            <>
+                                                <AiFillFileWord className="btn-icon" />
+                                                <span className="btn-text">Xem Word</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <AiFillFilePdf className="btn-icon" />
+                                                <span className="btn-text">Xem PDF</span>
+                                            </>
+                                        )}
+                                    </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
 

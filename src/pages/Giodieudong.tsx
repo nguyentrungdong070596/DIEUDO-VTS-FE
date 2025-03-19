@@ -1,6 +1,6 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Titlepage from '../components/Titlepage'
-import '../static/css/danhsachhoatieu.scss'
+import '../static/css/giodieudong.scss'
 import hoatieu1 from '../static/img/hoatieu1.png'
 import hoatieu2 from '../static/img/hoatieu2.png'
 import hoatieu3 from '../static/img/hoatieu3.png'
@@ -11,22 +11,51 @@ import SidebarMenu from '../layout/Sidebar'
 import Itemhoatieu from '../components/Itemhoatieu'
 import Carousel2 from '../components/Carousel2'
 import DocViewerComponent from '../components/DocViewerComponent'
+import Apis, { endpoints, SERVER } from '../configs/Apis'
+import { GioDieuDong } from '../interface/InterfaceCommon'
+import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai'
 // import DocViewerComponent from '../components/DocViewerComponent'
+import { FaHandPointRight } from 'react-icons/fa';
 
 
 
-const hoaTieuList = [
-    { name: 'Vũ Ngọc An', chucdanh: 'Hoa tiêu ngoại hạng', img: hoatieu1 },
-    { name: 'Phạm Trung Tín', chucdanh: 'Hoa tiêu ngoại hạng', img: hoatieu2 },
-    { name: 'Võ Việt Đức', chucdanh: 'Hoa tiêu ngoại hạng', img: hoatieu3 },
-    { name: 'Nguyễn Đức Thịnh', chucdanh: 'Hoa tiêu ngoại hạng', img: hoatieu4 },
-    { name: 'Trần Nhật Khánh', chucdanh: 'Hoa tiêu ngoại hạng', img: hoatieu5 },
-    { name: 'Nguyễn Đình Chung', chucdanh: 'Hoa tiêu ngoại hạng', img: hoatieu6 },
-
-];
 const Giodieudong = () => {
     // const documentUrl = "https://pdftron.s3.amazonaws.com/downloads/pl/PDFTRON_about.pdf"; // Ví dụ PDF
     const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf"; // Ví dụ PDF
+    const [giodieudong, setGioDieuDong] = useState<GioDieuDong[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await loadGiodieudong();
+        };
+        fetchData();
+    }, []);
+
+    const loadGiodieudong = async () => {
+        try {
+            const params = { limit: 1000, page: 1, itemType: "12", showHiddenItem: true };
+            const response = await Apis.get(endpoints.APIManeuveringDraft, { params });
+
+
+
+            if (response.data && Array.isArray(response.data.data)) {
+                setGioDieuDong(response.data.data);
+
+
+                // Sử dụng totalRecords từ API
+                const total = response.data.totalRecords || response.data.data.length;
+
+            } else {
+                console.error("Dữ liệu API không đúng định dạng:", response.data);
+                setGioDieuDong([]);
+            }
+        } catch (error) {
+            console.error("Lỗi khi load hoa tiêu:", error);
+            setGioDieuDong([]);
+        }
+    };
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
 
         <>
@@ -42,9 +71,45 @@ const Giodieudong = () => {
 
                             <Titlepage name='Giờ điều động mớn nước' />
 
-                            <div>
-                                <DocViewerComponent documentUrl={documentUrl} />
-                            </div>
+                            {giodieudong.length > 0 ? (
+                                // <DocViewerComponent documentUrl={`${SERVER}/${giodieudong[0].pdfurl}`} />
+
+                                // <DocViewerComponent documentUrl={documentUrl} />
+                                <div className="attention-wrapper">
+                                    {/* <span className="hand-pointer">👉</span> */}
+
+                                    <span className="hand-pointer"><FaHandPointRight /></span>
+
+                                    <a
+                                        href={`${SERVER}/${giodieudong[0].pdfurl}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn-pdf-link"
+                                        onMouseEnter={() => setIsHovered(true)}
+                                        onMouseLeave={() => setIsHovered(false)}
+                                    >
+                                        <span className="btn-content">
+                                            {isHovered ? (
+                                                <>
+                                                    <AiFillFileWord className="btn-icon" />
+                                                    <span className="btn-text">Xem Word</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <AiFillFilePdf className="btn-icon" />
+                                                    <span className="btn-text">Xem PDF</span>
+                                                </>
+                                            )}
+                                        </span>
+                                    </a>
+                                </div>
+
+
+
+
+                            ) : (
+                                <p>Đang tải tài liệu...</p>
+                            )}
 
                         </div>
 

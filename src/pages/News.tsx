@@ -5,10 +5,11 @@ import SidebarMenu from '../layout/Sidebar';
 import news1 from '../static/img/news1.png';
 import Carousel2 from '../components/Carousel2';
 import Itemnews from '../components/Itemnews';
-import { Link } from 'react-router-dom'; // Không cần To ở v6
+import { Link, useLocation } from 'react-router-dom'; // Không cần To ở v6
 import { Tintuc } from '../interface/InterfaceCommon';
 import Apis, { endpoints, SERVER } from '../configs/Apis';
 import CommonPagination from '../components/CommonPagination';
+import FacebookComments from '../components/FacebookComment';
 
 const News = () => {
     const [tintucs, setTintuc] = useState<Tintuc[]>([]);
@@ -52,6 +53,10 @@ const News = () => {
         return doc.body.textContent || '';
     };
 
+    const location = useLocation();
+
+    const currentUrl = `${window.location.origin}${location.pathname}`;
+
     return (
         <>
             <Carousel2 name="TIN TỨC" />
@@ -65,20 +70,20 @@ const News = () => {
                                 {tintucs.map((item, index) => (
                                     <Link
                                         key={index}
-                                        to={`/tin-tuc/detail`} // Chỉ truyền pathname
-                                        state={{ newsItem: item }} // Truyền state riêng (v6)
+                                        to={`/tin-tuc/detail/${item.id}`} // <-- thêm ID vào URL
+                                        state={{ newsItem: item }}        // vẫn giữ state để không cần gọi lại API nếu muốn
                                         style={{ textDecoration: 'none', color: 'inherit' }}
                                     >
                                         <Itemnews
                                             title={item.title}
                                             time={item.postdate}
                                             img={`${SERVER}/${item.image}`}
-                                            desc={(item.content)}
-
+                                            desc={item.content}
                                         />
                                     </Link>
                                 ))}
                             </div>
+
                             <CommonPagination
                                 totalItems={totalItems}
                                 itemsPerPage={itemsPerPage}
@@ -86,6 +91,9 @@ const News = () => {
                                 onPageChange={handlePageChange}
                             />
                         </div>
+                        {/* 
+                        <h1>Bình luận bằng Facebook</h1>
+                        <FacebookComments url={`${SERVER}`} /> */}
                     </div>
 
                 </div>

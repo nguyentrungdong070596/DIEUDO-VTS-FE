@@ -1,16 +1,29 @@
-@media (max-width: 760px) {
+@media (max-width: 740px) {
     .carousel-image {
         width: 100%;
         height: 180px !important;
         object-fit: cover;
         filter: brightness(50%);
     }
+
+
 }
+
+// .carousel-box2,
+// .slick-list,
+// .slick-track,
+// .slick-slide,
+// .carousel-slide2,
+// .carousel-overlay2 {
+//     z-index: 0 !important;
+// }
 
 .carousel-container {
     position: relative;
     width: 100%;
     margin: auto;
+    z-index: 1 !important; // đảm bảo nó không đè lên submenu
+
 }
 
 .carousel-slide {
@@ -36,7 +49,7 @@
     width: 40%;
     display: none;
 
-    @media (min-width: 768px) {
+    @media (min-width: 741px) {
         display: block;
     }
 }
@@ -81,24 +94,53 @@
 }
 
 .primary-btn {
-    background-color: #007bff;
+    // background-color: #007bff;
+    background: linear-gradient(to right, #2b6cb0, #00bfff); // Word xanh
+    text-transform: uppercase;
     color: white;
-    margin-right: 10px;
-    border: 1px solid #e0e3e6;
+    margin-right: 30px;
+    // border: 1px solid #e0e3e6;
+    width: 200px;
 
 }
 
 .primary-btn:hover {
-    background-color: #0056b3;
+    background: white !important;
+    color: #007bff;
+    // animation: bounce;
+    box-shadow: 1px;
+    // animate__rubberBand
+    /* referring directly to the animation's @keyframe declaration */
+    animation: pulse;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-direction: alternate;
+    animation-iteration-count: none;
+    animation-fill-mode: none;
+    animation-play-state: running;
 }
 
 .secondary-btn {
+    text-transform: uppercase;
+
     background-color: white;
     color: #007bff;
-    border: 1px solid #007bff;
+    width: 200px;
+
+    // border: 1px solid #007bff;
 }
 
 .secondary-btn:hover {
-    background-color: #007bff;
+    animation: pulse;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-direction: alternate;
+    animation-iteration-count: none;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    background: linear-gradient(to right, #2b6cb0, #00bfff); // Word xanh
+
     color: white;
 }

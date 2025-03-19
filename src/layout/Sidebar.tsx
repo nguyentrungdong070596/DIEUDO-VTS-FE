@@ -1,48 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../static/css/sidebar.scss";
 import { FaCog } from "react-icons/fa"; // Biểu tượng bánh răng
+import { FaNewspaper, FaInfoCircle, FaIndustry, FaLink, FaShip, FaCloudSun, FaGavel, FaWater, FaTemperatureHigh } from "react-icons/fa";
 
 const categories = [
   {
     title: "DANH MỤC",
     items: [
-      { name: "Tin tức", path: "/tin-tuc" },
-      { name: "Giới thiệu", path: "/gioi-thieu" },
-      { name: "Ngành nghề kinh doanh", path: "/nganh-nghe-kinh-doanh" }
+      { name: "📰 Tin tức", path: "/tin-tuc" },
+      { name: "📘 Giới thiệu", path: "/gioi-thieu-cong-ty" },
+      { name: "💼 Ngành nghề kinh doanh", path: "/" }
     ]
   },
   {
     title: "LIÊN KẾT WEBSITE",
     items: [
-      { name: "Sàn Giao Dịch Chứng Khoán", path: "/san-giao-dich" },
-      { name: "Cục Hải Quan", path: "/cuc-hai-quan" },
-      { name: "Khí Tượng Thủy Văn Nam Bộ", path: "/khi-tuong-nam-bo" },
-      { name: "Web Chính Phủ", path: "/web-chinh-phu" },
-      { name: "Bộ Giao Thông", path: "/bo-giao-thong" },
-      { name: "Văn Bản Pháp Luật", path: "/van-ban-phap-luat" },
-      { name: "Cục Hàng Hải Việt Nam", path: "/cuc-hang-hai" },
-      { name: "Báo Bà Rịa - Vũng Tàu", path: "/bao-vung-tau" }
+      { name: "📈 Sàn Giao Dịch Chứng Khoán", path: "https://www.ssc.gov.vn/webcenter/portal/ubck" },
+      { name: "🛃 Cục Hải Quan", path: "https://www.customs.gov.vn/" },
+      { name: "🌦️ Khí Tượng Thủy Văn Nam Bộ", path: "http://www.kttv-nb.org.vn/" },
+      { name: "🌐 Web Chính Phủ", path: "https://chinhphu.vn/" },
+      { name: "🚦 Bộ Giao Thông", path: "https://www.mt.gov.vn/" },
+      { name: "📄 Văn Bản Pháp Luật", path: "https://luatvietnam.vn/" },
+      { name: "🚢 Cục Hàng Hải Việt Nam", path: "https://www.vinamarine.gov.vn/" },
+      { name: "📰 Báo Bà Rịa - Vũng Tàu", path: "https://baria-vungtau.gov.vn/sphere/baria/vungtau/page/trang-chu.cpx" }
     ]
   },
   {
     title: "TIỆN ÍCH",
     items: [
-      { name: "Bảng Thủy Triều", path: "/bang-thuy-trieu" },
-      { name: "Thời Tiết", path: "/thoi-tiet" }
+      { name: "🌊 Bảng Thủy Triều", path: "/bang-thuy-trieu" },
+      { name: "☁️ Thời Tiết", path: "https://www.24h.com.vn/du-bao-thoi-tiet-c568.html" }
     ]
   }
 ];
 
+
 const SidebarMenu: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [isFixed, setIsFixed] = useState(false); // Trạng thái fixed của Navbar
+  const [isDesktopAndTablet, setIsDesktopAndTablet] = useState(window.innerWidth >= 740);
+  const [animationDone, setAnimationDone] = useState(false);
 
+  useEffect(() => {
+    const handleResize = () => setIsDesktopAndTablet(window.innerWidth >= 740);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const toggleDrawer = () => {
     // Chỉ toggle trên mobile (max-width: 1024px)
-    if (window.innerWidth <= 1024) {
+    if (window.innerWidth < 1024) {
       setOpen(!open);
       document.body.style.overflow = open ? "auto" : "hidden"; // Ngăn cuộn khi mở menu
     }
+  };
+
+  // Theo dõi vị trí cuộn để cố định Navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const threshold = 100; // Khoảng cách cuộn để Navbar trở thành fixed
+      setIsFixed(scrollPosition > threshold);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll); // Cleanup khi unmount
+  }, []);
+  const handleAnimationEnd = () => {
+    setAnimationDone(true); // gỡ animation class sau khi hiệu ứng xong
   };
 
   // Hàm xử lý khi click vào item trên mobile
@@ -52,18 +77,30 @@ const SidebarMenu: React.FC = () => {
     }
   };
 
+  const getNavClass = () => {
+    let classes = "sidebar  col-custom l-3 ";
+    if (open) classes += " open "
+    if (isFixed) classes += " fixed "
+
+    if (isDesktopAndTablet && !animationDone) classes += "  animate__fadeInDown";
+    return classes;
+  };
+
   return (
     <>
       {/* Nút mở sidebar - Chỉ hiển thị trên mobile */}
       <button
-        className={`sidebar-toggle ${open ? "rotate" : ""} custom-button`}
+        className={`sidebar-toggle ${open ? "rotate" : ""}   custom-button`}
         onClick={toggleDrawer}
       >
         <FaCog />
       </button>
 
-      {/* Sidebar */}
-      <div className={`sidebar col-custom l-3 ${open ? "open" : ""}`}>
+
+      <div
+        className={getNavClass()}
+        onAnimationEnd={handleAnimationEnd}
+      >
         {/* Nút đóng - Chỉ hiển thị trên mobile */}
         <button className="close-btn" onClick={toggleDrawer}>✖</button>
 
@@ -73,11 +110,20 @@ const SidebarMenu: React.FC = () => {
             <ul className="sidebar-list">
               {category.items.map((item, idx) => (
                 <li key={idx} className="sidebar-item" onClick={handleItemClick}>
-                  <Link to={item.path} className="sidebar-link">
-                    {"icon" in item && <img src={(item as { icon: string }).icon} alt="" />}
-                    {item.name}
-                  </Link>
+                  {item.path.startsWith("https") || item.path.startsWith("http") ? (
+                    <a href={item.path} className="sidebar-link" target="_blank" rel="noopener noreferrer">
+                      {item.name}
+                    </a>
+                  ) : (
+                    <Link to={item.path} className="sidebar-link">
+                      {item.name}
+                    </Link>
+                  )}
+
                 </li>
+
+
+
               ))}
             </ul>
           </div>

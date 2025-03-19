@@ -21,40 +21,65 @@ import DetailService from "./pages/DetailService";
 import ScrollToTop from "./components/ScrollToTop";
 import Vitridontrahoatieu from "./pages/Vitridoantrahoatieu";
 import Gioithieucongty from "./pages/Gioithieucongty";
-import GiadichvuDetail from "./pages/GiaDichVuDetail";
+import GiadichvuDetail from "./pages/GiadichvuDetail";
+import Lichthuytrieu from "./pages/Lichthuytrieu";
+import { SearchContext } from "./context/SearchContext";
+// index.tsx hoặc App.tsx
+
+// main.tsx hoặc index.css
+import 'leaflet/dist/leaflet.css';
+
+import './i18n';
+import ServiceDetail from "./pages/ServiceDetail";
+import Danhsachphuongtien from "./pages/Danhsachphuongtien";
+import GoToTopButton from "./components/GototopButton";
 
 function App() {
+  const [keyword, setKeyword] = useState('');
+
   return (
-    <BrowserRouter>
-      {/* <div className="bg-green-500 text-white p-5 text-center">
-        Tailwind hoạt động!
-      </div> */}
+    <div style={{ zoom: '90%' }}>
+      <BrowserRouter >
 
-      <ScrollToTop />
-      <Header />
-      <Routes>
+        {/* <div className="bg-green-500 text-white p-5 text-center">
+  Tailwind hoạt động!
+</div> */}
+        <SearchContext.Provider value={{ keyword, setKeyword }}>
+          <ScrollToTop />
+          <Header />
+          <Routes>
 
-        <Route path="/" element={<Home />} />
-        <Route path="/ke-hoach-dan-tau" element={<Kehoachdantau />} />
-        <Route path="/gio-dieu-dong" element={<Giodieudong />} />
-        <Route path="/dat-hang-dich-vu" element={<Dathangdichvu />} />
-        <Route path="/gia-dich-vu" element={<Giadichvu />} />
-        <Route path="/danh-sach-hoa-tieu" element={<Danhsachhoatieu />} />
-        <Route path="/vung-hoa-tieu" element={<Vunghoatieu />} />
-        <Route path="/tin-tuc" element={<News />} />
-        <Route path="/tin-tuc/detail" element={<Newsdetail />} />
-        <Route path="/gia-dich-vu/detail" element={<GiadichvuDetail />} />
-        <Route path="/dich-vu/:id" element={<DetailService />} />
-        <Route path="/he-thong-cang-bien" element={<Hethongcangbien />} />
-        <Route path="/tuyen-luong" element={<Tuyenluong />} />
-        <Route path="/tuyen-luong-thi-vai" element={<Tuyenluongthivai />} />
-        <Route path="/tuyen-luong-song-dinh" element={<Tuyenluongsongdinh />} />
-        <Route path="/vi-tri-don-tra-hoa-tieu" element={<Vitridontrahoatieu />} />
-        <Route path="/gioi-thieu-cong-ty" element={<Gioithieucongty />} />
-      </Routes>
-      <Footer />
+            <Route path="/" element={<Home />} />
+            <Route path="/ke-hoach-dan-tau" element={<Kehoachdantau />} />
+            <Route path="/gio-dieu-dong" element={<Giodieudong />} />
+            <Route path="/dat-hang-dich-vu" element={<Dathangdichvu />} />
+            <Route path="/gia-dich-vu" element={<Giadichvu />} />
+            <Route path="/danh-sach-hoa-tieu" element={<Danhsachhoatieu />} />
+            <Route path="/vung-hoa-tieu" element={<Vunghoatieu />} />
+            <Route path="/tin-tuc" element={<News />} />
+            <Route path="/tin-tuc/detail/:id" element={<Newsdetail />} />
+            <Route path="/danh-sach-phuong-tien" element={<Danhsachphuongtien />} />
 
-    </BrowserRouter>
+            <Route path="/gia-dich-vu/detail/:id" element={<GiadichvuDetail />} />
+            {/* <Route path="/dich-vu/:id" element={<DetailService />} /> */}
+            <Route path="/dich-vu/detail/:id" element={<ServiceDetail />} />
+            <Route path="/he-thong-cang-bien" element={<Hethongcangbien />} />
+            <Route path="/tuyen-luong" element={<Tuyenluong />} />
+            <Route path="/tuyen-luong-thi-vai" element={<Tuyenluongthivai />} />
+            <Route path="/tuyen-luong-song-dinh" element={<Tuyenluongsongdinh />} />
+            <Route path="/vi-tri-don-tra-hoa-tieu" element={<Vitridontrahoatieu />} />
+            <Route path="/gioi-thieu-cong-ty" element={<Gioithieucongty />} />
+            <Route path="/lich-thuy-trieu" element={<Lichthuytrieu />} />
+          </Routes>
+          <Footer />
+          <GoToTopButton /> {/* Nút này sẽ hiển thị ở tất cả các trang */}
+
+        </SearchContext.Provider>
+
+
+      </BrowserRouter>
+    </div>
+
 
 
   );

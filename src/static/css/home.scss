@@ -3,6 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    margin-right: -50px;
 }
 
 .about {
@@ -11,8 +12,17 @@
 
 
 .serviceofus {
-    // background-color: #e8eeef;
+    background-image: url("/world.png");
+    background-size: 700px;
+    /* hoặc contain */
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-color: #e8eeef;
+    padding: 100px 0px;
+
 }
+
+
 
 @keyframes marquee-up {
     0% {
@@ -41,7 +51,7 @@
 .left-about .item-about {
     width: 250px !important;
     height: 150px;
-    padding: 5px 10px;
+    // padding: 5px 10px;
 }
 
 .title-right-box {
@@ -49,18 +59,33 @@
     font-weight: 900;
     padding-bottom: 20px;
     color: #007CF9;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+
 }
 
-.right-about p {
-    margin-bottom: 20px;
-    line-height: 1.6;
+.right-about p.content-text {
+    // font-family: 'Roboto Serif', serif;
+    // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+    text-align: justify;
+    font-weight: 500;
+    line-height: 1.7;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 1rem;
+    padding: 0 10px;
+    font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
+    font-style: italic;
+
 
     /* Điều chỉnh khoảng cách giữa các dòng */
 }
 
 .right-about {
-    padding: 10px;
+    // padding: 10px;
     padding-bottom: 20px;
+    margin-left: -20px;
+
 }
 
 .left-about img {
@@ -68,16 +93,36 @@
     height: 100%;
 }
 
+// .sec-title p {
+//     font-family: 'Roboto Serif', serif !important;
+
+// }
+
 .service-itemes {
     box-sizing: border-box !important;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
+
 }
 
 
 .news-itemes {
     margin-bottom: 100px !important;
+}
+
+.sub-title {
+    color: #333;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+}
+
+.title-box {
+    color: #0196da;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+
+
 }
 
 // .news-item {
@@ -121,4 +166,3 @@
 
 
 // calendar-slider -----------------
-

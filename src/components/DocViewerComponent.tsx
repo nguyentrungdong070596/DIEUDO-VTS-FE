@@ -42,6 +42,14 @@ const DocViewerComponent: React.FC<DocViewerProps> = ({ documentUrl }) => {
             height="500px"
             title={`DOCX Viewer - ${documentUrl}`}
           />
+
+          {/* <iframe
+            src="http://localhost:3966/api/v1/upload/files/630f52f5b8928cc6e7aea0c396d1f698.pdf"
+            width="100%"
+            height="700px"
+            title="PDF preview"
+          /> */}
+
           <p>
             Lưu ý: DOCX hiển thị qua Google Viewer. Đảm bảo đường dẫn là URL công khai nếu dùng cách này.
           </p>

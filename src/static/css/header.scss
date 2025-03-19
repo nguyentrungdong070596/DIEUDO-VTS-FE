@@ -5,6 +5,7 @@
     display: flex;
     flex-direction: column;
 
+
 }
 
 
@@ -71,6 +72,8 @@
     display: flex;
     align-content: center;
     justify-content: center;
+    // justify-content: start;
+    // align-items: start;
 }
 
 
@@ -142,24 +145,34 @@
 }
 
 
-
-@media (max-width: 1114px) {
-
-
+@media (max-width: 1113px) {
     .search-box {
-        position: absolute;
-        bottom: 5px;
-        z-index: 1000;
-        left: 50%;
-        transform: translateX(-50%);
-        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        /* Quan trọng để search-box chiếm toàn bộ chiều ngang */
+        margin: 0 auto;
+        /* Căn giữa nếu có độ rộng cố định */
+        position: static;
+        /* Nếu không cần absolute/fixed */
     }
 
-}
-
-@media (max-width: 760px) {
     .header-container {
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 740px) {
+    .header-container {
+        display: flex;
+
         width: 100%;
     }
 
@@ -175,6 +188,7 @@
         left: 50%;
         transform: translateX(-50%);
         margin: auto;
+        width: 200px;
     }
 
 

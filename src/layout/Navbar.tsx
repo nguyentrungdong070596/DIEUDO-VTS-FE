@@ -4,31 +4,43 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../static/css/nav.scss";
 import { FaBars, FaTimes } from "react-icons/fa";
+import 'animate.css';
+import { useTranslation } from "react-i18next";
 
 const Navbar: React.FC = () => {
+
+  const { t } = useTranslation();
+
   const [isOpen, setIsOpen] = useState(false);
   const [openSubMenu, setOpenSubMenu] = useState<number | null>(null);
   const [openMobileSubMenu, setOpenMobileSubMenu] = useState<number | null>(null);
   const [isFixed, setIsFixed] = useState(false); // Trạng thái fixed của Navbar
+  const [isDesktopAndTablet, setIsDesktopAndTablet] = useState(window.innerWidth >= 740);
+  const [animationDone, setAnimationDone] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktopAndTablet(window.innerWidth >= 740);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const menuItems = [
-    { path: "/", label: "TRANG CHỦ" },
-    { path: "/ke-hoach-dan-tau", label: "KẾ HOẠCH DẪN TÀU" },
-    { path: "/gio-dieu-dong", label: "GIỜ ĐIỀU ĐỘNG & MỚN NƯỚC" },
-    { path: "/dat-hang-dich-vu", label: "ĐẶT HÀNG DỊCH VỤ" },
+    { path: "/", label: t("home") },
+    { path: "/ke-hoach-dan-tau", label: t("plan") },
+    { path: "/gio-dieu-dong", label: t("schedule") },
+    // { path: "/dat-hang-dich-vu", label: t("orderService") },
+    { path: "/gia-dich-vu", label: t("servicePrice") },
+    { path: "/danh-sach-hoa-tieu", label: t("pilotList") },
     {
-      path: "/gia-dich-vu", label: "GIÁ DỊCH VỤ"
-    },
-    { path: "/danh-sach-hoa-tieu", label: "DANH SÁCH HOA TIÊU" },
-    {
-      label: "THÔNG SỐ KỸ THUẬT",
+      label: t("techSpec"),
       path: "#",
       submenu: [
-        { path: "/vi-tri-don-tra-hoa-tieu", label: "Vị trí đón trả hoa tiêu" },
-        { path: "/lich-thuy-trieu", label: "Lịch thủy triều" },
-        { path: "/tuyen-luong", label: "Tuyến luồng" },
-        { path: "/he-thong-cang-bien", label: "Hệ thống cảng biển" },
-        { path: "/vung-hoa-tieu", label: "Vùng hoa tiêu" },
+        { path: "/vi-tri-don-tra-hoa-tieu", label: t("pilotPosition") },
+        { path: "/lich-thuy-trieu", label: t("tideSchedule") },
+        { path: "/tuyen-luong", label: t("route") },
+        { path: "/he-thong-cang-bien", label: t("seaportSystem") },
+        { path: "/vung-hoa-tieu", label: t("pilotArea") },
+        { path: "/danh-sach-phuong-tien", label: t("transportVehicleList") },
       ],
     },
   ];
@@ -44,50 +56,63 @@ const Navbar: React.FC = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll); // Cleanup khi unmount
   }, []);
+  const handleAnimationEnd = () => {
+    setAnimationDone(true); // gỡ animation class sau khi hiệu ứng xong
+  };
+  const getNavClass = () => {
+    let classes = "nav-menu";
+    if (isFixed) classes += " fixed";
+    if (isDesktopAndTablet && !animationDone) classes += " animate__animated animate__bounceInRight";
+    return classes;
+  };
 
   return (
-    <div className={`nav-menu ${isFixed ? "fixed" : ""}`}>
+    <div
+      className={getNavClass()}
+      onAnimationEnd={handleAnimationEnd}
+    >
       {/* Nút mở menu trên mobile */}
       <button className="menu-button" onClick={() => setIsOpen(true)}>
         <FaBars className="menu-icon" /> {/* Thay thế MenuIcon */}
       </button>
 
-      {/* Menu chính (desktop) */}
+      {/* Menu chính (DesktopAndTablet) */}
       <div className="menu-items">
         {menuItems.map((item, index) => (
-          <div
-            key={index}
-            className={`item-menu ${item.submenu ? "submenu-container" : ""}`}
-            onClick={(e) => {
-              if (item.submenu) {
-                e.preventDefault(); // Ngăn chặn Link chuyển hướng khi click vào submenu
+          item.submenu ? (
+            <div
+              key={index}
+              className={`item-menu submenu-container`}
+              onClick={(e) => {
+                e.preventDefault();
                 setOpenSubMenu(openSubMenu === index ? null : index);
-              }
-            }}
-          >
-            <Link to={item.path} className={item.submenu ? "submenu-trigger" : ""}>
-              {item.label}
-            </Link>
-            {item.submenu && (
-              <span className={`submenu-icon ${openSubMenu === index ? "open" : ""}`}>▼</span>
-            )}
+              }}
+            >
+              <span className="submenu-trigger">
+                {item.label}
+                <span className={`submenu-icon ${openSubMenu === index ? "open" : ""}`}>▼</span>
+              </span>
 
-            {item.submenu && (
               <div className={`submenu ${openSubMenu === index ? "open" : ""}`}>
                 {item.submenu.map((subItem, subIndex) => (
                   <Link
                     key={subIndex}
                     to={subItem.path}
                     className="submenu-item"
-                    onClick={() => setOpenSubMenu(null)} // Đóng submenu khi chọn item con
+                    onClick={() => setOpenSubMenu(null)}
                   >
                     {subItem.label}
                   </Link>
                 ))}
               </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <Link key={index} to={item.path} className="item-menu">
+              {item.label}
+            </Link>
+          )
         ))}
+
       </div>
 
       {/* Menu sidebar cho mobile */}
