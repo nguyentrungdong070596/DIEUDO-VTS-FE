@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../static/css/carousel2.scss"; // Đảm bảo file CSS tồn tại
+import AOS from "aos";
 
 interface CarouselProps {
     name: string;
@@ -22,6 +23,52 @@ const Carousel2: React.FC<CarouselProps> = ({ name }) => {
         autoplaySpeed: 3000, // Chuyển ảnh mỗi 3 giây
     };
 
+
+    const paragraphDichVuRef = useRef<HTMLParagraphElement>(null);
+    const fullTextDichVu = `Cung cấp các giải pháp thực tế, nhanh chóng thực sự tiết kiệm`;
+    const hasTypedRef = useRef(false); // ✅ chặn chạy nhiều lần
+
+
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (
+                    entry.isIntersecting &&
+                    paragraphDichVuRef.current &&
+                    !hasTypedRef.current
+                ) {
+                    hasTypedRef.current = true;
+
+                    let i = 0;
+                    const interval = setInterval(() => {
+                        // Check ref có còn tồn tại hay không
+                        if (!paragraphDichVuRef.current) {
+                            clearInterval(interval);
+                            return;
+                        }
+
+                        if (i <= fullTextDichVu.length) {
+                            paragraphDichVuRef.current.innerText = name.substring(0, i);
+                            i++;
+                        } else {
+                            clearInterval(interval);
+                        }
+                    }, 25);
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        // Chỉ observe nếu ref tồn tại
+        if (paragraphDichVuRef.current) {
+            observer.observe(paragraphDichVuRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+
     return (
         <div className="carousel-box2">
             <Slider {...settings}>
@@ -34,7 +81,7 @@ const Carousel2: React.FC<CarouselProps> = ({ name }) => {
 
             {/* Overlay nội dung */}
             <div className="carousel-overlay2">
-                <h2>{name}</h2>
+                <h2 ref={paragraphDichVuRef} ></h2>
             </div>
         </div>
     );

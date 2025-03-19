@@ -1,49 +1,89 @@
-import React from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import Titlepage from '../components/Titlepage'
-import '../static/css/danhsachhoatieu.scss'
-import hoatieu1 from '../static/img/hoatieu1.png'
-import hoatieu2 from '../static/img/hoatieu2.png'
-import hoatieu3 from '../static/img/hoatieu3.png'
-import hoatieu4 from '../static/img/hoatieu4.png'
-import hoatieu5 from '../static/img/hoatieu5.png'
-import hethongcangbienimg from '../static/img/hethongcangbien1.png'
+import '../static/css/hethongcangbien.scss'
+
 import SidebarMenu from '../layout/Sidebar'
-import Itemhoatieu from '../components/Itemhoatieu'
 import Carousel2 from '../components/Carousel2'
-
-
-
+import Apis, { endpoints, SERVER } from '../configs/Apis'
+import { HeThongCangBien } from '../interface/InterfaceCommon'
+import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai'
 
 const Hethongcangbien = () => {
+    const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf";
+    const [hethongcangbien, setGioDieuDong] = useState<HeThongCangBien[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await loadGiodieudong();
+        };
+        fetchData();
+    }, []);
+
+    const loadGiodieudong = async () => {
+        try {
+            const params = { limit: 1000, page: 1, itemType: "15" };
+            const response = await Apis.get(endpoints.APIItems, { params });
+
+            if (response.data && Array.isArray(response.data.data)) {
+                setGioDieuDong(response.data.data);
+
+
+                const total = response.data.totalRecords || response.data.data.length;
+            } else {
+                console.error("Dữ liệu API không đúng định dạng:", response.data);
+                setGioDieuDong([]);
+            }
+        } catch (error) {
+            console.error("Lỗi khi load hoa tiêu:", error);
+            setGioDieuDong([]);
+        }
+    };
+
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
         <>
             <Carousel2 name="Hệ thống cảng biển" />
             <div className="gridme wide">
-
                 <div className="row">
                     <SidebarMenu />
-
                     <div className='col-custom l-9 m-12 c-12'>
                         <div className=''>
-
-
                             <Titlepage name='Hệ thống cảng biển' />
 
-                            <img src={hethongcangbienimg} alt="" />
+                            {hethongcangbien.length > 0 ? (
+                                <a
+                                    href={`${SERVER}/${hethongcangbien[0].pdfurl}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn-pdf-link-hethong"
+                                    onMouseEnter={() => setIsHovered(true)}
+                                    onMouseLeave={() => setIsHovered(false)}
+                                >
+                                    <span className="btn-content">
+                                        {isHovered ? (
+                                            <>
+                                                <AiFillFilePdf className="btn-icon" />
+                                                <span className="btn-text">Xem PDF</span>
+                                            </>
 
+                                        ) : (
+                                            <>
+                                                <AiFillFileWord className="btn-icon" />
+                                                <span className="btn-text">Xem Word</span>
+                                            </>
+
+                                        )}
+                                    </span>
+                                </a>
+                            ) : (
+                                <p>Đang tải tài liệu...</p>
+                            )}
                         </div>
-
-
                     </div>
-
                 </div>
-
-
-
             </div>
         </>
-
-
     )
 }
 

@@ -16,8 +16,8 @@ import Carousel2 from '../components/Carousel2'
 import Itemgiadichvu from '../components/Itemgiadichvu'
 import Apis, { endpoints, SERVER } from '../configs/Apis'
 import CommonPagination from '../components/CommonPagination'
-import { Giadichvu } from '../interface/InterfaceCommon';
 import { Link } from 'react-router-dom'
+import { GiaDichVu } from '../interface/InterfaceCommon'
 
 
 
@@ -31,10 +31,10 @@ const giaDichVuList = [
 
 ];
 const Giadichvu = () => {
-    const [giadichvus, setHoatieu] = useState<Giadichvu[]>([]);
+    const [giadichvus, setHoatieu] = useState<GiaDichVu[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
-    const itemsPerPage = 6; // Limit gửi lên API
+    const itemsPerPage = 4; // Limit gửi lên API
 
     const loadGiadichvu = async (page: number) => {
         try {
@@ -87,11 +87,11 @@ const Giadichvu = () => {
                                 {giadichvus.map((item, index) => (
                                     <Link
                                         key={index}
-                                        to={`/gia-dich-vu/detail`} // Chỉ truyền pathname
+                                        to={`/gia-dich-vu/detail/${item.id}`} // Chỉ truyền pathname
                                         state={{ giadichvuItem: item }} // Truyền state riêng (v6)
                                         style={{ textDecoration: 'none', color: 'inherit' }}
                                     >
-                                        <Itemgiadichvu key={index} name={item.title} desc={item.content} img={`${SERVER}/${item.image}`} />
+                                        <Itemgiadichvu key={index} name={item.title} desc={item.content} pdfurl={item.pdfurl} img={`${SERVER}/${item.image}`} />
                                     </Link>
                                 ))}
                             </div>

@@ -1,108 +1,129 @@
-/* Navbar chính */
-.nav-menu {
-    background-color: #0196da;
-    position: relative;
-    transition: all 0.3s ease;
-    padding: 20px !important;
+@media (min-width: 1025px) and (max-width: 3000px) {
+
+    /* Navbar chính */
+    .nav-menu {
+        // background-color: #0196da;
+        background: linear-gradient(to right, #2b6cb0, #00bfff); // Word xanh
+
+        position: relative;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
 
 
-    &.fixed {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-}
-
-/* Menu trên màn hình lớn */
-.menu-items {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 14px;
-}
-
-/* Mục menu */
-.item-menu {
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    position: relative;
-}
-
-/* Hover */
-.item-menu:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    height: 100%;
-}
-
-.item-menu span {
-    font-size: 14px;
-}
-
-/* Ẩn nút menu trên màn hình lớn */
-.menu-button {
-    display: none;
-}
-
-/* Mặc định ẩn menu sidebar */
-.mobile-menu {
-    display: none;
-}
-
-/* Submenu cho desktop */
-.submenu-container {
-    position: relative;
-    cursor: pointer;
-    z-index: 100000;
-
-    .submenu-icon {
-        display: inline-block;
-        margin-left: 8px;
-        transition: transform 0.3s ease;
-    }
-
-    .submenu-icon.open {
-        transform: rotate(180deg);
-    }
-
-    .submenu {
-        position: absolute;
-        top: 170%;
-        left: 0;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        width: 200px;
-        padding: 10px;
-        opacity: 0;
-        transform: perspective(600px) rotateX(90deg);
-        transform-origin: bottom;
-        transition: transform 0.3s ease, opacity 0.3s ease;
-    }
-
-    .submenu.open {
-        opacity: 1;
-        transform: perspective(600px) rotateX(0deg);
-    }
-
-    .submenu-item {
-        display: block;
-        padding: 10px;
-        text-decoration: none;
-        color: black;
-        transition: background 0.2s;
-
-        &:hover {
-            background: #f0f0f0;
+        &.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
     }
+
+    /* Menu trên màn hình lớn */
+    .menu-items {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 14px;
+        // margin: auto 200px;
+    }
+
+    /* Mục menu */
+    .item-menu {
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 20px !important;
+
+        position: relative;
+    }
+
+    /* Hover */
+    .item-menu:hover {
+        background-color: #fe0000;
+        height: 100%;
+    }
+
+    // /* Active */
+    // .item-menu:active {
+    //     background-color: rgba(238, 19, 19, 0.996);
+    //     height: 100%;
+    // }
+
+    .item-menu span {
+        font-size: 14px;
+    }
+
+    /* Ẩn nút menu trên màn hình lớn */
+    .menu-button {
+        display: none;
+    }
+
+    /* Mặc định ẩn menu sidebar */
+    .mobile-menu {
+        display: none;
+    }
+
+    /* Submenu cho desktop */
+    .submenu-container {
+        position: relative;
+        cursor: pointer;
+        z-index: 9999999 !important;
+
+        .submenu-icon {
+            display: inline-block;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .submenu-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000 !important;
+            background: #ffffff;
+            // border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding: 10px;
+
+            /* Quan trọng: Đừng để opacity/transform mặc định */
+            display: none;
+        }
+
+
+
+        .submenu.open {
+            display: block;
+            z-index: 1999999;
+
+            /* Nếu bạn muốn vẫn dùng transform rotateX thì thêm animation riêng (tùy chọn) */
+        }
+
+        .submenu-item {
+            display: block;
+            z-index: 1999999;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            transition: background 0.2s;
+            font-size: 13px;
+
+            &:hover {
+                background: #0196da;
+                color: white
+            }
+        }
+    }
+
 }
 
-/* Khi màn hình nhỏ hơn 760px */
-@media (max-width: 760px) {
+@media (min-width: 0px) and (max-width: 1024px) {
 
     /* Navbar chính */
     .nav-menu {
@@ -195,8 +216,14 @@
         transition: background 0.2s ease;
     }
 
-    .item-menu a:hover {
-        background: #1abcdc;
+    // .item-menu a:hover {
+    //     background: #1abcdc;
+    // }
+
+    /* Hover */
+    .item-menu:hover {
+        background-color: #2b6cb0;
+        height: 100%;
     }
 
     .submenu-container {
@@ -215,7 +242,7 @@
     }
 
     .submenu-toggle:hover {
-        background: #1abcdc;
+        background: #2b6cb0;
     }
 
     .submenu-icon {
@@ -228,7 +255,7 @@
     }
 
     .submenu {
-        background: #0196da;
+        background: #2b6cb0;
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
@@ -244,13 +271,13 @@
         padding: 12px 40px;
         /* Thụt vào để phân cấp */
         text-decoration: none;
-        color: #1abcdc;
+        color: #2b6cb0;
         font-size: 15px;
         transition: background 0.2s ease;
     }
 
     .submenu-item:hover {
-        background: #1abcdc;
+        background: #fe0000;
     }
 
 

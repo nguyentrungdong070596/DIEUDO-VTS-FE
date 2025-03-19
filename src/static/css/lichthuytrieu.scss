@@ -1,0 +1,47 @@
+.item-pdf-wrapper {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    /* căn trái */
+    align-items: center;
+    /* tạo khoảng cách đều giữa các phần tử */
+
+    .btn-pdf-link-lichthuytrieu {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 8px;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+
+        background: linear-gradient(to right, #0196DA 50%, #d4440b 50%); // Word xanh
+        width: 150px;
+        background-size: 200% 100%;
+        background-position: left bottom;
+        transition: background-position 0.4s ease-in-out;
+        box-shadow: 5px 4px 10px rgba(0, 0, 0, 0.1);
+
+        .btn-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-icon {
+            font-size: 20px;
+            margin-right: 6px;
+        }
+
+        .btn-text {
+            font-size: 16px;
+        }
+
+        &:hover {
+            background-position: right bottom;
+        }
+    }
+
+    .file-title {
+        font-weight: bold;
+        margin-bottom: 4px;
+    }
+}

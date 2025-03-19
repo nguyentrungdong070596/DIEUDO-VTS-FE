@@ -91,8 +91,43 @@ const NewsListCarousel: React.FC<NewsListCarouselProps> = ({
         }
     }, [isTransitioning]);
 
+
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setIsVisible(true);
+                        observer.unobserve(entry.target);
+                    }
+                    else {
+                        setIsVisible(false); // để khi scroll ra khỏi, lần sau vào lại sẽ trigger lại animation
+
+                    }
+                });
+            },
+            { threshold: 0.3 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) observer.unobserve(sectionRef.current);
+        };
+    }, []);
+
+
     return (
-        <div className="custom-carousel">
+        <div
+            ref={sectionRef}
+            className={`custom-carousel ${isVisible ? 'animate__animated animate__lightSpeedInLeft' : 'opacity-0'}`}
+        // className="custom-carousel animate__animated animate__lightSpeedInLeft"
+        >
             <div className="carousel-wrapper">
                 <div className="carousel-track-wrapper">
                     <button className="nav-btn prev" onClick={prev}>
@@ -119,7 +154,7 @@ const NewsListCarousel: React.FC<NewsListCarouselProps> = ({
 
                                 <Link
                                     key={index}
-                                    to={`/tin-tuc/detail`} // Chỉ truyền pathname
+                                    to={`/tin-tuc/detail/${item.id}`} // Chỉ truyền pathname
                                     state={{ newsItem: item }} // Truyền state riêng (v6)
                                     style={{ textDecoration: 'none', color: 'inherit' }}
                                     onClick={() => window.scrollTo(0, 0)} // ✅ scroll lên đầu ngay khi click
@@ -151,7 +186,7 @@ const NewsListCarousel: React.FC<NewsListCarouselProps> = ({
                     </button>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

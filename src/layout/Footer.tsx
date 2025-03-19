@@ -1,30 +1,116 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa"; // Font Awesome Icons
 import "../static/css/footer.scss";
 
-const Footer = () => {
+import "animate.css"
+import AOS from "aos";
+import Apis, { endpoints } from "../configs/Apis";
+import { Dichvu } from "../interface/InterfaceCommon";
+import { Link } from "react-router-dom";
+import DichvuDialog from "../components/DichvuDialog";
+const Footer: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const [dichvus, setDichvu] = useState<Dichvu[]>([]);
+
+
+  const loadDichVu = async () => {
+    try {
+      const params = { limit: 7, page: 1 };
+      const response = await Apis.get(endpoints.APIDichvu, { params });
+
+
+
+      if (response.data && Array.isArray(response.data.data)) {
+        setDichvu(response.data.data);
+
+
+        // Sử dụng totalRecords từ API
+        const total = response.data.totalRecords || response.data.data.length;
+
+      } else {
+        console.error("Dữ liệu API không đúng định dạng:", response.data);
+        setDichvu([]);
+      }
+    } catch (error) {
+      console.error("Lỗi khi load hoa tiêu:", error);
+      setDichvu([]);
+    }
+  };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadDichVu();
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+          // else {
+          //   setIsVisible(false); // để khi scroll ra khỏi, lần sau vào lại sẽ trigger lại animation
+
+          // }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
+  }, []);
+  // Mở dialog và truyền dữ liệu
+
+
   return (
-    <footer className="footer">
-      <div className="footer-content">
+    <footer
+      ref={sectionRef}
+      className={`footer ${isVisible ? 'animate__animated animate__fadeInUp' : 'opacity-0'}`}
+    >
+      <div className="footer-content ">
         {/* Cột 1: Về chúng tôi */}
         <div className="footer-section about">
-          <h3>Về chúng tôi</h3>
+          <h3 className="">Về chúng tôi</h3>
           <p className="company-name">CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU</p>
           <p>🏢 Cổng TT, Phường 1, TP. Vũng Tàu, Việt Nam</p>
-          <p>📞 0254. 3859 003 / 3852 185</p>
+          <p>
+            <span className="shake-icon">📞</span> 0254. 3859 003 / 3852 185
+          </p>
           <p>📧 vt@vungtauship.com</p>
         </div>
 
         {/* Cột 2: Dịch vụ cung cấp */}
-        <div className="footer-section services">
+        <div className="footer-section services ">
           <h3>Dịch vụ cung cấp</h3>
           <ul>
-            <li><a href="#">Hoa tiêu hàng hải</a></li>
-            <li><a href="#">Dịch vụ kéo đẩy tại cảng</a></li>
-            <li><a href="#">Chờ thuyền, tàu</a></li>
-            <li><a href="#">Xử lý Khối Hàng Hóa</a></li>
-            <li><a href="#">Thi công các công trình, dự án hàng hải</a></li>
-            <li><a href="#">Dịch vụ dẫn lót tàu biển</a></li>
+
+
+
+            {dichvus.map((item, index) => (
+              <li  key={index}>
+                <Link
+                  to={`/dich-vu/detail/${item.id}`}
+                  state={{ serviceItem: item }}
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                  onClick={() => window.scrollTo(0, 0)}
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -32,11 +118,12 @@ const Footer = () => {
         <div className="footer-section links">
           <h3>Liên kết nhanh</h3>
           <ul>
-            <li><a href="#">Giới thiệu</a></li>
-            <li><a href="#">Tin tức</a></li>
+            <li><Link to="/gioi-thieu-cong-ty">Giới thiệu</Link></li>
+            <li><Link to="/tin-tuc">Tin tức</Link></li>
+            {/* <li><a href="#">Tin tức</a></li> */}
             <li><a href="#">Thư viện ảnh</a></li>
             <li><a href="#">Thư viện video</a></li>
-            <li><a href="#">Bảng giá dịch vụ</a></li>
+            <li><Link to="/gia-dich-vu">Bảng giá dịch vụ</Link></li>
             <li><a href="#">Quan hệ cổ đông</a></li>
           </ul>
         </div>

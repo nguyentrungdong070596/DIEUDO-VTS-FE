@@ -1,72 +1,72 @@
-// QuyetDinhComponent.scss
+// // QuyetDinhComponent.scss
 
-.quyet-dinh-container {
-    padding: 2rem;
-    font-family: "Times New Roman", serif;
-    background-color: #fff;
-    color: #000;
+// .quyet-dinh-container {
+//     padding: 2rem;
+//     font-family: "Times New Roman", serif;
+//     background-color: #fff;
+//     color: #000;
 
-    .title {
-        text-align: center;
-        font-size: 24px;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-bottom: 0.5rem;
-    }
+//     .title {
+//         text-align: center;
+//         font-size: 24px;
+//         font-weight: bold;
+//         text-transform: uppercase;
+//         margin-bottom: 0.5rem;
+//     }
 
-    .subtitle {
-        text-align: center;
-        font-size: 20px;
-        font-weight: bold;
-    }
+//     .subtitle {
+//         text-align: center;
+//         font-size: 20px;
+//         font-weight: bold;
+//     }
 
-    .description {
-        text-align: center;
-        font-size: 18px;
-        margin-bottom: 1rem;
-    }
+//     .description {
+//         text-align: center;
+//         font-size: 18px;
+//         margin-bottom: 1rem;
+//     }
 
-    .italic {
-        font-style: italic;
-        text-align: center;
-        margin-top: 1rem;
-    }
+//     .italic {
+//         font-style: italic;
+//         text-align: center;
+//         margin-top: 1rem;
+//     }
 
-    .content {
-        margin-top: 1.5rem;
-        line-height: 1.6;
+//     .content {
+//         margin-top: 1.5rem;
+//         line-height: 1.6;
 
-        p,
-        li {
-            font-size: 16px;
-        }
+//         p,
+//         li {
+//             font-size: 16px;
+//         }
 
-        ol {
-            margin-left: 1.5rem;
-        }
+//         ol {
+//             margin-left: 1.5rem;
+//         }
 
-        ul {
-            margin-left: 1.5rem;
-            list-style-type: disc;
-        }
+//         ul {
+//             margin-left: 1.5rem;
+//             list-style-type: disc;
+//         }
 
-        .coordinate-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
+//         .coordinate-table {
+//             width: 100%;
+//             border-collapse: collapse;
+//             margin: 1rem 0;
 
-            th,
-            td {
-                border: 1px solid #000;
-                padding: 0.5rem;
-                text-align: center;
-                font-size: 15px;
-            }
+//             th,
+//             td {
+//                 border: 1px solid #000;
+//                 padding: 0.5rem;
+//                 text-align: center;
+//                 font-size: 15px;
+//             }
 
-            th {
-                background-color: #f0f0f0;
-                font-weight: bold;
-            }
-        }
-    }
-}
+//             th {
+//                 background-color: #f0f0f0;
+//                 font-weight: bold;
+//             }
+//         }
+//     }
+// }

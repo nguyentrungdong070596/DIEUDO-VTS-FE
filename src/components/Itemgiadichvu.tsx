@@ -7,9 +7,10 @@ interface ItemgiadichvuProps {
     name: string;
     desc: string;
     img: string;
+    pdfurl: string;
 }
 
-const Itemgiadichvu: React.FC<ItemgiadichvuProps> = ({ name, desc, img }) => {
+const Itemgiadichvu: React.FC<ItemgiadichvuProps> = ({ name, desc, img, pdfurl }) => {
     const item = {
         name: name,
         desc: desc,

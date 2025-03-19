@@ -27,6 +27,18 @@ interface NewsListGridProps {
 }
 
 
+export interface Phuongtien {
+    id: string;
+
+    title: string;
+    subtitle: string;
+    image: string;
+    status: string;
+    content: string;
+    postdate: string;
+
+}
+
 
 export interface Dichvu {
     id: string;
@@ -53,6 +65,68 @@ export interface BanLanhDao {
 }
 
 
+export interface ViTriDonTraHoaTieu {
+    id: string;
+
+    title: string;
+    subtitle: string;
+    image: string;
+    status: string;
+    content: string;
+    postdate: string;
+
+}
+
+
+export interface VungHoaTieu {
+    id: string;
+
+    title: string;
+    subtitle: string;
+    image: string;
+    status: string;
+    content: string;
+    postdate: string;
+
+}
+export interface GioDieuDong {
+    id: string;
+    pdfurl: string;
+    title: string;
+    subtitle: string;
+    image: string;
+    status: string;
+    content: string;
+    postdate: string;
+
+}
+
+export interface HeThongCangBien {
+    id: string;
+    pdfurl: string;
+    title: string;
+    subtitle: string;
+    image: string;
+    status: string;
+    content: string;
+    postdate: string;
+
+}
+
+export interface LichThuyTrieu {
+    id: string;
+    pdfurl: string;
+    title: string;
+    subtitle: string;
+    image: string;
+    status: string;
+    content: string;
+    postdate: string;
+
+}
+
+
+
 export interface Lichsu {
     id: string;
 
@@ -65,13 +139,14 @@ export interface Lichsu {
 
 }
 
-export interface Giadichvu {
+export interface GiaDichVu {
     id: string;
 
     title: string;
     subtitle: string;
     image: string;
     status: string;
+    pdfurl: string;
     content: string;
     postdate: string;
 

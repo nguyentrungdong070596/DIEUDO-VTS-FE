@@ -18,7 +18,7 @@ const NewsDichVuBaiDangLienQuan: React.FC<ItemnewsProps> = ({ title, time, img }
             <div className="item-news-content-home">
                 <p className="item-news-time-home">{time}</p>
                 <h3 className="item-news-title-home">{title}</h3>
-                <button>Đọc thêm</button>
+                <button className="custom-button">Đọc thêm</button>
                 {/* <p className="item-news-desc">{desc}</p> */}
             </div>
 
