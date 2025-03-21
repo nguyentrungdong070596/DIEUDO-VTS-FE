@@ -19,10 +19,19 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onSearch }) => {
   const { t, i18n } = useTranslation();
+  const [isDesktopAndTablet, setIsDesktopAndTablet] = useState(window.innerWidth >= 740);
+
 
   const [searchText, setSearchText] = useState('');
   const { setKeyword } = useSearchContext();
   const location = useLocation();
+
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktopAndTablet(window.innerWidth >= 740);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -38,30 +47,30 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
 
 
   return (
-    <div className="header     gridme">
+    <div className="gridme header">
       {/* Thanh Header */}
-      <div className="   header-container row  ">
-        <div className="col-custom l-1 m-12 c-12 " >
+      <div className="row header-container">
+        <div className="col-custom m-12 c-12 l-1" >
 
           <img
             src={logo}
             width={50}
             height={50}
             alt="Logo"
-            className="header-logo  animate__animated animate__backInDown   "
+            className="animate__animated animate__backInDown header-logo"
 
           />
         </div>
 
-        <div className="header-text col-custom l-4 m-12 c-12">
-          <p className="company-name animate__animated animate__bounceIn ">
+        <div className="col-custom m-12 c-12 header-text l-4">
+          <p className="animate__animated animate__bounceIn company-name">
             {t('companyName')}
           </p>
-          <p className="branch-name animate__animated animate__backInUp  ">{t('branchName')}</p>
+          <p className="animate__animated animate__backInUp branch-name">{t('branchName')}</p>
         </div>
 
         {/* 🔍 Thanh tìm kiếm có icon */}
-        <div className="search-box">
+        <div className={`search-box ${isDesktopAndTablet ? 'animate__animated animate__backInDown' : ''}`}>
           <FaSearch className="search-icon" /> {/* Sử dụng FaSearch */}
           <input
             type="text"
@@ -75,23 +84,23 @@ const Header: React.FC<HeaderProps> = ({ onSearch }) => {
         </div>
 
         {/* Avatar */}
-        {/* <div className="changelanguage col-custom l-1 m-2 c-2">
-          <img src={vn} alt="VN" className="avatar vietnam  " />
+        {/* <div className="col-custom m-2 c-2 changelanguage l-1">
+          <img src={vn} alt="VN" className="avatar vietnam" />
           <img src={eng} alt="ENG" className="avatar english" />
         </div> */}
 
-        <div className="changelanguage col-custom l-1 m-2 c-2">
+        <div className="col-custom m-2 c-2 changelanguage l-1">
           <img
             src={vn}
             alt="VN"
-            className="avatar vietnam"
+            className="animate__animated animate__backInDown avatar vietnam"
             onClick={() => changeLanguage("vi")}
             style={{ cursor: "pointer" }}
           />
           <img
             src={eng}
             alt="ENG"
-            className="avatar english"
+            className="animate__animated animate__backInDown avatar english"
             onClick={() => changeLanguage("en")}
             style={{ cursor: "pointer" }}
           />

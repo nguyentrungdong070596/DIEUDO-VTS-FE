@@ -18,6 +18,26 @@ export interface Tintuc {
 }
 
 
+export interface HoatDongCongTy {
+    id: number;
+    title: string;
+    subtitle?: string;
+    content: string;
+    postdate: string;
+    image: string;
+    status?: string;
+    height: number;
+}
+
+
+export interface LinkDathangdichvu {
+    id: number;
+    title: string;
+    status?: string;
+}
+
+
+
 // import { Tintuc } from 'path/to/your/types'; (nếu bạn có file type riêng)
 
 interface NewsListGridProps {

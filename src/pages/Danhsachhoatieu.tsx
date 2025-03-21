@@ -8,28 +8,23 @@ import Carousel2 from '../components/Carousel2';
 import Apis, { endpoints, SERVER } from '../configs/Apis';
 import CommonPagination from '../components/CommonPagination';
 import { HoaTieu } from '../interface/InterfaceCommon';
-
-
+import { motion } from 'framer-motion';
 
 const Danhsachhoatieu: React.FC = () => {
     const [hoatieus, setHoatieu] = useState<HoaTieu[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
-    const itemsPerPage = 6; // Limit gửi lên API
+    const itemsPerPage = 6;
 
     const loadHoatieu = async (page: number) => {
         try {
             const params = { limit: itemsPerPage, page };
             const response = await Apis.get(endpoints.APIHoaTieu, { params });
 
-
-
             if (response.data && Array.isArray(response.data.data)) {
                 setHoatieu(response.data.data);
-                // Sử dụng totalRecords từ API
                 const total = response.data.totalRecords || response.data.data.length;
                 setTotalItems(total);
-
             } else {
                 console.error("Dữ liệu API không đúng định dạng:", response.data);
                 setHoatieu([]);
@@ -48,6 +43,21 @@ const Danhsachhoatieu: React.FC = () => {
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
+        window.scrollTo({
+            top: 200,
+            behavior: 'smooth'
+        });
+
+    };
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2,
+            },
+        },
     };
 
     return (
@@ -56,18 +66,25 @@ const Danhsachhoatieu: React.FC = () => {
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
-                    <div className="col-custom l-9 m-12 c-12">
+                    <div className="col-custom m-12 c-12 l-9">
                         <Titlepage name="Danh sách hoa tiêu" />
-                        <div className="danhsach-hoatieu">
+                        <motion.div
+                            className="danhsach-hoatieu"
+                            key={currentPage}
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
                             {hoatieus.map((item, index) => (
                                 <Itemhoatieu
                                     key={index}
+                                    index={index}
                                     name={item.name}
                                     chucdanh={item.rank}
                                     img={`${SERVER}/${item.image}`}
                                 />
                             ))}
-                        </div>
+                        </motion.div>
 
                         <CommonPagination
                             totalItems={totalItems}
@@ -77,10 +94,6 @@ const Danhsachhoatieu: React.FC = () => {
                         />
                     </div>
                 </div>
-
-
-
-
             </div>
         </>
     );

@@ -1,0 +1,48 @@
+.detail-hoatdong {
+    display: flex;
+    flex-direction: column;
+    /* Hiển thị phần tử theo chiều dọc */
+    align-items: center;
+    /* Căn giữa theo trục ngang */
+    text-align: justify;
+    /* Căn đều hai bên cho chữ */
+    max-width: 800px;
+    /* Giới hạn độ rộng của nội dung */
+    margin: auto;
+    /* Căn giữa toàn bộ phần tử */
+    gap: 20px;
+    /* Tạo khoảng cách giữa ảnh và chữ */
+}
+
+.detail-hoatdong img {
+    width: 800px !important;
+    /* Giúp ảnh tự động điều chỉnh */
+    height: auto;
+    /* Đảm bảo giữ tỷ lệ ảnh */
+    object-fit: cover;
+    /* Tránh ảnh bị méo */
+    border-radius: 8px;
+    /* Làm bo góc nhẹ */
+}
+
+.hrbaiviet {
+
+    border: none;
+    color: rgb(47, 41, 41);
+    border-top: 1px solid #ccc;
+
+}
+
+.detail-hoatdong p {
+    font-size: 16px;
+    line-height: 1.6;
+    /* Tạo lề hai bên */
+    text-align: justify;
+}
+
+
+.detail-hoatdong-postdate {
+    float: right;
+    font-size: 14px;
+    color: #666;
+}

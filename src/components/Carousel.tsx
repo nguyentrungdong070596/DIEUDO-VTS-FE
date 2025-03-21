@@ -8,6 +8,7 @@ import { Link, useLocation } from "react-router-dom";
 import Spinner from "./Spinner";
 import "animate.css"
 import { useTranslation } from "react-i18next";
+import ShinyText from "./ShinyText";
 type BannerItem = {
   image: string; // Định nghĩa `image`
 };
@@ -127,10 +128,11 @@ function Carousel() {
 
             <div className="carousel-buttons">
               <Link to="/dat-hang-dich-vu">
-                <button className="btn primary-btn animate__animated animate__bounce animate__delay-0.5s">{t('orderService')}</button>
+                <button className="btn primary-btn">{t('orderService')}</button>
+
               </Link>
               <Link to="/ke-hoach-dan-tau">
-                <button className="btn secondary-btn animate__animated animate__bounce animate__delay-1s">{t('plan')}</button>
+                <button className="btn secondary-btn">{t('plan')}</button>
               </Link>
             </div>
           </div>

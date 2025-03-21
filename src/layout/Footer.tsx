@@ -9,8 +9,6 @@ import { Dichvu } from "../interface/InterfaceCommon";
 import { Link } from "react-router-dom";
 import DichvuDialog from "../components/DichvuDialog";
 const Footer: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [dichvus, setDichvu] = useState<Dichvu[]>([]);
 
 
@@ -47,6 +45,10 @@ const Footer: React.FC = () => {
     fetchData();
   }, []);
 
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const [isVisible, setIsVisible] = useState(false);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
@@ -78,11 +80,12 @@ const Footer: React.FC = () => {
   return (
     <footer
       ref={sectionRef}
-      className={`footer ${isVisible ? 'animate__animated animate__fadeInUp' : 'opacity-0'}`}
+      className={`footer`}
+    // className={`footer ${isVisible ? 'animate__animated animate__fadeInUp' : 'opacity-0'}`}
     >
-      <div className="footer-content ">
+      <div className="footer-content">
         {/* Cột 1: Về chúng tôi */}
-        <div className="footer-section about">
+        <div className="about footer-section">
           <h3 className="">Về chúng tôi</h3>
           <p className="company-name">CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU</p>
           <p>🏢 Cổng TT, Phường 1, TP. Vũng Tàu, Việt Nam</p>
@@ -93,14 +96,14 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Cột 2: Dịch vụ cung cấp */}
-        <div className="footer-section services ">
+        <div className="footer-section services">
           <h3>Dịch vụ cung cấp</h3>
           <ul>
 
 
 
             {dichvus.map((item, index) => (
-              <li  key={index}>
+              <li key={index}>
                 <Link
                   to={`/dich-vu/detail/${item.id}`}
                   state={{ serviceItem: item }}

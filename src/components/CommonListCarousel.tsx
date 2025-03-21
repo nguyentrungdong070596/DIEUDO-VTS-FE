@@ -1,39 +1,37 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { GiaDichVu } from '../interface/InterfaceCommon';
-import '../static/css/giadichvulistcarousel.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import Itemgiadichvu from './Itemgiadichvu';
+import '../static/css/commonlistcarousel.scss';
 
-interface GiaDichVuListCarouselProps {
-    items: GiaDichVu[];
-    onItemClick?: (item: GiaDichVu) => void;
+interface CommonListCarouselProps<T> {
+    items: T[];
+    renderItem: (item: T) => React.ReactNode;
+    getLinkPath?: (item: T) => string;
+    getLinkState?: (item: T) => any;
+    onItemClick?: (item: T) => void;
     imageBaseUrl?: string;
 }
 
-const GiaDichVuListCarousel: React.FC<GiaDichVuListCarouselProps> = ({
+const CommonListCarousel = <T,>({
     items,
+    renderItem,
+    getLinkPath,
+    getLinkState,
     onItemClick,
     imageBaseUrl = '',
-}) => {
-    const [visibleSlides, setVisibleSlides] = useState(2); // 👉 cố định 2 item
+}: CommonListCarouselProps<T>) => {
+    const [visibleSlides, setVisibleSlides] = useState(3);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(true);
     const trackRef = useRef<HTMLDivElement>(null);
 
-    // 👉 Không cần resize nữa, nên bỏ đoạn này
     useEffect(() => {
         const updateVisibleSlides = () => {
             const width = window.innerWidth;
-            if (width <= 768) {
-                setVisibleSlides(1);
-            } else if (width <= 1024) {
-                setVisibleSlides(1);
-            } else {
-                setVisibleSlides(2);
-            }
+            if (width <= 768) setVisibleSlides(1);
+            else if (width <= 1024) setVisibleSlides(2);
+            else setVisibleSlides(3);
         };
-
         updateVisibleSlides();
         window.addEventListener('resize', updateVisibleSlides);
         return () => window.removeEventListener('resize', updateVisibleSlides);
@@ -77,15 +75,40 @@ const GiaDichVuListCarousel: React.FC<GiaDichVuListCarouselProps> = ({
 
     useEffect(() => {
         if (!isTransitioning) {
-            const timeout = setTimeout(() => {
-                setIsTransitioning(true);
-            }, 20);
+            const timeout = setTimeout(() => setIsTransitioning(true), 20);
             return () => clearTimeout(timeout);
         }
     }, [isTransitioning]);
 
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setIsVisible(true);
+                        observer.unobserve(entry.target);
+                    } else {
+                        setIsVisible(false);
+                    }
+                });
+            },
+            { threshold: 0.3 }
+        );
+
+        if (sectionRef.current) observer.observe(sectionRef.current);
+        return () => {
+            if (sectionRef.current) observer.unobserve(sectionRef.current);
+        };
+    }, []);
+
     return (
-        <div className="custom-carousel">
+        <div
+            ref={sectionRef}
+            className={`custom-carousel ${isVisible ? 'animate__animated animate__lightSpeedInLeft' : 'opacity-0'}`}
+        >
             <div className="carousel-wrapper">
                 <div className="carousel-track-wrapper">
                     <button className="nav-btn prev" onClick={prev}>
@@ -110,17 +133,13 @@ const GiaDichVuListCarousel: React.FC<GiaDichVuListCarouselProps> = ({
                                 onClick={() => onItemClick?.(item)}
                             >
                                 <Link
-                                    to={`/gia-dich-vu/detail/${item.id}`}
-                                    state={{ giadichvuItem: item }}
+                                    to={getLinkPath ? getLinkPath(item) : '#'}
+                                    // to='/hoat-dong-cong-ty/detail/10042'
+                                    state={getLinkState ? getLinkState(item) : undefined}
                                     style={{ textDecoration: 'none', color: 'inherit' }}
                                     onClick={() => window.scrollTo(0, 0)}
                                 >
-                                    <Itemgiadichvu
-                                        name={item.title}
-                                        desc={item.content}
-                                        img={`${imageBaseUrl}/${item.image}`}
-                                        pdfurl={item.pdfurl}
-                                    />
+                                    {renderItem(item)}
                                 </Link>
                             </div>
                         ))}
@@ -134,4 +153,4 @@ const GiaDichVuListCarousel: React.FC<GiaDichVuListCarouselProps> = ({
     );
 };
 
-export default GiaDichVuListCarousel;
+export default CommonListCarousel;

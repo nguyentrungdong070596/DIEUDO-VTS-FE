@@ -33,6 +33,9 @@ import './i18n';
 import ServiceDetail from "./pages/ServiceDetail";
 import Danhsachphuongtien from "./pages/Danhsachphuongtien";
 import GoToTopButton from "./components/GototopButton";
+import Hoatdongcongty from "./pages/Hoatdongcongty";
+import HoatdongcongtyDetail from "./pages/HoatdongcongtyDetail";
+import BubbleBackground from "./components/BubbleBackground";
 
 function App() {
   const [keyword, setKeyword] = useState('');
@@ -41,13 +44,14 @@ function App() {
     <div style={{ zoom: '90%' }}>
       <BrowserRouter >
 
-        {/* <div className="bg-green-500 text-white p-5 text-center">
+        {/* <div className="bg-green-500 p-5 text-center text-white">
   Tailwind hoạt động!
 </div> */}
         <SearchContext.Provider value={{ keyword, setKeyword }}>
           <ScrollToTop />
           <Header />
           <Routes>
+
 
             <Route path="/" element={<Home />} />
             <Route path="/ke-hoach-dan-tau" element={<Kehoachdantau />} />
@@ -70,6 +74,8 @@ function App() {
             <Route path="/vi-tri-don-tra-hoa-tieu" element={<Vitridontrahoatieu />} />
             <Route path="/gioi-thieu-cong-ty" element={<Gioithieucongty />} />
             <Route path="/lich-thuy-trieu" element={<Lichthuytrieu />} />
+            <Route path="/hoat-dong-cong-ty" element={<Hoatdongcongty />} />
+            <Route path="/hoat-dong-cong-ty/detail/:id" element={<HoatdongcongtyDetail />} />
           </Routes>
           <Footer />
           <GoToTopButton /> {/* Nút này sẽ hiển thị ở tất cả các trang */}

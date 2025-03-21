@@ -15,7 +15,7 @@ const News = () => {
     const [tintucs, setTintuc] = useState<Tintuc[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
-    const itemsPerPage = 2;
+    const itemsPerPage = 5;
 
     const loadTintuc = async (page: number) => {
         try {
@@ -63,7 +63,7 @@ const News = () => {
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
-                    <div className="col-custom l-9 m-12 c-12">
+                    <div className="col-custom m-12 c-12 l-9">
                         <div>
                             <Titlepage name="TIN TỨC" />
                             <div className="danhsach-news">
@@ -75,6 +75,8 @@ const News = () => {
                                         style={{ textDecoration: 'none', color: 'inherit' }}
                                     >
                                         <Itemnews
+                                            index={index}
+
                                             title={item.title}
                                             time={item.postdate}
                                             img={`${SERVER}/${item.image}`}
