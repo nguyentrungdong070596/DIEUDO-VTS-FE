@@ -6,6 +6,8 @@ import "../static/css/nav.scss";
 import { FaBars, FaTimes } from "react-icons/fa";
 import 'animate.css';
 import { useTranslation } from "react-i18next";
+import Apis, { endpoints } from "../configs/Apis";
+import { LinkDathangdichvu } from "../interface/InterfaceCommon";
 
 const Navbar: React.FC = () => {
 
@@ -17,6 +19,7 @@ const Navbar: React.FC = () => {
   const [isFixed, setIsFixed] = useState(false); // Trạng thái fixed của Navbar
   const [isDesktopAndTablet, setIsDesktopAndTablet] = useState(window.innerWidth >= 740);
   const [animationDone, setAnimationDone] = useState(false);
+  const [link, setLink] = useState<LinkDathangdichvu[]>([]);
 
   useEffect(() => {
     const handleResize = () => setIsDesktopAndTablet(window.innerWidth >= 740);
@@ -24,11 +27,45 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+
+
+  const loadLinkDathangdichvu = async () => {
+    try {
+      const params = { limit: 1000, page: 1, itemType: "10" };
+      const response = await Apis.get(endpoints.APIItems, { params });
+
+
+
+      if (response.data && Array.isArray(response.data.data)) {
+        setLink(response.data.data);
+
+
+        // Sử dụng totalRecords từ API
+        const total = response.data.totalRecords || response.data.data.length;
+
+      } else {
+        console.error("Dữ liệu API không đúng định dạng:", response.data);
+        setLink([]);
+      }
+    } catch (error) {
+      console.error("Lỗi khi load hoa tiêu:", error);
+      setLink([]);
+    }
+  };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadLinkDathangdichvu();
+    };
+
+    fetchData();
+  }, []);
   const menuItems = [
     { path: "/", label: t("home") },
     { path: "/ke-hoach-dan-tau", label: t("plan") },
     { path: "/gio-dieu-dong", label: t("schedule") },
-    // { path: "/dat-hang-dich-vu", label: t("orderService") },
+    { path: link[0]?.title || "/dat-hang-dich-vu", label: t("orderService") }, // ← gắn `link[0]?.link` vào đây
     { path: "/gia-dich-vu", label: t("servicePrice") },
     { path: "/danh-sach-hoa-tieu", label: t("pilotList") },
     {
@@ -38,6 +75,7 @@ const Navbar: React.FC = () => {
         { path: "/vi-tri-don-tra-hoa-tieu", label: t("pilotPosition") },
         { path: "/lich-thuy-trieu", label: t("tideSchedule") },
         { path: "/tuyen-luong", label: t("route") },
+        { path: "/hoat-dong-cong-ty", label: t("activity") },
         { path: "/he-thong-cang-bien", label: t("seaportSystem") },
         { path: "/vung-hoa-tieu", label: t("pilotArea") },
         { path: "/danh-sach-phuong-tien", label: t("transportVehicleList") },
@@ -79,6 +117,9 @@ const Navbar: React.FC = () => {
       {/* Menu chính (DesktopAndTablet) */}
       <div className="menu-items">
         {menuItems.map((item, index) => (
+
+
+
           item.submenu ? (
             <div
               key={index}

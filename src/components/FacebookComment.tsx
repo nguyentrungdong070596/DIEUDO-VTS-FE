@@ -1,7 +1,6 @@
 // src/components/FacebookComments.tsx
 import { useEffect } from "react";
 import "../static/css/facebookComment.scss" // Tùy chỉnh CSS
-
 interface FacebookCommentsProps {
     url: string;
     width?: string;

@@ -7,6 +7,7 @@ import Carousel2 from '../components/Carousel2'
 import Apis, { endpoints, SERVER } from '../configs/Apis'
 import { HeThongCangBien } from '../interface/InterfaceCommon'
 import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai'
+import { FaHandPointRight } from 'react-icons/fa'
 
 const Hethongcangbien = () => {
     const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf";
@@ -47,42 +48,45 @@ const Hethongcangbien = () => {
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
-                    <div className='col-custom l-9 m-12 c-12'>
+                    <div className='col-custom m-12 c-12 l-9'>
                         <div className=''>
                             <Titlepage name='Hệ thống cảng biển' />
 
                             {hethongcangbien.length > 0 ? (
-                                <a
-                                    href={`${SERVER}/${hethongcangbien[0].pdfurl}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="btn-pdf-link-hethong"
-                                    onMouseEnter={() => setIsHovered(true)}
-                                    onMouseLeave={() => setIsHovered(false)}
-                                >
-                                    <span className="btn-content">
-                                        {isHovered ? (
-                                            <>
-                                                <AiFillFilePdf className="btn-icon" />
-                                                <span className="btn-text">Xem PDF</span>
-                                            </>
+                                <div className="attention-wrapper">
 
-                                        ) : (
-                                            <>
-                                                <AiFillFileWord className="btn-icon" />
-                                                <span className="btn-text">Xem Word</span>
-                                            </>
+                                    <span className="hand-pointer"><FaHandPointRight /></span>
 
-                                        )}
-                                    </span>
-                                </a>
+                                    <a
+                                        href={`${SERVER}/${hethongcangbien[0].pdfurl}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn-pdf-link"
+                                        onMouseEnter={() => setIsHovered(true)}
+                                        onMouseLeave={() => setIsHovered(false)}
+                                    >
+                                        <span className="btn-content">
+                                            {isHovered ? (
+                                                <>
+                                                    <AiFillFileWord className="btn-icon" />
+                                                    <span className="btn-text">Xem Word</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <AiFillFilePdf className="btn-icon" />
+                                                    <span className="btn-text">Xem PDF</span>
+                                                </>
+                                            )}
+                                        </span>
+                                    </a>
+                                </div>
                             ) : (
                                 <p>Đang tải tài liệu...</p>
                             )}
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

@@ -73,7 +73,7 @@ const GiadichvuDetail = () => {
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
-                    <div className="col-custom l-9 m-12 c-12">
+                    <div className="col-custom m-12 c-12 l-9">
                         <Titlepage name="Chi tiết" />
                         <div className="detail-dichvu">
                             <h2>{giadichvuItem.title}</h2>
@@ -81,7 +81,7 @@ const GiadichvuDetail = () => {
                             <p dangerouslySetInnerHTML={{ __html: giadichvuItem.content || "" }} ></p>
                             {/* <span className='detail-dichvu-postdate'>Ngày đăng: {dichvuItem.postdate}</span> */}
 
-                            <img src={`${SERVER}/${giadichvuItem.image}`} alt={giadichvuItem.image} />
+                            <img className='img-giadichvu' src={`${SERVER}/${giadichvuItem.image}`} alt={giadichvuItem.image} />
 
                             <span className="detail-dichvu-postdate">
                                 Ngày đăng: {new Date(giadichvuItem.postdate).toLocaleDateString('vi-VN')}
@@ -126,7 +126,7 @@ const GiadichvuDetail = () => {
                 <div className="row">
                     <div className="col-custom l-3"></div>
 
-                    <div className="col-custom l-9 m-12 c-12">
+                    <div className="col-custom m-12 c-12 l-9">
                         <br />
                         <hr className='hrbaiviet' />
                         <Titlepage name="BÀI ĐĂNG LIÊN QUAN" />

@@ -65,44 +65,43 @@ const Giodieudong = () => {
                 <div className="row">
                     <SidebarMenu />
 
-                    <div className='col-custom l-9 m-12 c-12'>
+                    <div className='col-custom m-12 c-12 l-9'>
                         <div className=''>
 
 
                             <Titlepage name='Giờ điều động mớn nước' />
 
                             {giodieudong.length > 0 ? (
-                                // <DocViewerComponent documentUrl={`${SERVER}/${giodieudong[0].pdfurl}`} />
+                                <DocViewerComponent documentUrl={`${SERVER}/${giodieudong[0].pdfurl}`} />
 
                                 // <DocViewerComponent documentUrl={documentUrl} />
-                                <div className="attention-wrapper">
-                                    {/* <span className="hand-pointer">👉</span> */}
+                                // <div className="attention-wrapper">
 
-                                    <span className="hand-pointer"><FaHandPointRight /></span>
+                                //     <span className="hand-pointer"><FaHandPointRight /></span>
 
-                                    <a
-                                        href={`${SERVER}/${giodieudong[0].pdfurl}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="btn-pdf-link"
-                                        onMouseEnter={() => setIsHovered(true)}
-                                        onMouseLeave={() => setIsHovered(false)}
-                                    >
-                                        <span className="btn-content">
-                                            {isHovered ? (
-                                                <>
-                                                    <AiFillFileWord className="btn-icon" />
-                                                    <span className="btn-text">Xem Word</span>
-                                                </>
-                                            ) : (
-                                                <>
-                                                    <AiFillFilePdf className="btn-icon" />
-                                                    <span className="btn-text">Xem PDF</span>
-                                                </>
-                                            )}
-                                        </span>
-                                    </a>
-                                </div>
+                                //     <a
+                                //         href={`${SERVER}/${giodieudong[0].pdfurl}`}
+                                //         target="_blank"
+                                //         rel="noopener noreferrer"
+                                //         className="btn-pdf-link"
+                                //         onMouseEnter={() => setIsHovered(true)}
+                                //         onMouseLeave={() => setIsHovered(false)}
+                                //     >
+                                //         <span className="btn-content">
+                                //             {isHovered ? (
+                                //                 <>
+                                //                     <AiFillFileWord className="btn-icon" />
+                                //                     <span className="btn-text">Xem Word</span>
+                                //                 </>
+                                //             ) : (
+                                //                 <>
+                                //                     <AiFillFilePdf className="btn-icon" />
+                                //                     <span className="btn-text">Xem PDF</span>
+                                //                 </>
+                                //             )}
+                                //         </span>
+                                //     </a>
+                                // </div>
 
 
 

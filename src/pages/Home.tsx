@@ -32,6 +32,8 @@ import "aos/dist/aos.css";
 import "animate.css";
 import { useSearchContext } from "../context/SearchContext";
 import { useTranslation } from "react-i18next";
+import AnimatedBackground from "../components/AnimatedBackground";
+import BubbleBackground from "../components/BubbleBackground";
 
 
 
@@ -76,9 +78,11 @@ const Home = () => {
 
   const paragraphDichVuRef = useRef<HTMLParagraphElement>(null);
   const paragraphTinTucRef = useRef<HTMLParagraphElement>(null);
-  const fullTextDichVu = `giải pháp thực tế - nhanh chóng - tiết kiệm`;
-  const fullTextTinTuc = `  tin tức & sự kiện mới nhất của chúng tôi với những nội dung nổi bật và đáng chú ý.
-`;
+  // const fullTextDichVu = `giải pháp thực tế - nhanh chóng - tiết kiệm`;
+  const fullTextDichVu = t("subTitleService");
+  const fullTextTinTuc = t("subTitleNews");
+
+  // const fullTextTinTuc = `tin tức & sự kiện mới nhất của chúng tôi`;
   // const fullTextTinTuc = `Tin tức và các sự kiện mới nhất của chúng tôi`;
 
   useEffect(() => {
@@ -141,6 +145,39 @@ const Home = () => {
 
 
     return () => observer.disconnect();
+  }, []);
+
+
+  // scroll tới đâu hiệu ứng =========================================
+
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            // observer.unobserve(entry.target);
+          }
+          // else {
+          //   setIsVisible(false); // để khi scroll ra khỏi, lần sau vào lại sẽ trigger lại animation
+
+          // }
+        });
+      },
+      { threshold: 0 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
+    };
   }, []);
 
 
@@ -343,20 +380,23 @@ const Home = () => {
 
   return (
     <>
+      {/* <BubbleBackground /> */}
+
       <Carousel />
 
 
 
 
-      <div className="gridme wide about">
+      <div className="gridme about wide">
+
         <div className="row about-flex">
-          <div className="flex col-custom l-6 m-12 c-12 overflow-hidden h-[500px] relative">
-            <div className="left-about flex flex-col gap-4 animate-[marquee-up_10s_linear_infinite]">
+          <div className="col-custom flex h-[500px] m-12 c-12 l-6 overflow-hidden relative">
+            <div className="flex flex-col animate-[marquee-up_10s_linear_infinite] gap-4 left-about">
 
               {
 
                 banlanhdao.map((item, index) => (
-                  // <Link key={index} to={`/dich-vu/${item.Id}`} className=" col-custom l-4 m-12 c-12" style={{
+                  // <Link key={index} to={`/dich-vu/${item.Id}`} className="col-custom m-12 c-12 l-4" style={{
                   //   textDecoration: 'none', color: 'inherit', width: '100%', height: '100%', display: "inherit"
                   // }}>
 
@@ -366,28 +406,28 @@ const Home = () => {
                   >
 
                     <img src={`${SERVER}/${item.image}`}
-                      className="w-full h-auto" />
+                      className="h-auto w-full" />
                   </div>
                   // </Link>
                 ))}
 
               {/* {
                 banlanhdao.map((item, index) => {
-                  <div className="item-about"><img src="/tau1.png" className="w-full h-auto" /></div>
+                  <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
 
                 })
               } */}
-              {/* <div className="item-about"><img src="/tau1.png" className="w-full h-auto" /></div>
-              <div className="item-about"><img src="/tau2.png" className="w-full h-auto" /></div>
-              <div className="item-about"><img src="/tau1.png" className="w-full h-auto" /></div>
-              <div className="item-about"><img src="/tau2.png" className="w-full h-auto" /></div>
-              <div className="item-about"><img src="/tau1.png" className="w-full h-auto" /></div>
-              <div className="item-about"><img src="/tau2.png" className="w-full h-auto" /></div>
+              {/* <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
+              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div>
+              <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
+              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div>
+              <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
+              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div>
 
-              <div className="item-about"><img src="/tau1.png" className="w-full h-auto" /></div>
-              <div className="item-about"><img src="/tau2.png" className="w-full h-auto" /></div>
-              <div className="item-about"><img src="/tau1.png" className="w-full h-auto" /></div>
-              <div className="item-about"><img src="/tau2.png" className="w-full h-auto" /></div> */}
+              <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
+              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div>
+              <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
+              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div> */}
             </div>
           </div>
 
@@ -395,18 +435,18 @@ const Home = () => {
 
 
 
-          <div className="col-custom l-6 m-12 c-12">
-            <div className="right-about ">
-              <h2 className="title-right-box    animate__animated animate__backInUp "
+          <div className="col-custom m-12 c-12 l-6" >
+            <div className="right-about">
+              <h2 className="animate__animated animate__backInUp title-right-box"
                 data-aos="fade-up" data-aos-once="false"
                 ref={aboutRef}
 
               >{t('aboutUs')}</h2>
 
+
               <p
-                className="content-text animate__animated animate__flash"
-                data-aos="fade-up"
-                data-aos-once="false"
+                className="animate__animated animate__fadeInRight content-text"
+
               >
                 {/* Công ty Dịch vụ và Vận tải biển Vũng Tàu (VUNGTAUSHIP) được thành lập ngày 10/02/1990 theo quyết định của UBND Đặc khu Vũng Tàu Côn Đảo. Công ty được thành lập lại là Doanh nghiệp nhà nước theo Quyết định số 12/QĐ-UBT ngày 27/11/1992 của UBND tỉnh Bà Rịa – Vũng Tàu với vốn điều lệ ban đầu là: 7.467.638.393 đồng.
                 <br /><br />
@@ -438,13 +478,14 @@ const Home = () => {
       >
 
       </div>
-      <div className="serviceofus  " >
+      <div className="serviceofus" >
         <div className="gridme wide">
           <div className="row">
-            <div className="sec-title text-center col-custom l-12 m-12 c-12 text-center space-y-4 relative">
+            <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
 
               <h2
-                className="text-2xl sm:text-3xl md:text-4xl title-box font-extrabold tracking-normal sm:tracking-wider uppercase animate__animated animate__fadeInDown drop-shadow-md"
+                // className="text-2xl animate__animated animate__fadeInDown drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase"
+                className={`text-2xl  drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase ${isVisible ? 'animate__animated animate__fadeInDown' : 'opacity-0'}`}
                 data-aos="fade-up"
                 data-aos-once="false"
               >
@@ -454,25 +495,25 @@ const Home = () => {
 
 
               <p
-                className="text-gray-700  text-base md:text-lg sub-title font-light tracking-widest italic mx-auto leading-relaxed animate__animated animate__fadeInUp"
+                className="text-base text-gray-700 animate__animated animate__fadeInUp font-light italic leading-relaxed md:text-lg mx-auto sub-title tracking-widest"
                 ref={paragraphDichVuRef}
                 data-aos="fade-up"
               >
               </p>
 
-              {/* <div className="w-16 h-1 bg-[#0196da] mx-auto mt-2 rounded-full"></div> */}
+              {/* <div className="bg-[#0196da] h-1 rounded-full w-16 mt-2 mx-auto"></div> */}
             </div>
 
           </div>
 
           <div className="row service-itemes">
             {dichvus.map((item, index) => (
-              // <Link key={index} to={`/dich-vu/${item.Id}`} className=" col-custom l-4 m-12 c-12" style={{
+              // <Link key={index} to={`/dich-vu/${item.Id}`} className="col-custom m-12 c-12 l-4" style={{
               //   textDecoration: 'none', color: 'inherit', width: '100%', height: '100%', display: "inherit"
               // }}>
 
               <div
-                className="col-custom l-4 m-12 c-12 service-item1"
+                className="col-custom m-12 c-12 l-4 service-item1"
                 key={index}
                 onClick={() => handleOpenDialogDichVu(item)}
                 style={{ cursor: 'pointer' }} >
@@ -499,16 +540,17 @@ const Home = () => {
 
       <div
         ref={contactRef}
-        style={{ marginTop: '50px', height: '50px' }}
+        style={{ marginTop: '10px', height: '10px' }}
       >
       </div>
 
-      <div className="newsofus gridme wide">
+      <div className="gridme newsofus wide">
         <div className="row">
-          <div className="  sec-title text-center col-custom l-12 m-12 c-12 text-center space-y-4 relative">
+
+          <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
 
             <h2
-              className="text-2xl sm:text-3xl md:text-4xl title-box font-extrabold tracking-normal sm:tracking-wider uppercase animate__animated animate__fadeInDown drop-shadow-md"
+              className={`text-2xl  drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase ${isVisible ? 'animate__animated animate__fadeInDown' : 'opacity-0'}`}
               data-aos="fade-up"
               data-aos-once="false"
             >
@@ -518,13 +560,13 @@ const Home = () => {
 
 
             <p
-              className="text-gray-700   text-base md:text-lg sub-title font-light tracking-widest italic mx-auto leading-relaxed animate__animated animate__fadeInUp"
+              className="text-base text-gray-700 animate__animated animate__fadeInUp font-light italic leading-relaxed md:text-lg mx-auto sub-title tracking-widest"
               ref={paragraphTinTucRef}
               data-aos="fade-up"
             >
             </p>
 
-            {/* <div className="w-16 h-1 bg-[#0196da] mx-auto mt-2 rounded-full"></div> */}
+            {/* <div className="bg-[#0196da] h-1 rounded-full w-16 mt-2 mx-auto"></div> */}
           </div>
 
         </div>

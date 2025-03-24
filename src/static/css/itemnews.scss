@@ -1,49 +1,62 @@
 .item-news {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
     align-items: start;
+    gap: 16px;
+    padding: 16px;
+    margin: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.246);
+    background: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 
     &:hover {
-        // background: rgba(0, 0, 0, 0.05);
-        transform: scale(1.1) rotate(-6deg);
-        transition: transform 0.3s ease-in-out;
-
+        transform: translateY(-5px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
     }
 
-    .item-news-title {
-        font-size: 20px;
-        font-weight: bold;
-        color: #333;
-        padding-bottom: 10px;
+    .item-news-img {
+        width: 30%;
+        min-width: 150px;
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
     }
 
-    .item-news-time {
-        font-size: 14px;
-        color: #007CF9;
-        padding-bottom: 10px;
+    .item-news-content {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 20px;
+
+        .item-news-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        .item-news-time {
+            font-size: 14px;
+            color: #007CF9;
+            margin-bottom: 10px;
+        }
+
+        .item-news-desc {
+            font-size: 15px;
+            color: #444;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-align: justify;
+        }
     }
-
-    .item-news-desc {
-        display: -webkit-box;
-        -webkit-line-clamp: 4;
-        /* Số dòng muốn hiển thị */
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: justify;
-    }
-
-}
-
-.item-news .item-news-img {
-    width: 30%;
-    padding-right: 10px;
-    padding-bottom: 10px;
-}
-
-.item-news .item-news-content {
-    width: 70%;
-    margin-bottom: 20px;
-
 }

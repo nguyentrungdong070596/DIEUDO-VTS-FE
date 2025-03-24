@@ -1,15 +1,73 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 8px 16px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.datepicker-wrapper {
+    position: relative;
+    width: max-content;
+}
+
+.custom-datepicker {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    transition: border 0.2s ease;
+}
+
+.custom-datepicker:focus {
+    border-color: #28bab2;
+}
+
+.react-datepicker-popper {
+    z-index: 9999 !important;
+    margin-top: 4px !important;
+    left: 0px !important;
+    transform: none !important;
+    top: 100% !important;
+    position: absolute !important;
+}
+
+.react-datepicker {
+    border-radius: 12px;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    border: none;
+    font-size: 14px;
+}
+
+.react-datepicker__header {
+    background-color: #28BAB2;
+    color: white;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+    background-color: #28BAB2 !important;
+    color: white !important;
+}
+
 .tabs-container {
     width: 100%;
     border-bottom: 2px solid #ddd;
     display: flex;
-    justify-content: flex-start; // Căn trái
-    padding-left: 20px; // Thêm khoảng cách từ mép trái
+    justify-content: flex-start;
+    padding-left: 20px;
 }
 
 .tabs {
     display: flex;
     position: relative;
-    gap: 30px; // Khoảng cách giữa các tab
+    gap: 30px;
     padding-bottom: 5px;
 }
 
@@ -27,11 +85,11 @@
     &:hover {
         color: #007bff;
     }
-}
 
-.tab-button.active {
-    color: #007bff;
-    font-weight: bold;
+    &.active {
+        color: #007bff;
+        font-weight: bold;
+    }
 }
 
 .tab-indicator {
@@ -43,19 +101,18 @@
     transition: all 0.3s ease-in-out;
 }
 
-// Điều chỉnh vị trí gạch chân khi đổi tab
 .tab-1 {
     width: 90px;
     left: 0px;
 }
 
 .tab-2 {
-    width: 90px;
+    width: 100px;
     left: 120px;
 }
 
 .tab-3 {
-    width: 120px;
+    width: 180px;
     left: 240px;
 }
 
@@ -63,8 +120,6 @@
     padding: 20px;
 }
 
-
-// table-----
 .ship-table {
     padding: 20px;
     margin-bottom: 100px;
@@ -101,4 +156,38 @@
             }
         }
     }
+
+    // Custom scroll container
+    .scroll-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin; // Firefox
+        scrollbar-color: #28bab2 #f2f2f2;
+
+        &::-webkit-scrollbar {
+            height: 6px; // nhỏ gọn
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f2f2f2;
+            border-radius: 6px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: #28bab2;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+    }
+
+    // Chỉ hiển thị scroll container ở màn hình nhỏ
+    @media (max-width: 1023px) {
+        .scroll-container {
+            display: block;
+            padding-bottom: 8px;
+            margin-bottom: 8px;
+        }
+
+    }
+
 }

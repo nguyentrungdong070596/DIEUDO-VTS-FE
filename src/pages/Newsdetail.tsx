@@ -26,8 +26,6 @@ const Newsdetail = () => {
             const params = { limit: 1000, page: 1 };
             const response = await Apis.get(endpoints.APINews, { params });
 
-
-
             if (response.data && Array.isArray(response.data.data)) {
                 setTintuc(response.data.data);
                 // Sử dụng totalRecords từ API

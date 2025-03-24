@@ -1,34 +1,38 @@
 import React from 'react'
 import '../static/css/itemgiadichvu.scss'
-import { Link } from 'react-router-dom';
-// import { Button } from '@mui/material';
+import { motion } from 'framer-motion'
 
 interface ItemgiadichvuProps {
     name: string;
     desc: string;
     img: string;
     pdfurl: string;
+
+    index?: number; // truyền từ component cha để tính delay
 }
 
-const Itemgiadichvu: React.FC<ItemgiadichvuProps> = ({ name, desc, img, pdfurl }) => {
+const Itemgiadichvu: React.FC<ItemgiadichvuProps> = ({ name, desc, img, pdfurl, index = 0 }) => {
     const item = {
         name: name,
         desc: desc,
         img: img
     }
+
     return (
-        <div className="itemgiadichvu ">
+        <motion.div
+            className="itemgiadichvu"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+        >
             <img src={img} alt="Giá dịch vụ" />
             <div className="itemgiadichvu-info">
                 <p className='itemgiadichvu-name'>{name}</p>
-                {/* <Link to={`/gia-dich-vu/detail`} // Chỉ truyền pathname
-                    state={{ giadichvuItem: item }}
-                > */}
                 <button className="custom-button">Đọc thêm</button>
-                {/* </Link> */}
             </div>
-        </div>
+        </motion.div>
     );
 };
 
-export default Itemgiadichvu
+export default Itemgiadichvu;

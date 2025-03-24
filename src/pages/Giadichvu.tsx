@@ -67,6 +67,10 @@ const Giadichvu = () => {
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
+        window.scrollTo({
+            top: 200,
+            behavior: 'smooth'
+        });
     };
 
     return (
@@ -77,7 +81,7 @@ const Giadichvu = () => {
                 <div className="row">
                     <SidebarMenu />
 
-                    <div className='col-custom l-9 m-12 c-12'>
+                    <div className='col-custom m-12 c-12 l-9'>
                         <div className=''>
 
 
@@ -91,7 +95,7 @@ const Giadichvu = () => {
                                         state={{ giadichvuItem: item }} // Truyền state riêng (v6)
                                         style={{ textDecoration: 'none', color: 'inherit' }}
                                     >
-                                        <Itemgiadichvu key={index} name={item.title} desc={item.content} pdfurl={item.pdfurl} img={`${SERVER}/${item.image}`} />
+                                        <Itemgiadichvu index={index} key={index} name={item.title} desc={item.content} pdfurl={item.pdfurl} img={`${SERVER}/${item.image}`} />
                                     </Link>
                                 ))}
                             </div>

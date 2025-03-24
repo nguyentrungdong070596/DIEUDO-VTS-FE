@@ -1,80 +1,84 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import taudenimg from "../static/img/tauden.png";
 import Titlepage from "../components/Titlepage";
 import "../static/css/kehoachdantau.scss";
+import "animate.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format } from "date-fns";
+import Apis from "../configs/Apis";
+import DatePickerCustom from "../components/DatePickerCustom";
 
-
-interface Ship {
-    stt: number;
-    tenTau: string;
-    quocTich: string;
-    daiLy: string;
+interface PlanShip {
+    id: number;
+    name: string;
+    country: string;
+    agency: string;
+    loa: string;
     dwt: string;
     grt: string;
-    loa: string;
     draft: string;
-    tu: string;
-    den: string;
+    fromkh: string;
+    tokh: string;
     pob: string;
-    hoaTieuTen: string;
-    hoaTieuHang: string;
+    notes: string;
+    nameHT: string;
+    rangeHT: string;
 }
-
-const ships: Ship[] = [
-    {
-        stt: 1,
-        tenTau: "HANSA HOMBURG",
-        quocTich: "LIBERIA",
-        daiLy: "VIETFRACHT",
-        dwt: "23.350",
-        grt: "18.252",
-        loa: "175,49",
-        draft: "9,6",
-        tu: "P/S3",
-        den: "GML",
-        pob: "00:30",
-        hoaTieuTen: "NGUYỄN XUÂN BÁCH",
-        hoaTieuHang: "NH",
-    },
-    {
-        stt: 2,
-        tenTau: "TRUNG THANG 558",
-        quocTich: "VIET NAM",
-        daiLy: "GOLDENSEA",
-        dwt: "13.817,6",
-        grt: "6.393",
-        loa: "119,8",
-        draft: "8,7",
-        tu: "P/S3",
-        den: "PMT",
-        pob: "00:45",
-        hoaTieuTen: "TRẦN VĂN LỰC",
-        hoaTieuHang: "I",
-    },
-    {
-        stt: 3,
-        tenTau: "VIET THUAN 09",
-        quocTich: "VIETNAM",
-        daiLy: "DUC NGUYEN",
-        dwt: "5.345",
-        grt: "3.260",
-        loa: "79",
-        draft: "3,5",
-        tu: "P/S1",
-        den: "GGIABP9",
-        pob: "01:30",
-        hoaTieuTen: "NGUYỄN MẠNH HÙNG",
-        hoaTieuHang: "III",
-    },
-];
-
 
 const Kehoachdantau = () => {
     const [activeTab, setActiveTab] = useState("1");
+    const [const_planships, setconst_planships] = useState<PlanShip[]>([]);
+    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+    const getDendoiByTab = (tab: string): string => {
+        if (tab === "1") return "v";
+        if (tab === "2") return "r";
+        return "dc";
+    };
+
+    const load_const_planships = async () => {
+        try {
+            const params = {
+                limit: 1000,
+                ngay: selectedDate ? format(selectedDate, "dd/MM/yyyy") : "",
+                dendoi: getDendoiByTab(activeTab),
+            };
+
+            const response = await Apis.get(
+                "http://118.69.168.36:3965/api/v1/donhang/order/monitorwebpilot/",
+                { params }
+            );
+
+            if (response.data && Array.isArray(response.data.data)) {
+                setconst_planships(response.data.data);
+            } else {
+                setconst_planships([]);
+            }
+        } catch (error) {
+            console.error("Lỗi khi load const_planships:", error);
+            setconst_planships([]);
+        }
+    };
+
+    useEffect(() => {
+        load_const_planships();
+    }, [activeTab, selectedDate]);
 
     return (
-        <div className="gridme wide">
+        <div className="gridme wide2">
             <Titlepage name="Kế hoạch dẫn tàu" />
+
+            {/* 🔍 Thanh tìm kiếm ngày */}
+            <div className="search-container">
+                <div className="datepicker-wrapper">
+                    <DatePickerCustom
+                        label="📅 Chọn ngày:"
+                        selectedDate={selectedDate}
+                        onDateChange={(date) => setSelectedDate(date)}
+                    />
+                </div>
+            </div>
 
             {/* Tabs */}
             <div className="tabs-container">
@@ -97,66 +101,57 @@ const Kehoachdantau = () => {
                     >
                         Tàu dịch chuyển
                     </button>
-                    {/* Thanh gạch chân di chuyển */}
                     <div className={`tab-indicator tab-${activeTab}`}></div>
                 </div>
             </div>
 
-            {/* Nội dung từng tab */}
+            {/* Nội dung tab */}
             <div className="tab-content">
-                {activeTab === "1" && (
-                    <div>
-                        <div className="ship-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th rowSpan={2}>STT</th>
-                                        <th rowSpan={2}>Tên tàu</th>
-                                        <th rowSpan={2}>Quốc tịch</th>
-                                        <th rowSpan={2}>Đại lý</th>
-                                        <th colSpan={4}>Thông số</th>
-                                        <th colSpan={2}>Tuyến</th>
-                                        <th rowSpan={2}>P.O.B</th>
-                                        <th colSpan={2}>Hoa tiêu</th>
-                                    </tr>
-                                    <tr>
-                                        <th>DWT</th>
-                                        <th>GRT</th>
-                                        <th>Loa</th>
-                                        <th>Draft</th>
-                                        <th>Từ</th>
-                                        <th>Đến</th>
-                                        <th>Tên</th>
-                                        <th>Hạng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {ships.map((ship) => (
-                                        <tr key={ship.stt}>
-                                            <td>{ship.stt}</td>
-                                            <td>{ship.tenTau}</td>
-                                            <td>{ship.quocTich}</td>
-                                            <td>{ship.daiLy}</td>
-                                            <td>{ship.dwt}</td>
-                                            <td>{ship.grt}</td>
-                                            <td>{ship.loa}</td>
-                                            <td>{ship.draft}</td>
-                                            <td>{ship.tu}</td>
-                                            <td>{ship.den}</td>
-                                            <td>{ship.pob}</td>
-                                            <td>{ship.hoaTieuTen}</td>
-                                            <td>{ship.hoaTieuHang}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>                    </div>
-                )}
-                {activeTab === "2" && <div>
-
-
-                </div>}
-                {activeTab === "3" && <div>Item Three</div>}
+                <div className="animate__animated animate__fadeInUp scroll-container ship-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th rowSpan={2}>STT</th>
+                                <th rowSpan={2}>Tên tàu</th>
+                                <th rowSpan={2}>Quốc tịch</th>
+                                <th rowSpan={2}>Đại lý</th>
+                                <th colSpan={4}>Thông số</th>
+                                <th colSpan={2}>Tuyến</th>
+                                <th rowSpan={2}>P.O.B</th>
+                                <th colSpan={2}>Hoa tiêu</th>
+                            </tr>
+                            <tr>
+                                <th>DWT</th>
+                                <th>GRT</th>
+                                <th>Loa</th>
+                                <th>Draft</th>
+                                <th>Từ</th>
+                                <th>Đến</th>
+                                <th>Tên</th>
+                                <th>Hạng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {const_planships.map((ship, index) => (
+                                <tr key={ship.id}>
+                                    <td>{index + 1}</td>
+                                    <td>{ship.name}</td>
+                                    <td>{ship.country}</td>
+                                    <td>{ship.agency}</td>
+                                    <td>{ship.dwt}</td>
+                                    <td>{ship.grt}</td>
+                                    <td>{ship.loa}</td>
+                                    <td>{ship.draft}</td>
+                                    <td>{ship.fromkh}</td>
+                                    <td>{ship.tokh}</td>
+                                    <td>{ship.pob}</td>
+                                    <td>{ship.nameHT}</td>
+                                    <td>{ship.rangeHT}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );
