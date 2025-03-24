@@ -25,6 +25,7 @@ export interface HoatDongCongTy {
     content: string;
     postdate: string;
     image: string;
+    videourl: string;
     status?: string;
     height: number;
 }

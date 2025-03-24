@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import '../static/css/commonpagination.scss';
+import { ErrorBoundary } from '@react-three/fiber/dist/declarations/src/core/utils';
+import { MyErrorBoundary } from '../context/MyErrorBoundary';
 
 interface PaginationProps {
     totalItems: number;
@@ -25,28 +27,31 @@ const CommonPagination: React.FC<PaginationProps> = ({
     };
 
     return (
-        <ReactPaginate
-            previousLabel={'Trước'}
-            nextLabel={'Sau'}
-            breakLabel={'...'}
-            pageCount={pageCount}
-            marginPagesDisplayed={2}
-            pageRangeDisplayed={5}
-            onPageChange={handlePageClick}
-            forcePage={Math.max(0, Math.min(currentPage - 1, pageCount - 1))} // ✅ Bảo vệ forcePage không vượt giới hạn
-            containerClassName={'pagination'}
-            pageClassName={'page-item'}
-            pageLinkClassName={'page-link'}
-            previousClassName={'page-item'}
-            previousLinkClassName={'page-link previous-link'}
-            nextClassName={'page-item'}
-            nextLinkClassName={'page-link next-link'}
-            breakClassName={'page-item'}
-            breakLinkClassName={'page-link break-link'}
-            activeClassName={'active'}
-            disabledClassName={'disabled'}
-            disableInitialCallback={true}
-        />
+        <MyErrorBoundary>
+
+            <ReactPaginate
+                previousLabel={'Trước'}
+                nextLabel={'Sau'}
+                breakLabel={'...'}
+                pageCount={pageCount}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                forcePage={pageCount > 0 ? Math.min(currentPage - 1, pageCount - 1) : 0}
+                containerClassName={'pagination'}
+                pageClassName={'page-item'}
+                pageLinkClassName={'page-link'}
+                previousClassName={'page-item'}
+                previousLinkClassName={'page-link previous-link'}
+                nextClassName={'page-item'}
+                nextLinkClassName={'page-link next-link'}
+                breakClassName={'page-item'}
+                breakLinkClassName={'page-link break-link'}
+                activeClassName={'active'}
+                disabledClassName={'disabled'}
+                disableInitialCallback={true}
+            />
+        </MyErrorBoundary>
     );
 };
 

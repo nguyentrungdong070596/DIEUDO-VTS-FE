@@ -1,43 +1,70 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { useTransition, animated, AnimatedProps } from '@react-spring/web';
 import { HoatDongCongTy } from '../interface/InterfaceCommon';
-import { SERVER } from '../configs/Apis';
+import Apis, { endpoints, SERVER } from '../configs/Apis';
 import { Link } from 'react-router-dom';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import ScrollToTop from './ScrollToTop';
+import CommonPagination from './CommonPagination';
+import VideoCard from './VideoCard';
 
-type MasonryProps = {
-    data: HoatDongCongTy[];
-};
+type AnimatedDivProps = AnimatedProps<React.HTMLAttributes<HTMLDivElement>>;
+const AnimatedDiv = animated.div as React.FC<AnimatedDivProps>;
 
-function AlbumHoatdongcongtyMansonryCommon({ data }: MasonryProps) {
-    type AnimatedDivProps = AnimatedProps<React.HTMLAttributes<HTMLDivElement>>;
-    const AnimatedDiv = animated.div as React.FC<AnimatedDivProps>;
-
+function AlbumHoatdongcongtyMansonryCommon() {
     const [columns, setColumns] = useState<number>(2);
     const [width, setWidth] = useState<number>(0);
+    const [data, setData] = useState<HoatDongCongTy[]>([]);
+    const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
     const ref = useRef<HTMLDivElement>(null);
     const observerRef = useRef<IntersectionObserver | null>(null);
-    const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
 
-    // Pagination
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const itemsPerPage = 20;
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const itemsPerPage = 16;
+    const [totalItems, setTotalItems] = useState(0);
+    const loadingRef = useRef(false);
 
-    const paginatedData = useMemo(() => {
-        const start = (currentPage - 1) * itemsPerPage;
-        return data.slice(start, start + itemsPerPage);
-    }, [data, currentPage]);
+    const loadHoatdongcongty = useCallback(async (page: number) => {
+        if (loadingRef.current) return;
+        loadingRef.current = true;
 
-    // Random animation transforms
+        try {
+            const params = { limit: itemsPerPage, page, itemType: "8", showHiddenItem: true };
+            const response = await Apis.get(endpoints.APIItems, { params });
+            const items: HoatDongCongTy[] = Array.isArray(response?.data?.data) ? response.data.data : [];
+            const total = response?.data?.totalRecords || items.length;
+            const heightOptions = [400, 800, 700, 500];
+            const dataWithHeight = items.map((item, index) => ({
+                ...item,
+                height: heightOptions[index % heightOptions.length],
+            }));
+            setData(dataWithHeight);
+            setTotalItems(total);
+        } catch (err) {
+            console.error("Lỗi load:", err);
+            setData([]);
+            setTotalItems(0);
+        } finally {
+            loadingRef.current = false;
+        }
+    }, []);
+
+
+    useEffect(() => {
+        loadHoatdongcongty(currentPage);
+    }, [currentPage, loadHoatdongcongty]);
+
+    useEffect(() => {
+        setVisibleItems(new Set());
+    }, [data]);
+
     const randomTransforms = useMemo(() => {
         const transforms: Record<number, string> = {};
         data.forEach((item) => {
-            const translateX = Math.random() * 100 - 50;
-            const translateY = Math.random() * 100 - 50;
-            const rotate = Math.random() * 20 - 10;
-            const scale = 0.8 + Math.random() * 0.4;
+            const translateX = Math.random() * 20 - 10; // giảm từ 100 xuống 20
+            const translateY = Math.random() * 20 - 10;
+            const rotate = Math.random() * 6 - 3;
+            const scale = 0.95 + Math.random() * 0.05; // gần 1 hơn
             transforms[item.id] = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(${rotate}deg)`;
         });
         return transforms;
@@ -57,9 +84,7 @@ function AlbumHoatdongcongtyMansonryCommon({ data }: MasonryProps) {
 
     useEffect(() => {
         const handleResize = () => {
-            if (ref.current) {
-                setWidth(ref.current.offsetWidth);
-            }
+            if (ref.current) setWidth(ref.current.offsetWidth);
         };
         handleResize();
         window.addEventListener('resize', handleResize);
@@ -70,7 +95,7 @@ function AlbumHoatdongcongtyMansonryCommon({ data }: MasonryProps) {
 
     const [heights, gridItems] = useMemo(() => {
         const heights = new Array(columns).fill(0);
-        const items = paginatedData.map((item) => {
+        const items = data.map((item) => {
             const column = heights.indexOf(Math.min(...heights));
             const x = ((width - (columns - 1) * gap) / columns) * column + gap * column;
             const y = heights[column];
@@ -85,16 +110,22 @@ function AlbumHoatdongcongtyMansonryCommon({ data }: MasonryProps) {
             };
         });
         return [heights, items];
-    }, [columns, paginatedData, width]);
+    }, [columns, data, width]);
 
     useEffect(() => {
         if (!ref.current) return;
+
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                const id = Number(entry.target.getAttribute('data-id'));
-                if (entry.isIntersecting) {
-                    setVisibleItems((prev) => new Set(prev).add(id));
-                }
+            setVisibleItems((prev) => {
+                const updated = new Set(prev);
+                entries.forEach((entry) => {
+                    const id = Number(entry.target.getAttribute('data-id'));
+                    if (!isNaN(id)) {
+                        if (entry.isIntersecting) updated.add(id);
+                        else updated.delete(id);
+                    }
+                });
+                return updated;
             });
         }, { threshold: 0.1 });
 
@@ -115,7 +146,7 @@ function AlbumHoatdongcongtyMansonryCommon({ data }: MasonryProps) {
             width: item.width,
             height: item.height,
             opacity: 0,
-            transform: randomTransforms[item.id],
+            transform: randomTransforms[item.id] || 'translate(0px, 0px) scale(1) rotate(0deg)',
         }),
         enter: (item) => ({
             x: item.x,
@@ -132,22 +163,21 @@ function AlbumHoatdongcongtyMansonryCommon({ data }: MasonryProps) {
             height: item.height,
         }),
         leave: { height: 0, opacity: 0 },
-        config: { mass: 5, tension: 500, friction: 80 },
-        trail: 20,
+        config: { mass: 1.5, tension: 300, friction: 35 },
+        trail: 5,
     });
 
     const handlePageChange = (page: number) => {
-        if (page >= 1 && page <= totalPages) {
+        if (page !== currentPage) {
             setCurrentPage(page);
-            setVisibleItems(new Set());
-            window.scrollTo(0, 0);
-
+            window.scrollTo({ top: 200, behavior: 'smooth' });
         }
     };
 
+
     return (
         <>
-            <div ref={ref} className="h-full w-full relative" style={{ height: Math.max(...heights) }}>
+            <div ref={ref} className="h-full w-full relative" style={{ height: Math.max(...heights, 0) }}>
                 {transitions((style: any, item) => {
                     const isVisible = visibleItems.has(item.id);
                     return (
@@ -164,15 +194,29 @@ function AlbumHoatdongcongtyMansonryCommon({ data }: MasonryProps) {
                         >
                             <Link to={`/hoat-dong-cong-ty/detail/${item.id}`} state={{ hoatdongItem: item }}>
                                 <div
-                                    className="h-full rounded-xl shadow-md w-full duration-300 hover:scale-105 overflow-hidden relative transition"
-                                    style={{
-                                        backgroundImage: `url(${SERVER}/${item.image})`,
-                                        backgroundSize: 'cover',
-                                        backgroundPosition: 'center',
-                                        marginBottom: `${gap}px`,
-                                    }}
+                                    className="h-full rounded-xl shadow-md w-full duration-300 hover:scale-105 overflow-hidden relative transition group"
+                                    style={{ marginBottom: `${gap}px` }}
                                 >
-                                    <div className="flex bg-black/30 justify-center absolute duration-300 hover:opacity-100 inset-0 items-center opacity-0 transition">
+                                    {item.videourl ? (
+                                        <div className="w-full h-full">
+                                            <VideoCard item={item} />
+                                        </div>
+                                    ) : item.image ? (
+                                        <div
+                                            className="w-full h-full"
+                                            style={{
+                                                backgroundImage: `url(${SERVER}/${item.image})`,
+                                                backgroundSize: 'cover',
+                                                backgroundPosition: 'center',
+                                            }}
+                                        />
+                                    ) : (
+                                        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+                                            No Image
+                                        </div>
+                                    )}
+
+                                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition duration-300 z-10">
                                         <span className="text-center text-white text-xs font-semibold px-2 uppercase">
                                             {item.title}
                                         </span>
@@ -184,48 +228,12 @@ function AlbumHoatdongcongtyMansonryCommon({ data }: MasonryProps) {
                 })}
             </div>
 
-            {/* Pagination Controls */}
-            <div className="flex justify-center gap-2 items-center mb-6 mt-6 pb-5">
-                <button
-                    disabled={currentPage === 1}
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    className="bg-white border border-gray-300 rounded-full text-xl disabled:cursor-not-allowed disabled:opacity-50 hover:bg-gray-100 px-4 py-2 transition"
-                >
-                    <FiChevronLeft />
-                </button>
-
-                <div className="flex gap-2">
-                    {Array.from({ length: totalPages }, (_, i) => {
-                        const page = i + 1;
-                        const isActive = currentPage === page;
-                        return (
-                            <button
-                                key={i}
-                                onClick={() => handlePageChange(page)}
-                                className={`w-9 h-9 rounded-full text-sm m-lg-3 transition-all duration-300 ${isActive
-                                    ? 'bg-[#007CF9] text-white font-semibold shadow-md'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600'
-                                    }`}
-                            >
-                                {page}
-                            </button>
-                        );
-                    })}
-                </div>
-
-                <button
-                    disabled={currentPage === totalPages}
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    className="bg-white border border-gray-300 m-lg-3 rounded-full text-xl disabled:cursor-not-allowed disabled:opacity-50 hover:bg-gray-100 px-4 py-2 transition"
-                >
-                    <FiChevronRight />
-                </button>
-            </div>
-            <div
-                style={{ marginTop: '10px', height: '10px' }}
-            >
-            </div>
-
+            <CommonPagination
+                totalItems={totalItems}
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+            />
         </>
     );
 }

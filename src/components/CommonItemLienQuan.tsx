@@ -15,6 +15,7 @@ const CommonItemLienQuan: React.FC<ItemnewsProps> = ({ title, time, img }) => {
             <div className="item-news-img-home" >
                 <img src={img} alt="news" />
             </div>
+
             <div className="item-news-content-home">
                 <p className="item-news-time-home">{time}</p>
                 <h3 className="item-news-title-home">{title}</h3>

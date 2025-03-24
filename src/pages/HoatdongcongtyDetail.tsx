@@ -25,6 +25,7 @@ const HoatdongcongtyDetail = () => {
     const hoatdongItem = location.state?.hoatdongItem; // Lấy dữ liệu từ state
     const [hoatdongcongty, setHoatdongcongty] = useState<HoatDongCongTy[]>([]);
 
+
     useEffect(() => {
         const fetchData = async () => {
             await loadHoatdongcongty();
@@ -76,7 +77,23 @@ const HoatdongcongtyDetail = () => {
                         <Titlepage name="Chi tiết" />
                         <div className="animate__animated animate__fadeInUp detail-hoatdong">
                             <img src={`${SERVER}/${hoatdongItem.image}`} alt={hoatdongItem.title} />
+                            {hoatdongItem.videourl && (
+                                <div className="detail-hoatdong-video">
+                                    <video width="100%" height="auto"
+                                        controls
+                                        autoPlay
+                                        key={hoatdongItem.videourl} // Quan trọng
+                                        preload="metadata"
+                                        muted
+                                        loop
+                                        poster={`${SERVER}/${hoatdongItem.image}`}
 
+                                        playsInline>
+                                        <source src={`${SERVER}/${hoatdongItem.videourl}?v=${Date.now()}`} type="video/mp4" />
+                                        Trình duyệt của bạn không hỗ trợ thẻ video.
+                                    </video>
+                                </div>
+                            )}
                             {/* <div style={{ width: '100%', height: 'auto', position: 'relative' }}>
                                 <div className="h-screen w-screen">
 
