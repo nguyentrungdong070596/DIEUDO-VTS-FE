@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Titlepage from '../components/Titlepage';
 import '../static/css/danhsachhoatieu.scss';
 import SidebarMenu from '../layout/Sidebar';
-import news1 from '../static/img/news1.png';
 import Carousel2 from '../components/Carousel2';
 import Itemnews from '../components/Itemnews';
-import { Link, useLocation } from 'react-router-dom'; // Không cần To ở v6
+import { Link } from 'react-router-dom'; // Không cần To ở v6
 import { Tintuc } from '../interface/InterfaceCommon';
 import Apis, { endpoints, SERVER } from '../configs/Apis';
 import CommonPagination from '../components/CommonPagination';
-import FacebookComments from '../components/FacebookComment';
 
 const News = () => {
     const [tintucs, setTintuc] = useState<Tintuc[]>([]);
@@ -47,15 +45,15 @@ const News = () => {
         setCurrentPage(page);
     };
 
-    const stripHtml = (html: string): string => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        return doc.body.textContent || '';
-    };
+    // const stripHtml = (html: string): string => {
+    //     const parser = new DOMParser();
+    //     const doc = parser.parseFromString(html, 'text/html');
+    //     return doc.body.textContent || '';
+    // };
 
-    const location = useLocation();
+    // const location = useLocation();
 
-    const currentUrl = `${window.location.origin}${location.pathname}`;
+    // const currentUrl = `${window.location.origin}${location.pathname}`;
 
     return (
         <>

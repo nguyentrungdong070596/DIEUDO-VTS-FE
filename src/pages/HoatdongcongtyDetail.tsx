@@ -2,7 +2,7 @@
 
 
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Titlepage from '../components/Titlepage';
 import '../static/css/danhsachhoatieu.scss';
@@ -10,18 +10,15 @@ import '../static/css/hoatdongcongtydetail.scss';
 import SidebarMenu from '../layout/Sidebar';
 import Carousel2 from '../components/Carousel2';
 import Apis, { endpoints, SERVER } from '../configs/Apis';
-import NewsListCarousel from '../components/NewsListCarousel';
 import { HoatDongCongTy, Tintuc } from '../interface/InterfaceCommon';
 import FacebookComments from '../components/FacebookComment';
-import GridDistortion from '../components/GridDistortion';
 import CommonListCarousel from '../components/CommonListCarousel';
-import NewsDichVuBaiDangLienQuan from '../components/NewsBaiDangLienQuan';
 import CommonItemLienQuan from '../components/CommonItemLienQuan';
 
 const HoatdongcongtyDetail = () => {
 
     const location = useLocation();
-    const currentPageUrl = window.location.href;
+    // const currentPageUrl = window.location.href;
     const hoatdongItem = location.state?.hoatdongItem; // Lấy dữ liệu từ state
     const [hoatdongcongty, setHoatdongcongty] = useState<HoatDongCongTy[]>([]);
 

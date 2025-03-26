@@ -2,7 +2,7 @@
 
 
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Titlepage from '../components/Titlepage';
 import '../static/css/danhsachhoatieu.scss';
@@ -17,19 +17,19 @@ import FacebookComments from '../components/FacebookComment';
 const Newsdetail = () => {
 
     const location = useLocation();
-    const currentPageUrl = window.location.href;
+    // const currentPageUrl = window.location.href;
     const newsItem = location.state?.newsItem; // Lấy dữ liệu từ state
     const [tintucs, setTintuc] = useState<Tintuc[]>([]);
 
     const loadTintuc = async (page: number) => {
         try {
-            const params = { limit: 1000, page: 1 };
+            const params = { limit: 1000, page: page };
             const response = await Apis.get(endpoints.APINews, { params });
 
             if (response.data && Array.isArray(response.data.data)) {
                 setTintuc(response.data.data);
                 // Sử dụng totalRecords từ API
-                const total = response.data.totalRecords || response.data.data.length;
+                // const total = response.data.totalRecords || response.data.data.length;
                 // setTotalItems(total);
 
             } else {

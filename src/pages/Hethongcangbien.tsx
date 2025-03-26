@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Titlepage from '../components/Titlepage'
 import '../static/css/hethongcangbien.scss'
 
@@ -10,7 +10,7 @@ import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai'
 import { FaHandPointRight } from 'react-icons/fa'
 
 const Hethongcangbien = () => {
-    const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf";
+    // const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf";
     const [hethongcangbien, setGioDieuDong] = useState<HeThongCangBien[]>([]);
 
     useEffect(() => {
@@ -29,7 +29,6 @@ const Hethongcangbien = () => {
                 setGioDieuDong(response.data.data);
 
 
-                const total = response.data.totalRecords || response.data.data.length;
             } else {
                 console.error("Dữ liệu API không đúng định dạng:", response.data);
                 setGioDieuDong([]);

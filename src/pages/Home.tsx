@@ -1,52 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
-import Header from "../layout/Header";
-import Navbar from "../layout/Navbar";
+import { useEffect, useRef, useState } from "react";
 import Carousel from "../components/Carousel";
 import "../static/css/home.scss";
 
 
 import ItemService from "../components/ItemService";
-import giadichvu2 from '../static/img/giadichvu2.png'
-import giadichvu3 from '../static/img/giadichvu3.png'
-import giadichvu6 from '../static/img/giadichvu6.png'
-import dichvudailyimg from '../static/img/dichvudaily.png'
+
 import "../static/css/itemservice.scss";
 import "../static/css/gridme.scss";
 import Apis, { endpoints, SERVER } from '../configs/Apis';
 import { BanLanhDao, Dichvu, Tintuc } from "../interface/InterfaceCommon";
 import NewsDialog from "../components/NewsDialog";
-import RollingGallery from "../components/RollingGallery";
-import Itemnews from "../components/Itemnews";
-import Newshome from "../components/NewsBaiDangLienQuan";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Autoplay } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
 import NewsListCarousel from "../components/NewsListCarousel";
 import { Link } from "react-router-dom";
 import DichvuDialog from "../components/DichvuDialog";
-import Spinner from "../components/Spinner";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "animate.css";
 import { useSearchContext } from "../context/SearchContext";
 import { useTranslation } from "react-i18next";
-import AnimatedBackground from "../components/AnimatedBackground";
-import BubbleBackground from "../components/BubbleBackground";
 
 
 
 
-const giaDichVuList = [
-  { Id: 1, name: 'HOA TIÊU HÀNG HẢI', desc: 'Đội ngũ hoa tiêu 100% Hoa Tiêu tốt nghiệp khoa Điều Khiển Tàu Biển trường Đại Học Hàng Hải...', img: giadichvu6 },
-  { Id: 2, name: 'DỊCH VỤ XẾP DỠ VÀ VẬN TẢI HÀNG HÓA', desc: 'Xếp dỡ hàng hóa tại cảng, tại kho hàng: nông sản, than, phế liệu, clinke…; hàng siêu trường, hàng thiết bị chuyên dụng dầu khí, điện gió. -', img: giadichvu2 },
-  { Id: 3, name: 'XUẤT NHẬP KHẨU HÀNG HÓA', desc: '- Đại lý Hải quan hàng hóa Xuất nhập khẩu: Bà Rịa – Vũng Tàu, Tp.Hồ Chí Minh, Đồng Nai, Bình Dương, Long An…', img: giadichvu3 },
-  { Id: 4, name: 'CHO THUÊ CANO,TÀU', desc: 'Dịch vụ cano: Đưa đón thuyền viên, hành khách, chuyên gia, nhà thầu và trang thiết bị, phụ tùng: vùng neo Vũng Tàu, Sông Dinh; luồng hàng hải', img: giadichvu2 },
-  { Id: 5, name: 'Thi công các công trình, dự án hàng hải', desc: ' Nạo vét duy tu luồng hàng hải, vùng nước trước cảng, bến phao… - Quản lý, tư vấn các dự án hàng hải. ', img: giadichvu6 },
-  { Id: 6, name: 'Dịch vụ đại lý tàu biển', desc: '- Dịch vụ đại lý tàu biển', img: dichvudailyimg },
-
-];
 const Home = () => {
   const { t } = useTranslation();
 
@@ -187,28 +165,27 @@ const Home = () => {
   const [tintucs, setTintuc] = useState<Tintuc[]>([]);
   const [dichvus, setDichvu] = useState<Dichvu[]>([]);
   const [banlanhdao, setBanLanhDao] = useState<BanLanhDao[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItems, setTotalItems] = useState(0);
+  // const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6; // Limit gửi lên API
   // State cho dialog
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [selectedNews, setSelectedNews] = useState<Tintuc | null>(null);
   const [selectedDichvu, setSelectedDichvu] = useState<Dichvu | null>(null);
 
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Giả lập API loading
-    setTimeout(() => setLoading(false), 2000);
-  }, []);
-  useEffect(() => {
-    // Giả lập API loading
-    setTimeout(() => setLoading(false), 2000);
-  }, []);
+  // useEffect(() => {
+  //   // Giả lập API loading
+  //   setTimeout(() => setLoading(false), 2000);
+  // }, []);
+  // useEffect(() => {
+  //   // Giả lập API loading
+  //   setTimeout(() => setLoading(false), 2000);
+  // }, []);
 
-  const loadTintuc = async (page: number) => {
+  const loadTintuc = async () => {
     try {
-      const params = { limit: itemsPerPage, page };
+      const params = { limit: itemsPerPage, page: 1 };
       const response = await Apis.get(endpoints.APINews, { params });
 
 
@@ -216,26 +193,22 @@ const Home = () => {
       if (response.data && Array.isArray(response.data.data)) {
         setTintuc(response.data.data);
         // Sử dụng totalRecords từ API
-        const total = response.data.totalRecords || response.data.data.length;
-        setTotalItems(total);
 
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);
         setTintuc([]);
-        setTotalItems(0);
       }
     } catch (error) {
       console.error("Lỗi khi load hoa tiêu:", error);
       setTintuc([]);
-      setTotalItems(0);
     }
   };
 
 
 
-  const loadDichVu = async (page: number) => {
+  const loadDichVu = async () => {
     try {
-      const params = { limit: itemsPerPage, page };
+      const params = { limit: itemsPerPage, page: 1 };
       const response = await Apis.get(endpoints.APIDichvu, { params });
 
 
@@ -245,18 +218,14 @@ const Home = () => {
 
 
         // Sử dụng totalRecords từ API
-        const total = response.data.totalRecords || response.data.data.length;
-        setTotalItems(total);
 
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);
         setDichvu([]);
-        setTotalItems(0);
       }
     } catch (error) {
       console.error("Lỗi khi load hoa tiêu:", error);
       setDichvu([]);
-      setTotalItems(0);
     }
   };
 
@@ -281,48 +250,41 @@ const Home = () => {
 
 
         // Sử dụng totalRecords từ API
-        const total = response.data.totalRecords || response.data.data.length;
-        setTotalItems(total);
 
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);
         setBanLanhDao([]);
-        setTotalItems(0);
       }
     } catch (error) {
       console.error("Lỗi khi load hoa tiêu:", error);
       setBanLanhDao([]);
-      setTotalItems(0);
     }
   };
 
 
   useEffect(() => {
-    loadTintuc(currentPage);
+    loadTintuc();
 
-  }, [currentPage]);
+  }, []);
 
 
 
   useEffect(() => {
     loadBanLanhDao();
-  }, [currentPage]);
+  }, []);
 
 
   useEffect(() => {
-    loadDichVu(currentPage);
+    loadDichVu();
     // console.log("dichvu", dichvus)
 
-  }, [currentPage]);
+  }, []);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
 
 
   useEffect(() => {
-    loadTintuc(currentPage);
-  }, [currentPage]);
+    loadTintuc();
+  }, []);
 
 
 
@@ -362,18 +324,17 @@ const Home = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const nextSlide = () => {
+  const nextSlide = (currentIndex: any) => {
+    currentIndex
     setCurrentIndex((prev) => (prev + 1) % tintucs.length);
   };
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + tintucs.length) % tintucs.length);
-  };
+
 
   // Auto slide mỗi 5s
   useEffect(() => {
     const interval = setInterval(() => {
-      nextSlide();
+      nextSlide(currentIndex);
     }, 5000);
     return () => clearInterval(interval);
   }, [tintucs.length]);

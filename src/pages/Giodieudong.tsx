@@ -1,27 +1,17 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Titlepage from '../components/Titlepage'
 import '../static/css/giodieudong.scss'
-import hoatieu1 from '../static/img/hoatieu1.png'
-import hoatieu2 from '../static/img/hoatieu2.png'
-import hoatieu3 from '../static/img/hoatieu3.png'
-import hoatieu4 from '../static/img/hoatieu4.png'
-import hoatieu5 from '../static/img/hoatieu5.png'
-import hoatieu6 from '../static/img/hoatieu6.png'
 import SidebarMenu from '../layout/Sidebar'
-import Itemhoatieu from '../components/Itemhoatieu'
 import Carousel2 from '../components/Carousel2'
 import DocViewerComponent from '../components/DocViewerComponent'
 import Apis, { endpoints, SERVER } from '../configs/Apis'
 import { GioDieuDong } from '../interface/InterfaceCommon'
-import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai'
 // import DocViewerComponent from '../components/DocViewerComponent'
-import { FaHandPointRight } from 'react-icons/fa';
 
 
 
 const Giodieudong = () => {
     // const documentUrl = "https://pdftron.s3.amazonaws.com/downloads/pl/PDFTRON_about.pdf"; // Ví dụ PDF
-    const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf"; // Ví dụ PDF
     const [giodieudong, setGioDieuDong] = useState<GioDieuDong[]>([]);
 
     useEffect(() => {
@@ -43,7 +33,6 @@ const Giodieudong = () => {
 
 
                 // Sử dụng totalRecords từ API
-                const total = response.data.totalRecords || response.data.data.length;
 
             } else {
                 console.error("Dữ liệu API không đúng định dạng:", response.data);
@@ -54,7 +43,6 @@ const Giodieudong = () => {
             setGioDieuDong([]);
         }
     };
-    const [isHovered, setIsHovered] = useState(false);
 
     return (
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaAngleDoubleUp } from 'react-icons/fa'; // Cần cài react-icons
 
 const GoToTopButton = () => {

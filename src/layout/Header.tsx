@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import "../static/css/gridme.scss";
 import "../static/css/header.scss";
 import logo from "../static/img/logo.png";
@@ -17,7 +17,7 @@ interface HeaderProps {
 }
 
 
-const Header: React.FC<HeaderProps> = ({ onSearch }) => {
+const Header: React.FC<HeaderProps> = () => {
   const { t, i18n } = useTranslation();
   const [isDesktopAndTablet, setIsDesktopAndTablet] = useState(window.innerWidth >= 740);
 

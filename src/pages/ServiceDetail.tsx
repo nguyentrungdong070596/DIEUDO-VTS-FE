@@ -1,55 +1,51 @@
 
 
 
-import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Titlepage from '../components/Titlepage';
 import '../static/css/danhsachhoatieu.scss';
 import '../static/css/servicedetail.scss';
 import SidebarMenu from '../layout/Sidebar';
 import Carousel2 from '../components/Carousel2';
-import Apis, { endpoints, SERVER } from '../configs/Apis';
-import NewsListCarousel from '../components/NewsListCarousel';
-import { Dichvu, Tintuc } from '../interface/InterfaceCommon';
+import { SERVER } from '../configs/Apis';
 
 const ServiceDetail = () => {
     const location = useLocation();
     const serviceItem = location.state?.serviceItem; // Lấy dữ liệu từ state
-    const [dichvus, setDichvu] = useState<Dichvu[]>([]);
+    // const [dichvus, setDichvu] = useState<Dichvu[]>([]);
 
 
-    const loadDichVu = async () => {
-        try {
-            const params = { limit: 7, page: 1 };
-            const response = await Apis.get(endpoints.APIDichvu, { params });
+    // const loadDichVu = async () => {
+    //     try {
+    //         const params = { limit: 7, page: 1 };
+    //         const response = await Apis.get(endpoints.APIDichvu, { params });
 
 
 
-            if (response.data && Array.isArray(response.data.data)) {
-                setDichvu(response.data.data);
+    //         if (response.data && Array.isArray(response.data.data)) {
+    //             setDichvu(response.data.data);
 
 
-                // Sử dụng totalRecords từ API
-                const total = response.data.totalRecords || response.data.data.length;
+    //             // Sử dụng totalRecords từ API
 
-            } else {
-                console.error("Dữ liệu API không đúng định dạng:", response.data);
-                setDichvu([]);
-            }
-        } catch (error) {
-            console.error("Lỗi khi load hoa tiêu:", error);
-            setDichvu([]);
-        }
-    };
+    //         } else {
+    //             console.error("Dữ liệu API không đúng định dạng:", response.data);
+    //             setDichvu([]);
+    //         }
+    //     } catch (error) {
+    //         console.error("Lỗi khi load hoa tiêu:", error);
+    //         setDichvu([]);
+    //     }
+    // };
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await loadDichVu();
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         await loadDichVu();
+    //     };
 
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
     // Nếu không có dữ liệu từ state, hiển thị thông báo
     if (!serviceItem) {
         return (

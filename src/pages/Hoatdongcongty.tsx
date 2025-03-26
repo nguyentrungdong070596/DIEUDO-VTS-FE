@@ -2,19 +2,15 @@
 
 
 
-import React, { useEffect, useState } from 'react';
 import Titlepage from '../components/Titlepage';
 import '../static/css/giodieudong.scss';
 
 import Carousel2 from '../components/Carousel2';
-import Apis, { endpoints } from '../configs/Apis';
-import { HoatDongCongTy } from '../interface/InterfaceCommon';
 
-import BubbleBackground from '../components/BubbleBackground';
 import AlbumHoatdongcongtyMansonryCommon from '../components/AlbumHoatdongcongtyMansonryCommon';
 
 const Hoatdongcongty = () => {
-    const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf"; // Ví dụ PDF
+    // const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf"; // Ví dụ PDF
     // const [hoatdongcongty, setHoatdongcongty] = useState<HoatDongCongTy[]>([]);
     // const itemsPerPage = 10;
     // const [currentPage, setCurrentPage] = useState(1);

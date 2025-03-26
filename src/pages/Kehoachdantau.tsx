@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import taudenimg from "../static/img/tauden.png";
+import { useEffect, useState } from "react";
 import Titlepage from "../components/Titlepage";
 import "../static/css/kehoachdantau.scss";
 import "animate.css";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addDays, format, subDays } from "date-fns";
 import Apis from "../configs/Apis";

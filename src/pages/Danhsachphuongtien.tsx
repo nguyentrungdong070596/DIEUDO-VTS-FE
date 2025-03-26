@@ -3,11 +3,10 @@ import Titlepage from '../components/Titlepage';
 import '../static/css/danhsachphuongtien.scss';
 import '../static/css/commonpagination.scss';
 import SidebarMenu from '../layout/Sidebar';
-import Itemhoatieu from '../components/Itemhoatieu';
 import Carousel2 from '../components/Carousel2';
 import Apis, { endpoints, SERVER } from '../configs/Apis';
 import CommonPagination from '../components/CommonPagination';
-import { HoaTieu, Phuongtien } from '../interface/InterfaceCommon';
+import { Phuongtien } from '../interface/InterfaceCommon';
 import Itemphuongtien from '../components/Itemphuongtien';
 
 

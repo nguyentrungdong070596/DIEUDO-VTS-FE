@@ -1,6 +1,5 @@
 // NewsListCarousel.tsx
 import React, { useState, useEffect, useRef } from 'react';
-import Newshome from './NewsBaiDangLienQuan';
 import { Tintuc } from '../interface/InterfaceCommon';
 import '../static/css/newslistcarousel.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';

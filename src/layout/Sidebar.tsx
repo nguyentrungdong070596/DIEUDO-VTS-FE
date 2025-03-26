@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../static/css/sidebar.scss";
 import { FaCog } from "react-icons/fa"; // Biểu tượng bánh răng
-import { FaNewspaper, FaInfoCircle, FaIndustry, FaLink, FaShip, FaCloudSun, FaGavel, FaWater, FaTemperatureHigh } from "react-icons/fa";
 
 const categories = [
   {

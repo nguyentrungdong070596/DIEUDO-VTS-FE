@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
 import '../static/css/commonpagination.scss';
-import { ErrorBoundary } from '@react-three/fiber/dist/declarations/src/core/utils';
 import { MyErrorBoundary } from '../context/MyErrorBoundary';
 
 interface PaginationProps {

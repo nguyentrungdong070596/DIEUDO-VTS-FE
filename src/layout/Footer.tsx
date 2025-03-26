@@ -3,11 +3,9 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/f
 import "../static/css/footer.scss";
 
 import "animate.css"
-import AOS from "aos";
 import Apis, { endpoints } from "../configs/Apis";
 import { Dichvu } from "../interface/InterfaceCommon";
 import { Link } from "react-router-dom";
-import DichvuDialog from "../components/DichvuDialog";
 const Footer: React.FC = () => {
   const [dichvus, setDichvu] = useState<Dichvu[]>([]);
 
@@ -24,7 +22,6 @@ const Footer: React.FC = () => {
 
 
         // Sử dụng totalRecords từ API
-        const total = response.data.totalRecords || response.data.data.length;
 
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);
@@ -47,14 +44,14 @@ const Footer: React.FC = () => {
 
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            setIsVisible(true);
+            // setIsVisible(true);
             observer.unobserve(entry.target);
           }
           // else {
