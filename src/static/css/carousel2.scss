@@ -1,10 +1,20 @@
-
-
-
 .carousel-box2 {
     width: 100%;
     position: relative;
     margin: auto;
+}
+
+@media (max-width: 760px) {
+
+    .carousel-overlay2 h2 {
+
+        font-size: 20px;
+        padding: 0px 50px;
+
+
+
+    }
+
 }
 
 .carousel-slide2 {

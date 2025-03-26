@@ -5,7 +5,7 @@ import "../static/css/kehoachdantau.scss";
 import "animate.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
+import { addDays, format, subDays } from "date-fns";
 import Apis from "../configs/Apis";
 import DatePickerCustom from "../components/DatePickerCustom";
 
@@ -30,6 +30,7 @@ const Kehoachdantau = () => {
     const [activeTab, setActiveTab] = useState("1");
     const [const_planships, setconst_planships] = useState<PlanShip[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+    const [dateTabs, setDateTabs] = useState<Date[]>([]);
 
     const getDendoiByTab = (tab: string): string => {
         if (tab === "1") return "v";
@@ -65,20 +66,56 @@ const Kehoachdantau = () => {
         load_const_planships();
     }, [activeTab, selectedDate]);
 
+    useEffect(() => {
+        if (selectedDate) {
+            const newTabs: Date[] = [];
+            for (let i = 7; i >= 1; i--) {
+                newTabs.push(subDays(selectedDate, i));
+            }
+            newTabs.push(selectedDate);
+            newTabs.push(addDays(selectedDate, 1));
+            setDateTabs(newTabs);
+        }
+    }, [selectedDate]);
+
     return (
         <div className="gridme wide2">
             <Titlepage name="Kế hoạch dẫn tàu" />
-
             {/* 🔍 Thanh tìm kiếm ngày */}
-            <div className="search-container">
-                <div className="datepicker-wrapper">
-                    <DatePickerCustom
-                        label="📅 Chọn ngày:"
-                        selectedDate={selectedDate}
-                        onDateChange={(date) => setSelectedDate(date)}
-                    />
+            <div className="filter-kehoach">
+                <div className="search-container">
+                    <div className="datepicker-wrapper">
+                        <DatePickerCustom
+                            label="📅 Chọn ngày:"
+                            selectedDate={selectedDate}
+                            onDateChange={(date) => setSelectedDate(date)}
+                        />
+                    </div>
                 </div>
+
+                {/* Tabs Ngày */}
+                {/* Tabs ngày scroll ngang */}
+                <div className="tabs-date-scroll">
+                    <div className="tabs-date-wrapper">
+                        {dateTabs.slice().reverse().map((date, index) => (
+                            <button
+                                key={index}
+                                className={`tab-date-button ${format(date, "dd/MM/yyyy") === format(selectedDate!, "dd/MM/yyyy")
+                                    ? "active"
+                                    : ""
+                                    }`}
+                                onClick={() => setSelectedDate(date)}
+                            >
+                                {format(date, "dd/MM/yyyy")}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
             </div>
+
+
+
 
             {/* Tabs */}
             <div className="tabs-container">
@@ -104,6 +141,8 @@ const Kehoachdantau = () => {
                     <div className={`tab-indicator tab-${activeTab}`}></div>
                 </div>
             </div>
+
+
 
             {/* Nội dung tab */}
             <div className="tab-content">
