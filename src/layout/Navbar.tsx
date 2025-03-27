@@ -114,7 +114,7 @@ const Navbar: React.FC = () => {
       </button>
 
       {/* Menu chính (DesktopAndTablet) */}
-      <div className="menu-items">
+      <div className="menu-items gridme wide3">
         {menuItems.map((item, index) => (
 
 

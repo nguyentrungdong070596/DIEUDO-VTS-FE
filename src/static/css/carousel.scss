@@ -26,6 +26,9 @@
 
 }
 
+
+
+
 .carousel-slide {
     position: relative;
 }
@@ -36,8 +39,6 @@
     object-fit: cover;
     filter: brightness(50%);
 }
-
-
 
 .carousel-overlay {
     position: absolute;
@@ -52,7 +53,21 @@
     @media (min-width: 741px) {
         display: block;
     }
+
+    @media (min-width: 2000px) {
+        left: 45%;
+        /* Đưa overlay ra giữa theo chiều ngang */
+        transform: translate(-50%, -50%);
+        /* Căn giữa cả ngang và dọc */
+        width: 30%;
+        /* Giảm kích thước overlay (tùy chỉnh theo ý muốn) */
+        max-width: 600px;
+        /* Giới hạn chiều rộng tối đa để không quá to */
+    }
 }
+
+
+
 
 .company-title {
     font-size: 20px;
