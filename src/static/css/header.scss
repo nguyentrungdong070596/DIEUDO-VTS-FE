@@ -5,6 +5,19 @@
     display: flex;
     flex-direction: column;
 
+    .header-name {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-left: 20px;
+    }
+
+    .header-left {
+        display: flex !important;
+        flex-direction: row;
+    }
 
 }
 
@@ -145,7 +158,24 @@
 }
 
 
+
+
+
 @media (max-width: 1113px) {
+
+    .header-left {
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-name {
+
+
+        margin-left: 0px !important;
+    }
+
+
     .search-box {
         display: flex;
         justify-content: center;
@@ -170,6 +200,19 @@
 
 
 @media (max-width: 740px) {
+
+    .header-left {
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-name {
+
+
+        margin-left: 0px !important;
+    }
+
     .header-container {
         display: flex;
 

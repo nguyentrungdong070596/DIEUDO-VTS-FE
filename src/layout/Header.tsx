@@ -50,24 +50,32 @@ const Header: React.FC<HeaderProps> = () => {
     <div className="gridme header">
       {/* Thanh Header */}
       <div className="row header-container">
-        <div className="col-custom m-12 c-12 l-1" >
+        <div className="col-custom m-12 c-12 l-5 header-left" >
+          <div className="contain-logo">
+            <img
+              src={logo}
+              width={50}
+              height={50}
+              alt="Logo"
+              className="animate__animated animate__backInDown header-logo"
 
-          <img
-            src={logo}
-            width={50}
-            height={50}
-            alt="Logo"
-            className="animate__animated animate__backInDown header-logo"
+            />
+          </div>
 
-          />
+
+          <div className="header-name">
+            <p className="animate__animated animate__bounceIn company-name">
+              {t('companyName')}
+            </p>
+            <p className="animate__animated animate__backInUp branch-name">{t('branchName')}</p>
+
+          </div>
+
         </div>
-
+        {/* 
         <div className="col-custom m-12 c-12 header-text l-4">
-          <p className="animate__animated animate__bounceIn company-name">
-            {t('companyName')}
-          </p>
-          <p className="animate__animated animate__backInUp branch-name">{t('branchName')}</p>
-        </div>
+
+        </div> */}
 
         {/* 🔍 Thanh tìm kiếm có icon */}
         <div className={`search-box ${isDesktopAndTablet ? 'animate__animated animate__backInDown' : ''}`}>
