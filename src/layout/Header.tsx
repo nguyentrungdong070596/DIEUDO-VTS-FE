@@ -47,70 +47,78 @@ const Header: React.FC<HeaderProps> = () => {
 
 
   return (
-    <div className="gridme header">
-      {/* Thanh Header */}
-      <div className="row header-container">
-        <div className="col-custom m-12 c-12 l-1" >
+    <div className="">
+      <div className=" header gridme wide2">
+        {/* Thanh Header */}
+        <div className="row header-container">
+          <div className="col-custom m-12 c-12 l-5 header-left" >
+            <div className="contain-logo">
+              <img
+                src={logo}
+                width={50}
+                height={50}
+                alt="Logo"
+                className="animate__animated animate__backInDown header-logo"
 
-          <img
-            src={logo}
-            width={50}
-            height={50}
-            alt="Logo"
-            className="animate__animated animate__backInDown header-logo"
+              />
+            </div>
 
-          />
-        </div>
 
+            <div className="header-name">
+              <p className="animate__animated animate__bounceIn company-name">
+                {t('companyName')}
+              </p>
+              <p className="animate__animated animate__backInUp branch-name">{t('branchName')}</p>
+
+            </div>
+
+          </div>
+          {/* 
         <div className="col-custom m-12 c-12 header-text l-4">
-          <p className="animate__animated animate__bounceIn company-name">
-            {t('companyName')}
-          </p>
-          <p className="animate__animated animate__backInUp branch-name">{t('branchName')}</p>
-        </div>
 
-        {/* 🔍 Thanh tìm kiếm có icon */}
-        <div className={`search-box ${isDesktopAndTablet ? 'animate__animated animate__backInDown' : ''}`}>
-          <FaSearch className="search-icon" /> {/* Sử dụng FaSearch */}
-          <input
-            type="text"
-            placeholder={t('searchPlacehoder')}
-            className="search-input"
+        </div> */}
 
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-        </div>
+          {/* 🔍 Thanh tìm kiếm có icon */}
+          <div className={`search-box ${isDesktopAndTablet ? 'animate__animated animate__backInDown' : ''}`}>
+            <FaSearch className="search-icon" /> {/* Sử dụng FaSearch */}
+            <input
+              type="text"
+              placeholder={t('searchPlacehoder')}
+              className="search-input"
 
-        {/* Avatar */}
-        {/* <div className="col-custom m-2 c-2 changelanguage l-1">
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+          </div>
+
+          {/* Avatar */}
+          {/* <div className="col-custom m-2 c-2 changelanguage l-1">
           <img src={vn} alt="VN" className="avatar vietnam" />
           <img src={eng} alt="ENG" className="avatar english" />
         </div> */}
 
-        <div className="col-custom m-2 c-2 changelanguage l-1">
-          <img
-            src={vn}
-            alt="VN"
-            className="animate__animated animate__backInDown avatar vietnam"
-            onClick={() => changeLanguage("vi")}
-            style={{ cursor: "pointer" }}
-          />
-          <img
-            src={eng}
-            alt="ENG"
-            className="animate__animated animate__backInDown avatar english"
-            onClick={() => changeLanguage("en")}
-            style={{ cursor: "pointer" }}
-          />
+          <div className="col-custom m-2 c-2 changelanguage l-1">
+            <img
+              src={vn}
+              alt="VN"
+              className="animate__animated animate__backInDown avatar vietnam"
+              onClick={() => changeLanguage("vi")}
+              style={{ cursor: "pointer" }}
+            />
+            <img
+              src={eng}
+              alt="ENG"
+              className="animate__animated animate__backInDown avatar english"
+              onClick={() => changeLanguage("en")}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
         </div>
-      </div>
 
-      {/* Thanh menu */}
+        {/* Thanh menu */}
 
-      <Navbar />
-      {/* <div className="nav-menu">
+        {/* <div className="nav-menu">
         <div className="menu-items">
           <div className="item-menu">
             <span>TRANG CHỦ</span>
@@ -135,7 +143,11 @@ const Header: React.FC<HeaderProps> = () => {
           </div>
         </div>
       </div> */}
-    </div >
+      </div >
+      <Navbar />
+
+    </div>
+
   );
 };
 

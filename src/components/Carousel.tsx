@@ -107,72 +107,47 @@ function Carousel() {
 
 
   return (
-    // <div className="carousel-container">
-    //   {loading ? <Spinner /> : <div>Dữ liệu đã load xong!</div>}
-
-    //   <Slider {...settings}>
-    //     {Array.isArray(banner) && banner.map((item, index) => (
-    //       <div key={index} className="carousel-slide">
-    //         <img
-    //           src={`${SERVER}/${item.image}`}
-    //           alt={`Slide ${index + 1}`}
-    //           className="carousel-image"
-    //         />
-    //       </div>
-    //     ))}
-    //   </Slider>
 
 
+    <div>
+      <div className="carousel-container ">
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            <Slider {...settings}>
+              {Array.isArray(banner) && banner.map((item, index) => (
+                <div key={index} className="carousel-slide">
+                  <img
+                    src={`${SERVER}/${item.image}`}
+                    alt={`Slide ${index + 1}`}
+                    className="carousel-image"
+                  />
+                </div>
+              ))}
+            </Slider>
 
-    //   {/* Overlay nội dung */}
-    //   <div className="carousel-overlay">
-    //     <h2 className="company-title">CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU</h2>
-    //     <h3 className="enterprise-title">XÍ NGHIỆP HOA TIÊU VŨNG TÀU</h3>
+            {/* Overlay nội dung */}
+            <div className="carousel-overlay">
+              <h2 className="company-title">{t('companyName')}</h2>
+              <h3 className="enterprise-title">{t('branchName')}</h3>
 
-    //     <div className="carousel-buttons">
-    //       <Link to="/dat-hang-dich-vu">  <button className="btn primary-btn">ĐẶT HÀNG DỊCH VỤ</button></Link>
-    //       <Link to="/ke-hoach-dan-tau">   <button className="btn secondary-btn">KẾ HOẠCH DẪN TÀU</button></Link>
-    //     </div>
-    //   </div>
-    // </div>
+              <div className="carousel-buttons">
+                {/* <Link to="/dat-hang-dich-vu"> */}
+                <Link to={link[0]?.title}>
+                  <button className="btn primary-btn">{t('orderService')}</button>
 
-
-    <div className="carousel-container">
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <Slider {...settings}>
-            {Array.isArray(banner) && banner.map((item, index) => (
-              <div key={index} className="carousel-slide">
-                <img
-                  src={`${SERVER}/${item.image}`}
-                  alt={`Slide ${index + 1}`}
-                  className="carousel-image"
-                />
+                </Link>
+                <Link to="/ke-hoach-dan-tau">
+                  <button className="btn secondary-btn">{t('plan')}</button>
+                </Link>
               </div>
-            ))}
-          </Slider>
-
-          {/* Overlay nội dung */}
-          <div className="carousel-overlay">
-            <h2 className="company-title">{t('companyName')}</h2>
-            <h3 className="enterprise-title">{t('branchName')}</h3>
-
-            <div className="carousel-buttons">
-              {/* <Link to="/dat-hang-dich-vu"> */}
-              <Link to={link[0]?.title}>
-                <button className="btn primary-btn">{t('orderService')}</button>
-
-              </Link>
-              <Link to="/ke-hoach-dan-tau">
-                <button className="btn secondary-btn">{t('plan')}</button>
-              </Link>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
+
 
   );
 }

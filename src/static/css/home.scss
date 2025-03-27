@@ -14,12 +14,25 @@
 .serviceofus {
     background-image: url("/world.png");
     background-size: 700px;
-    /* hoặc contain */
+    /* Kích thước mặc định */
     background-repeat: no-repeat;
     background-position: center right;
+    /* Hình nền nằm ở giữa bên phải */
     background-color: #e8eeef;
     padding: 100px 0px;
+}
 
+@media (min-width: 2000px) {
+    .serviceofus {
+        background-size: 0px;
+        /* Tăng kích thước hình nền cho màn hình lớn */
+        background-position: 100% center;
+        background-repeat: repeat;
+
+        /* Dịch chuyển hình nền sang phải một chút, vẫn căn giữa theo chiều dọc */
+        padding: 150px 0px;
+        /* Tăng padding để không gian rộng rãi hơn */
+    }
 }
 
 
