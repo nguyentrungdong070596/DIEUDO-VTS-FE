@@ -41,7 +41,6 @@ const Navbar: React.FC = () => {
 
 
         // Sử dụng totalRecords từ API
-        const total = response.data.totalRecords || response.data.data.length;
 
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);

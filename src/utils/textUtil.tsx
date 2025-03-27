@@ -1,9 +1,3 @@
-export const stripHtml = (html: string): string => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    return doc.body.textContent || '';
-};
-
 export const stripHtmlWithFormat = (html: string): string => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
@@ -52,14 +46,14 @@ export const stripHtmlWithFormat = (html: string): string => {
                 case 'h5':
                 case 'h6':
                     return `\n\n${Array.from(element.childNodes).map(walk).join('').trim().toUpperCase()}\n\n`;
-                case 'img':
+                case 'img': { // Added curly braces to scope declarations
                     const src = element.getAttribute('src') || '';
                     const alt = element.getAttribute('alt') || '';
                     if (src.startsWith('data:image')) {
                         return `![${alt || 'Embedded Base64 Image'}](${src})\n\n`;
                     }
                     return `![${alt}](${src})\n\n`;
-
+                }
                 case 'span':
                     return Array.from(element.childNodes).map(walk).join('');
                 default:

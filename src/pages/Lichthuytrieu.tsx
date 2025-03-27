@@ -1,15 +1,15 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Titlepage from '../components/Titlepage'
 import '../static/css/lichthuytrieu.scss'
 
 import SidebarMenu from '../layout/Sidebar'
 import Carousel2 from '../components/Carousel2'
 import Apis, { endpoints, SERVER } from '../configs/Apis'
-import { HeThongCangBien, LichThuyTrieu } from '../interface/InterfaceCommon'
+import { LichThuyTrieu } from '../interface/InterfaceCommon'
 import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai'
 
 const Lichthuytrieu = () => {
-    const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf";
+    // const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf";
     const [lichthuytrieu, setLichthuytrieu] = useState<LichThuyTrieu[]>([]);
 
     useEffect(() => {
@@ -27,7 +27,6 @@ const Lichthuytrieu = () => {
             if (response.data && Array.isArray(response.data.data)) {
                 setLichthuytrieu(response.data.data);
 
-                const total = response.data.totalRecords || response.data.data.length;
             } else {
                 console.error("Dữ liệu API không đúng định dạng:", response.data);
                 setLichthuytrieu([]);

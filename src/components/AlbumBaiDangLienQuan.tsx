@@ -1,6 +1,5 @@
 import React from 'react'
 import '../static/css/itemnewshome.scss'
-import { Tintuc } from '../interface/InterfaceCommon'
 interface ItemnewsProps {
     title: string;
     desc: string;

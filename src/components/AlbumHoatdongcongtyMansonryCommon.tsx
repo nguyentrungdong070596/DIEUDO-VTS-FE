@@ -3,8 +3,6 @@ import { useTransition, animated, AnimatedProps } from '@react-spring/web';
 import { HoatDongCongTy } from '../interface/InterfaceCommon';
 import Apis, { endpoints, SERVER } from '../configs/Apis';
 import { Link } from 'react-router-dom';
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
-import ScrollToTop from './ScrollToTop';
 import CommonPagination from './CommonPagination';
 import VideoCard from './VideoCard';
 

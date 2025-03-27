@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../static/css/carousel2.scss"; // Đảm bảo file CSS tồn tại
-import AOS from "aos";
 
 interface CarouselProps {
     name: string;
@@ -12,15 +11,17 @@ interface CarouselProps {
 const Carousel2: React.FC<CarouselProps> = ({ name }) => {
     const images = ["/tau.png", "/tau1.png", "/tau2.png", "/tau3.png"];
 
+    // Cấu hình slider với xử lý trường hợp chỉ có 1 slide
     const settings = {
-        dots: false,          // Hiển thị chấm chuyển ảnh
-        arrows: true,        // Hiển thị nút điều hướng
-        infinite: true,      // Lặp lại vô hạn
-        speed: 500,          // Tốc độ chuyển ảnh
-        slidesToShow: 1,     // Hiển thị 1 ảnh mỗi lần
-        slidesToScroll: 1,   // Cuộn 1 ảnh mỗi lần
-        autoplay: true,      // Tự động chạy
-        autoplaySpeed: 3000, // Chuyển ảnh mỗi 3 giây
+        dots: false,
+        infinite: images.length > 1, // Chỉ bật infinite khi có nhiều hơn 1 slide
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: images.length > 1, // Chỉ tự động chạy khi có nhiều hơn 1 slide
+        autoplaySpeed: 3000,
+        pauseOnHover: false,
+        arrows: images.length > 1, // Chỉ hiển thị mũi tên khi có nhiều hơn 1 slide
     };
 
 

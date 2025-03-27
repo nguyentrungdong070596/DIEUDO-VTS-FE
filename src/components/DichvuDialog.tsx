@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dichvu, Tintuc } from '../interface/InterfaceCommon';
+import { Dichvu } from '../interface/InterfaceCommon';
 import { SERVER } from '../configs/Apis';
 import '../static/css/dichvuDialog.scss';
 

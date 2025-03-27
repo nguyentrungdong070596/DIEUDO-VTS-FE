@@ -41,11 +41,6 @@ export interface LinkDathangdichvu {
 
 // import { Tintuc } from 'path/to/your/types'; (nếu bạn có file type riêng)
 
-interface NewsListGridProps {
-    items: Tintuc[]; // <-- Dùng type đầy đủ
-    onItemClick?: (item: Tintuc) => void;
-    imageBaseUrl?: string;
-}
 
 
 export interface Phuongtien {

@@ -11,12 +11,7 @@ interface ItemgiadichvuProps {
     index?: number; // truyền từ component cha để tính delay
 }
 
-const Itemgiadichvu: React.FC<ItemgiadichvuProps> = ({ name, desc, img, pdfurl, index = 0 }) => {
-    const item = {
-        name: name,
-        desc: desc,
-        img: img
-    }
+const Itemgiadichvu: React.FC<ItemgiadichvuProps> = ({ name, img, index = 0 }) => {
 
     return (
         <motion.div

@@ -4,18 +4,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../static/css/carousel.scss";
 import Apis, { endpoints, SERVER } from "../configs/Apis";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 import "animate.css"
 import { useTranslation } from "react-i18next";
-import ShinyText from "./ShinyText";
-type BannerItem = {
-  image: string; // Định nghĩa `image`
-};
+import { LinkDathangdichvu } from "../interface/InterfaceCommon";
+
 function Carousel() {
 
 
-  const images = ["/tau1.png", "/tau2.png", "/tau3.png"];
+  const [link, setLink] = useState<LinkDathangdichvu[]>([]);
 
   const [banner, setBanner] = React.useState<any[]>([]); // Thêm kiểu dữ liệu
   const [loading, setLoading] = useState(true);
@@ -24,6 +22,39 @@ function Carousel() {
   //   // Giả lập API loading
   //   setTimeout(() => setLoading(false), 2000);
   // }, []);
+
+
+  const loadLinkDathangdichvu = async () => {
+    try {
+      const params = { limit: 1000, page: 1, itemType: "10" };
+      const response = await Apis.get(endpoints.APIItems, { params });
+
+
+
+      if (response.data && Array.isArray(response.data.data)) {
+        setLink(response.data.data);
+
+
+        // Sử dụng totalRecords từ API
+
+      } else {
+        console.error("Dữ liệu API không đúng định dạng:", response.data);
+        setLink([]);
+      }
+    } catch (error) {
+      console.error("Lỗi khi load hoa tiêu:", error);
+      setLink([]);
+    }
+  };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadLinkDathangdichvu();
+    };
+
+    fetchData();
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       await loadBanner();
@@ -41,7 +72,7 @@ function Carousel() {
     try {
       setLoading(true)
       const item = { limit: 10, page: 1, itemType: "0" };
-      let response = await Apis.get(endpoints.APICarousel, { params: item });
+      const response = await Apis.get(endpoints.APICarousel, { params: item });
 
 
 
@@ -61,15 +92,17 @@ function Carousel() {
 
 
 
+  // Cấu hình slider với xử lý trường hợp chỉ có 1 slide
   const settings = {
-    dots: false,         // Không hiển thị các chấm điều hướng
-    infinite: true,      // Lặp vô hạn
-    speed: 500,         // Thời gian chuyển đổi giữa các ảnh (ms)
-    slidesToShow: 1,     // Hiển thị 1 ảnh mỗi lần
-    slidesToScroll: 1,   // Cuộn 1 ảnh mỗi lần
-    autoplay: true,      // Bật tự động chạy slider
-    autoplaySpeed: 3000, // Chuyển đổi ảnh sau mỗi 3 giây
-    pauseOnHover: false, // Không dừng khi di chuột vào slider
+    dots: false,
+    infinite: banner.length > 1, // Chỉ bật infinite khi có nhiều hơn 1 slide
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: banner.length > 1, // Chỉ tự động chạy khi có nhiều hơn 1 slide
+    autoplaySpeed: 3000,
+    pauseOnHover: false,
+    // arrows: banner.length > 1, // Chỉ hiển thị mũi tên khi có nhiều hơn 1 slide
   };
 
 
@@ -127,7 +160,8 @@ function Carousel() {
             <h3 className="enterprise-title">{t('branchName')}</h3>
 
             <div className="carousel-buttons">
-              <Link to="/dat-hang-dich-vu">
+              {/* <Link to="/dat-hang-dich-vu"> */}
+              <Link to={link[0]?.title}>
                 <button className="btn primary-btn">{t('orderService')}</button>
 
               </Link>

@@ -1,16 +1,15 @@
 
 
 
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import Titlepage from '../components/Titlepage';
 import '../static/css/danhsachhoatieu.scss';
 import '../static/css/dichvudetail.scss';
 import SidebarMenu from '../layout/Sidebar';
 import Carousel2 from '../components/Carousel2';
 import Apis, { endpoints, SERVER } from '../configs/Apis';
-import NewsListCarousel from '../components/NewsListCarousel';
-import { GiaDichVu, Tintuc } from '../interface/InterfaceCommon';
+import { GiaDichVu } from '../interface/InterfaceCommon';
 import GiaDichVuListCarousel from '../components/GiaDichVuListCarousel';
 import { FaHandPointRight } from 'react-icons/fa';
 import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai';
@@ -20,7 +19,7 @@ const GiadichvuDetail = () => {
     const giadichvuItem = location.state?.giadichvuItem; // Lấy dữ liệu từ state
     const [giadichvus, setGiaDichVu] = useState<GiaDichVu[]>([]);
 
-    const loadGiadichvu = async (page: number) => {
+    const loadGiadichvu = async () => {
         try {
             const params = { limit: 1000, page: 1 };
             const response = await Apis.get(endpoints.APIServicePrice, { params });
@@ -30,7 +29,6 @@ const GiadichvuDetail = () => {
             if (response.data && Array.isArray(response.data.data)) {
                 setGiaDichVu(response.data.data);
                 // Sử dụng totalRecords từ API
-                const total = response.data.totalRecords || response.data.data.length;
                 // setTotalItems(total);
 
             } else {
@@ -45,7 +43,7 @@ const GiadichvuDetail = () => {
         }
     };
     useEffect(() => {
-        loadGiadichvu(1);
+        loadGiadichvu();
     }, [1]);
 
     // Nếu không có dữ liệu từ state, hiển thị thông báo

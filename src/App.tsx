@@ -1,7 +1,5 @@
-import React, { ChangeEvent, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 import Header from "./layout/Header";
-import Carousel from "./components/Carousel";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Footer from "./layout/Footer";
@@ -17,7 +15,6 @@ import Hethongcangbien from "./pages/Hethongcangbien";
 import Tuyenluong from "./pages/Tuyenluong";
 import Tuyenluongthivai from "./pages/Tuyenluongthivai";
 import Tuyenluongsongdinh from "./pages/Tuyenluongsongdinh";
-import DetailService from "./pages/DetailService";
 import ScrollToTop from "./components/ScrollToTop";
 import Vitridontrahoatieu from "./pages/Vitridoantrahoatieu";
 import Gioithieucongty from "./pages/Gioithieucongty";
@@ -35,7 +32,6 @@ import Danhsachphuongtien from "./pages/Danhsachphuongtien";
 import GoToTopButton from "./components/GototopButton";
 import Hoatdongcongty from "./pages/Hoatdongcongty";
 import HoatdongcongtyDetail from "./pages/HoatdongcongtyDetail";
-import BubbleBackground from "./components/BubbleBackground";
 
 function App() {
   const [keyword, setKeyword] = useState('');

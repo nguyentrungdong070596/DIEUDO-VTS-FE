@@ -18,7 +18,6 @@ const CommonListCarousel = <T,>({
     getLinkPath,
     getLinkState,
     onItemClick,
-    imageBaseUrl = '',
 }: CommonListCarouselProps<T>) => {
     const [visibleSlides, setVisibleSlides] = useState(3);
     const [currentIndex, setCurrentIndex] = useState(0);
