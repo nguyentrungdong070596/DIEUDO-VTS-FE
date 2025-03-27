@@ -8,10 +8,12 @@ import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 import "animate.css"
 import { useTranslation } from "react-i18next";
+import { LinkDathangdichvu } from "../interface/InterfaceCommon";
 
 function Carousel() {
 
 
+  const [link, setLink] = useState<LinkDathangdichvu[]>([]);
 
   const [banner, setBanner] = React.useState<any[]>([]); // Thêm kiểu dữ liệu
   const [loading, setLoading] = useState(true);
@@ -20,6 +22,39 @@ function Carousel() {
   //   // Giả lập API loading
   //   setTimeout(() => setLoading(false), 2000);
   // }, []);
+
+
+  const loadLinkDathangdichvu = async () => {
+    try {
+      const params = { limit: 1000, page: 1, itemType: "10" };
+      const response = await Apis.get(endpoints.APIItems, { params });
+
+
+
+      if (response.data && Array.isArray(response.data.data)) {
+        setLink(response.data.data);
+
+
+        // Sử dụng totalRecords từ API
+
+      } else {
+        console.error("Dữ liệu API không đúng định dạng:", response.data);
+        setLink([]);
+      }
+    } catch (error) {
+      console.error("Lỗi khi load hoa tiêu:", error);
+      setLink([]);
+    }
+  };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadLinkDathangdichvu();
+    };
+
+    fetchData();
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       await loadBanner();
@@ -125,7 +160,8 @@ function Carousel() {
             <h3 className="enterprise-title">{t('branchName')}</h3>
 
             <div className="carousel-buttons">
-              <Link to="/dat-hang-dich-vu">
+              {/* <Link to="/dat-hang-dich-vu"> */}
+              <Link to={link[0]?.title}>
                 <button className="btn primary-btn">{t('orderService')}</button>
 
               </Link>

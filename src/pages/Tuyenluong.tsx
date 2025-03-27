@@ -25,8 +25,8 @@ const Tuyenluong = () => {
                             <div className="danhsach-tuyenluong">
                                 <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-thi-vai'}>Tuyến luồng thị vải Vũng tàu</Link></p>
                                 <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-song-dinh'}>Tuyến luồng sông Dinh</Link></p>
-                                <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-thi-vai'}>Tuyến Luồng Côn Đảo</Link></p>
-                                <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-thi-vai'}>Quá Cảnh Sông Tiền</Link></p>
+                                <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-con-dao'}>Tuyến Luồng Côn Đảo</Link></p>
+                                <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-qua-canh-song-tien'}>Quá Cảnh Sông Tiền</Link></p>
                             </div>
 
 
