@@ -146,6 +146,7 @@ const Header: React.FC<HeaderProps> = () => {
       </div >
       <Navbar />
 
+
     </div>
 
   );

@@ -4,7 +4,7 @@ import "../static/css/kehoachdantau.scss";
 import "animate.css";
 import "react-datepicker/dist/react-datepicker.css";
 import { addDays, format, subDays } from "date-fns";
-import Apis from "../configs/Apis";
+import Apis, { endpoints } from "../configs/Apis";
 import DatePickerCustom from "../components/DatePickerCustom";
 
 interface PlanShip {
@@ -36,30 +36,109 @@ const Kehoachdantau = () => {
         return "dc";
     };
 
+    // const load_const_planships = async () => {
+    //     const params = {
+    //         limit: 1000,
+    //         ngay: selectedDate ? format(selectedDate, "dd/MM/yyyy") : "",
+    //         dendoi: getDendoiByTab(activeTab),
+    //     };
+    //     try {
+    //         // const params = {
+    //         //     limit: 1000,
+    //         //     ngay: selectedDate ? format(selectedDate, "dd/MM/yyyy") : "",
+    //         //     dendoi: getDendoiByTab(activeTab),
+    //         // };
+
+    //         const response = await Apis.get("http://118.69.168.36:3965/api/v1/donhang/order/monitorwebpilot/", { params });
+
+    //         if (response.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
+    //             setconst_planships(response.data.data);
+    //         } else {
+    //             console.warn("API chính không có dữ liệu, thử gọi APIKehoachdantau...");
+    //             const backupResponse = await Apis.get(endpoints.APIKehoachdantau, { params });
+
+    //             if (backupResponse.data && Array.isArray(backupResponse.data.data) && backupResponse.data.data.length > 0) {
+    //                 setconst_planships(backupResponse.data.data);
+    //             } else {
+    //                 console.warn("Cả API chính và API backup đều không có dữ liệu.");
+    //                 setconst_planships([]);
+    //             }
+    //         }
+    //     } catch (error) {
+    //         console.error("Lỗi khi gọi API chính:", error);
+    //         console.warn("Thử gọi APIKehoachdantau...");
+
+    //         try {
+    //             const backupResponse = await Apis.get(endpoints.APIKehoachdantau, { params });
+
+    //             if (backupResponse.data && Array.isArray(backupResponse.data.data) && backupResponse.data.data.length > 0) {
+    //                 setconst_planships(backupResponse.data.data);
+    //             } else {
+    //                 console.warn("APIKehoachdantau cũng không có dữ liệu.");
+    //                 setconst_planships([]);
+    //             }
+    //         } catch (backupError) {
+    //             console.error("Lỗi khi gọi APIKehoachdantau:", backupError);
+    //             setconst_planships([]);
+    //         }
+    //     }
+    // };
+
     const load_const_planships = async () => {
+        const params = {
+            limit: 1000,
+            ngay: selectedDate ? format(selectedDate, "dd/MM/yyyy") : "",
+            dendoi: getDendoiByTab(activeTab),
+        };
+
         try {
-            const params = {
-                limit: 1000,
-                ngay: selectedDate ? format(selectedDate, "dd/MM/yyyy") : "",
-                dendoi: getDendoiByTab(activeTab),
-            };
+            // Gọi API switch để lấy flag
+            const switchResponse: any = await Apis.get(`${endpoints.APISwitch}/1`); // Thay :id bằng id cụ thể nếu cần
 
-            const response = await Apis.get(
-                "http://118.69.168.36:3965/api/v1/donhang/order/monitorwebpilot/",
-                { params }
-            );
+            if (switchResponse.data.success === true) {
 
-            if (response.data && Array.isArray(response.data.data)) {
-                setconst_planships(response.data.data);
+                if (switchResponse.data.data.flag === false) {
+
+                    // Flag = false: Gọi API chính
+                    const response = await Apis.get("http://118.69.168.36:3965/api/v1/donhang/order/monitorwebpilot/", { params });
+
+                    if (response.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
+                        setconst_planships(response.data.data);
+                    } else {
+                        console.warn("API chính không có dữ liệu");
+                        setconst_planships([]);
+                    }
+                } else {
+
+
+
+
+                    // Flag = true: Gọi API backup
+                    const backupResponse = await Apis.get(endpoints.APIKehoachdantau, { params });
+
+                    if (backupResponse.data && Array.isArray(backupResponse.data.data) && backupResponse.data.data.length > 0) {
+                        setconst_planships(backupResponse.data.data);
+                    } else {
+                        console.warn("API backup không có dữ liệu");
+                        setconst_planships([]);
+                    }
+                }
             } else {
-                setconst_planships([]);
+                console.warn("Không nhận được flag hợp lệ từ API switch");
+                // Fallback: Gọi API chính
+                const response = await Apis.get("http://118.69.168.36:3965/api/v1/donhang/order/monitorwebpilot/", { params });
+
+                if (response.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
+                    setconst_planships(response.data.data);
+                } else {
+                    setconst_planships([]);
+                }
             }
         } catch (error) {
-            console.error("Lỗi khi load const_planships:", error);
+            console.error("Lỗi khi gọi API:", error);
             setconst_planships([]);
         }
     };
-
     useEffect(() => {
         load_const_planships();
     }, [activeTab, selectedDate]);
@@ -195,3 +274,8 @@ const Kehoachdantau = () => {
 };
 
 export default Kehoachdantau;
+
+
+
+
+

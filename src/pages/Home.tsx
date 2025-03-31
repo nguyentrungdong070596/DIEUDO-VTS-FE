@@ -21,6 +21,7 @@ import "aos/dist/aos.css";
 import "animate.css";
 import { useSearchContext } from "../context/SearchContext";
 import { useTranslation } from "react-i18next";
+import Scene from "../components/Scene";
 
 
 
@@ -350,12 +351,21 @@ const Home = () => {
 
       <div className="gridme about wide">
 
+        {/* <iframe
+          title="Astronaut 3D Model"
+          className="sketchfab-embed"
+          src="https://sketchfab.com/3d-models/209d0e8d18c54c0d96fd3206c90eee30/embed/?ui_infos=0" // Thay abc123 bằng ID mô hình thực tế
+          frameBorder="0"
+          allow="autoplay; fullscreen; vr"
+          allowFullScreen
+        ></iframe> */}
+        {/* <Scene /> */}
+
+
         <div className="row about-flex">
           <div className="col-custom flex h-[500px] m-12 c-12 l-6 overflow-hidden relative">
             <div className="flex flex-col animate-[marquee-up_10s_linear_infinite] gap-4 left-about">
-
               {
-
                 banlanhdao.map((item, index) => (
                   // <Link key={index} to={`/dich-vu/${item.Id}`} className="col-custom m-12 c-12 l-4" style={{
                   //   textDecoration: 'none', color: 'inherit', width: '100%', height: '100%', display: "inherit"

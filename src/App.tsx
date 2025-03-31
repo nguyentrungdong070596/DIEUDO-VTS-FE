@@ -32,6 +32,7 @@ import Danhsachphuongtien from "./pages/Danhsachphuongtien";
 import GoToTopButton from "./components/GototopButton";
 import Hoatdongcongty from "./pages/Hoatdongcongty";
 import HoatdongcongtyDetail from "./pages/HoatdongcongtyDetail";
+import Scene from "./components/Scene";
 
 function App() {
   const [keyword, setKeyword] = useState('');
@@ -39,6 +40,7 @@ function App() {
   return (
     <div style={{ zoom: '90%' }}>
       <BrowserRouter >
+
 
         {/* <div className="bg-green-500 p-5 text-center text-white">
   Tailwind hoạt động!
