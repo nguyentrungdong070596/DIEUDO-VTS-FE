@@ -157,28 +157,28 @@
         }
     }
 
-    // Custom scroll container
-    .scroll-container {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin; // Firefox
-        scrollbar-color: #28bab2 #f2f2f2;
+    // // Custom scroll container
+    // .scroll-container {
+    //     overflow-x: auto;
+    //     -webkit-overflow-scrolling: touch;
+    //     scrollbar-width: thin; // Firefox
+    //     scrollbar-color: #28bab2 #f2f2f2;
 
-        &::-webkit-scrollbar {
-            height: 6px; // nhỏ gọn
-        }
+    //     &::-webkit-scrollbar {
+    //         height: 6px; // nhỏ gọn
+    //     }
 
-        &::-webkit-scrollbar-track {
-            background: #f2f2f2;
-            border-radius: 6px;
-        }
+    //     &::-webkit-scrollbar-track {
+    //         background: #f2f2f2;
+    //         border-radius: 6px;
+    //     }
 
-        &::-webkit-scrollbar-thumb {
-            background-color: #28bab2;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-    }
+    //     &::-webkit-scrollbar-thumb {
+    //         background-color: #28bab2;
+    //         border-radius: 6px;
+    //         border: 1px solid #ccc;
+    //     }
+    // }
 
     // Chỉ hiển thị scroll container ở màn hình nhỏ
     @media (max-width: 1023px) {
@@ -244,4 +244,33 @@
         }
     }
 
+}
+
+// cuộn
+
+.scroll-container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ship-table table {
+    min-width: 1200px;
+}
+
+.tab-content {
+    overflow-x: visible !important;
+}
+
+@media (max-width: 767px) {
+    .scroll-container {
+        overflow-x: auto !important;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .ship-table table {
+        min-width: 1200px;
+    }
 }
