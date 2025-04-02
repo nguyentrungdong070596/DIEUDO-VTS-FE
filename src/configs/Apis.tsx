@@ -15,6 +15,10 @@ export const endpoints = {
     // Navigator
     APIHoaTieu: `${SERVER_CONTEXT}/hoatieu`,
 
+    // Kế hoạch dẫn tàu sơ cua
+    APIKehoachdantau: `${SERVER_CONTEXT}/kehoachdantau`,
+    APISwitch: `${SERVER_CONTEXT}/switch`,
+
     // Maneuvering Draft
     APIManeuveringDraft: `${SERVER_CONTEXT}/maneuvering-draft`,
 
