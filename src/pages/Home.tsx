@@ -21,7 +21,6 @@ import "aos/dist/aos.css";
 import "animate.css";
 import { useSearchContext } from "../context/SearchContext";
 import { useTranslation } from "react-i18next";
-import Scene from "../components/Scene";
 
 
 

@@ -32,7 +32,6 @@ import Danhsachphuongtien from "./pages/Danhsachphuongtien";
 import GoToTopButton from "./components/GototopButton";
 import Hoatdongcongty from "./pages/Hoatdongcongty";
 import HoatdongcongtyDetail from "./pages/HoatdongcongtyDetail";
-import Scene from "./components/Scene";
 
 function App() {
   const [keyword, setKeyword] = useState('');

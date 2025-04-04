@@ -11,6 +11,8 @@ export const endpoints = {
     APIIntroduction: `${SERVER_CONTEXT}/home/introduction`,
     APIDichvu: `${SERVER_CONTEXT}/home/servicelist`,
     APINews: `${SERVER_CONTEXT}/home/news`,
+    APIHeader: `${SERVER_CONTEXT}/header`,
+    APIFooter: `${SERVER_CONTEXT}/footer`,
 
     // Navigator
     APIHoaTieu: `${SERVER_CONTEXT}/hoatieu`,
