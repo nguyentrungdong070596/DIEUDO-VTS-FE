@@ -1,19 +1,25 @@
-import  { useEffect, useState } from 'react'
-import Titlepage from '../components/Titlepage'
+import { useEffect, useState } from 'react'
+// import Titlepage from '../components/Titlepage'
 import '../static/css/gioithieucongty.scss'
+import { motion } from "framer-motion";
 
 import SidebarMenu from '../layout/Sidebar'
 import Carousel2 from '../components/Carousel2'
 import Apis, { endpoints } from '../configs/Apis'
 import { Lichsu } from '../interface/InterfaceCommon'
 
-import LeafletMap from '../components/Leafletmap'
+// import LeafletMap from '../components/Leafletmap'
+import { FaAnchor } from 'react-icons/fa'
 
 
 const Gioithieucongty = () => {
 
     const [gioithieu, setGioiThieu] = useState<Lichsu>();
 
+    const item = {
+        hidden: { opacity: 0, y: 30 },
+        show: { opacity: 1, y: 0 },
+    };
 
     const loadLichsucongty = async () => {
         try {
@@ -49,17 +55,58 @@ const Gioithieucongty = () => {
     }, []);
     return (
         <>
-            <Carousel2 name="CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU " />
+            <Carousel2 name="CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU " subtitle='XÍ NGHIỆP HOA TIÊU VŨNG TÀU' />
             <div className="gridme wide">
 
                 <div className="row">
                     <SidebarMenu />
 
                     <div className='col-custom l-9 m-12 c-12'>
-                        <Titlepage name="CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU " />
+                        {/* <Titlepage name="CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU " /> */}
+                        {/* <Titlepage name="XÍ NGHIỆP HOA TIÊU VŨNG TÀU " /> */}
+
+                        <div className="titlepage-container">
+                            <p className={`titlepage  animate__animated animate__fadeInUp`}>
+                                <FaAnchor className="my-anchor-icon" />
+                                CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU <br />
+                                XÍ NGHIỆP HOA TIÊU VŨNG TÀU
+                            </p>
+
+                            <hr className={`animate__animated animate__fadeInRight`} />
+                        </div>
                         <div className="hoa-tieu-container">
                             <h2 className="text-xl font-bold mb-2">Địa chỉ công ty</h2>
-                            <LeafletMap />
+                            {/* <LeafletMap /> */}
+
+
+
+
+                            <motion.div
+                                variants={item}
+                                className="rounded-2xl overflow-hidden shadow-md backdrop-blur-md border border-cyan-700/30"
+                                style={{ minHeight: "400px" }}
+                            >
+
+
+
+                                <iframe
+                                    title="Google Map"
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.0887454972744!2d107.06934841012219!3d10.334782867143058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31756f8a011f1159%3A0x1cada2fcb0187b1e!2zODggSOG6oSBMb25nLCBQaMaw4budbmcgMiwgVsWpbmcgVMOgdSwgQsOgIFLhu4thIC0gVsWpbmcgVMOgdSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1743663556964!5m2!1svi!2s"
+                                    width="100%"
+                                    height="100%"
+                                    style={{ border: 0, minHeight: "400px" }}
+                                    allowFullScreen
+                                    loading="lazy"
+                                    referrerPolicy="no-referrer-when-downgrade"
+                                ></iframe>
+
+
+
+                            </motion.div>
+
+
+
+
 
                             {
                                 // stripHtmlWithFormat(gioithieu?.content || "")

@@ -10,12 +10,23 @@ import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
 import { useSearchContext } from "../context/SearchContext";
 import { useTranslation } from "react-i18next";
+// import Apis, { endpoints } from "../configs/Apis";
 
 
 interface HeaderProps {
   onSearch?: (keyword: string) => void;
 }
 
+interface Header {
+  id: number;
+  company_name?: string;
+  address?: string;
+  fax?: string;
+  email?: string;
+  number_phone?: string;
+  mst?: string;
+  branch_name?: string;
+}
 
 const Header: React.FC<HeaderProps> = () => {
   const { t, i18n } = useTranslation();
@@ -26,6 +37,31 @@ const Header: React.FC<HeaderProps> = () => {
   const { setKeyword } = useSearchContext();
   const location = useLocation();
 
+
+  // const loadHeader = async () => {
+  //   try {
+  //     const params = { limit: 7, page: 1 };
+  //     const response = await Apis.get(endpoints.APIHeader, { params });
+  //     if (response.data && Array.isArray(response.data.data)) {
+  //       setHeaders(response.data.data);
+  //     } else {
+  //       console.error("Dữ liệu API không đúng định dạng:", response.data);
+  //       setHeaders([]);
+  //     }
+  //   } catch (error) {
+  //     console.error("Lỗi khi load header:", error);
+  //     setHeaders([]);
+  //   } finally {
+  //     setLoading(false); // Set loading to false after the API call completes
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     await Promise.all([loadHeader()]);
+  //   };
+  //   fetchData();
+  // }, []);
 
   useEffect(() => {
     const handleResize = () => setIsDesktopAndTablet(window.innerWidth >= 740);
