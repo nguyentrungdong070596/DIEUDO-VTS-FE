@@ -25,6 +25,7 @@ import { useTranslation } from "react-i18next";
 
 
 
+
 const Home = () => {
   const { t } = useTranslation();
 
@@ -513,6 +514,7 @@ const Home = () => {
         style={{ marginTop: '10px', height: '10px' }}
       >
       </div>
+      {/* <ScrollingItems /> */}
 
       <div className="gridme newsofus wide">
         <div className="row">
