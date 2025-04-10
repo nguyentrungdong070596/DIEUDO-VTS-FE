@@ -143,7 +143,7 @@ const Footer: React.FC = () => {
               <li key={index}>
                 <Link
                   to={`/dich-vu/detail/${item.id}`}
-                  state={{ serviceItem: item }}
+                  state={{ serviceItem: item, key: item.id }}
                   style={{ textDecoration: "none", color: "inherit" }}
                   onClick={() => window.scrollTo(0, 0)}
                 >
@@ -162,8 +162,8 @@ const Footer: React.FC = () => {
           <ul>
             <li><Link to="/gioi-thieu-cong-ty">{t("gioithieu")}</Link></li>
             <li><Link to="/tin-tuc">{t("newsAndEvent")}</Link></li>
-            <li><a href="/hoat-dong-cong-ty">{t("libImg")}</a></li>
-            <li><a href="/hoat-dong-cong-ty">{t("libVid")}</a></li>
+            <li><Link to="/hoat-dong-cong-ty">{t("libImg")}</Link></li>
+            <li><Link to="/hoat-dong-cong-ty">{t("libVid")}</Link></li>
             <li><Link to="/gia-dich-vu">{t("servicePriceNor")}</Link></li>
           </ul>
         </div>
