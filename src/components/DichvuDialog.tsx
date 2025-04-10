@@ -31,14 +31,13 @@ const DichvuDialog: React.FC<DichvuDialogProps> = ({ isOpen, dichvuItem, onClose
                             transition={{ duration: 0.3, ease: 'easeOut' }}
                             className="dichvu-dialog"
                         >
-                            {/* Close Button - Dấu X cố định góc phải */}
-                            <button
+                            {/* <button
                                 onClick={onClose}
                                 className="dichvu-dialog-close"
                                 aria-label="Đóng"
                             >
                                 ×
-                            </button>
+                            </button> */}
 
                             {/* Image */}
                             <img

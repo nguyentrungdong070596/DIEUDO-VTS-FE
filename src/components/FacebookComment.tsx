@@ -1,4 +1,5 @@
 // src/components/FacebookComments.tsx
+
 import { useEffect } from "react";
 import "../static/css/facebookComment.scss" // Tùy chỉnh CSS
 import { useTranslation } from "react-i18next";

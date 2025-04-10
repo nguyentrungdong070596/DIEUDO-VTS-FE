@@ -513,9 +513,9 @@ const Home = () => {
             <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
               <div className="flex items-center justify-center  " >
 
-                <BounceInView delay={0.2}>
+                {/* <BounceInView delay={0.2}>
                   <img src="/iconcloud.gif" className="w-24 h-24" />
-                </BounceInView>
+                </BounceInView> */}
               </div>
 
               {/* <div className="flex items-center justify-center">
@@ -611,9 +611,9 @@ const Home = () => {
             </div> */}
             <div className="flex items-center justify-center">
 
-              <BounceInView delay={0.2}>
+              {/* <BounceInView delay={0.2}>
                 <img src="/iconglobal.png" className="w-24 h-24" />
-              </BounceInView>
+              </BounceInView> */}
             </div>
 
             {/* <div className="flex items-center justify-center">

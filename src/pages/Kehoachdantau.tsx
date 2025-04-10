@@ -85,7 +85,6 @@ const Kehoachdantau = () => {
             setconst_planships([]);
         }
     };
-
     useEffect(() => {
         load_const_planships();
     }, [activeTab, selectedDate]);

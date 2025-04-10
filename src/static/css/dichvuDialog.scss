@@ -67,9 +67,9 @@
         display: none !important; // Ẩn hoàn toàn thanh scroll
     }
 
-    &.closing {
-        animation: zoomOut 0.3s ease-out forwards;
-    }
+    // &.closing {
+    //     animation: zoomOut 0.3s ease-out forwards;
+    // }
 
     .dichvu-dialog-title {
         font-size: 32px;
