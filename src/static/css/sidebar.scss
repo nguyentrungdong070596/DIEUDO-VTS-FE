@@ -1,0 +1,116 @@
+.sidebar {
+    background-color: #fff;
+    width: 300px;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    font-family: Arial, sans-serif;
+
+    /* Laptop */
+    @media (min-width: 1025px) {
+        position: relative;
+        transform: none;
+        /* Đảm bảo không transform trên desktop */
+        box-shadow: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 1024px) {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        height: 100vh;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    &.open {
+        @media (max-width: 1024px) {
+            transform: translateX(-300px);
+            /* Chỉ áp dụng transform trên mobile */
+        }
+    }
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    color: #28BAB2; // màu xanh cho toàn bộ emoji + text
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: #1a8f8b;
+    }
+}
+
+/* Các phần còn lại giữ nguyên */
+.sidebar-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1e73be;
+    padding: 5px;
+    padding-left: 0px !important;
+    background-color: #1e73be1e;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+
+    .sidebar-item {
+        padding: 5px 0;
+        border-bottom: 1px solid #ddd;
+        transition: background 0.3s ease-in-out;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: scale(1.1);
+            transition: transform 0.3s ease-in-out;
+
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            display: block;
+
+            &:hover {
+                color: #1e73be;
+            }
+        }
+    }
+}
+
+.sidebar-toggle {
+    position: fixed;
+    top: 50%;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    z-index: 1001;
+
+    @media (min-width: 1025px) {
+        display: none;
+        /* Ẩn trên laptop */
+    }
+}
+
+.custom-button {
+    color: #1e73be;
+    background-color: transparent !important;
+}
+
+.close-btn {
+    @media (min-width: 1025px) {
+        display: none;
+        /* Ẩn trên laptop */
+    }
+}

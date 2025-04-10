@@ -1,0 +1,179 @@
+.dichvu-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out forwards;
+    backdrop-filter: blur(5px);
+}
+
+.dichvu-dialog {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    animation: zoomIn 0.3s ease-out forwards;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow-y: auto; // Cho phép cuộn dọc
+
+    // &.closing {
+    //     animation: zoomOut 0.3s ease-out forwards;
+    // }
+
+    // // Tùy chỉnh thanh cuộn
+    // &::-webkit-scrollbar {
+    //     width: 10px; // Chiều rộng thanh cuộn
+    // }
+
+    // &::-webkit-scrollbar-track {
+    //     background: transparent; // Nền trong suốt để hòa với dialog
+    //     border-radius: 20px; // Bo tròn theo dialog
+    //     margin: 10px 0; // Khoảng cách trên dưới để không sát viền
+    // }
+
+    // &::-webkit-scrollbar-thumb {
+    //     background: rgba(0, 0, 0, 0.3); // Màu xám nhạt cho thanh cuộn
+    //     border-radius: 20px; // Bo tròn thanh cuộn
+    // }
+
+    // &::-webkit-scrollbar-thumb:hover {
+    //     background: rgba(0, 0, 0, 0.5); // Đậm hơn khi hover
+    // }
+
+    // Ẩn thanh scroll
+
+
+    // // Tùy chỉnh cho Firefox
+    // scrollbar-width: thin; // Thanh cuộn mỏng
+    // scrollbar-color: rgba(0, 0, 0, 0.3) transparent; // Màu thanh cuộn và nền
+
+    -ms-overflow-style: none; // Ẩn thanh scroll trên IE và Edge
+    scrollbar-width: none; // Ẩn thanh scroll trên Firefox
+
+    // Ẩn thanh scroll trên Webkit (Chrome, Safari)
+    &::-webkit-scrollbar {
+        display: none !important; // Ẩn hoàn toàn thanh scroll
+    }
+
+    &.closing {
+        animation: zoomOut 0.3s ease-out forwards;
+    }
+
+    .dichvu-dialog-title {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 24px;
+        color: #1a1a1a;
+        flex-shrink: 0;
+        line-height: 1.3;
+    }
+
+    .dichvu-dialog-image {
+        width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 28px;
+        flex-shrink: 0;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .dichvu-dialog-content {
+        font-size: 16px;
+        line-height: 1.9;
+        color: #333;
+        margin-bottom: 24px;
+        flex-grow: 0;
+    }
+
+    .dichvu-dialog-date {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 24px;
+        flex-shrink: 0;
+        font-style: italic;
+    }
+
+    .dichvu-dialog-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        background: #3cc0f9;
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: #e63946;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+    }
+}
+
+// Keyframes
+@keyframes fadeIn {
+    from {
+        background: rgba(0, 0, 0, 0);
+    }
+
+    to {
+        background: rgba(0, 0, 0, 0.65);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        background: rgba(0, 0, 0, 0.65);
+    }
+
+    to {
+        background: rgba(0, 0, 0, 0);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes zoomOut {
+    from {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+}

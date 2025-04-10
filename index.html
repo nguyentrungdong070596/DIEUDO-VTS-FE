@@ -1,13 +1,25 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Web Vũng Tàu Ship</title>
+</head>
+
+<body>
+  <!-- SDK Root element - nên đặt ngay sau body mở -->
+  <div id="fb-root"></div>
+
+  <!-- Facebook SDK Script - nên đặt ngay sau fb-root -->
+  <script async defer crossorigin="anonymous"
+    src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v19.0&appId=1427407638246193&autoLogAppEvents=1">
+    </script>
+
+  <!-- React root element -->
+  <div id="root" ></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>

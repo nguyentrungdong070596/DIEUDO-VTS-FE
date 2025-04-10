@@ -1,0 +1,333 @@
+@media (min-width: 1025px) and (max-width: 7000px) {
+
+    /* Navbar chính */
+    .nav-menu {
+        // background-color: #0196da;
+        background: linear-gradient(to right, #2b6cb0, #00bfff); // Word xanh
+
+        position: relative;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+
+
+        &.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    /* Menu trên màn hình lớn */
+    .menu-items {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 14px;
+        // margin: auto 200px;
+    }
+
+    /* Mục menu */
+    .item-menu {
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        padding: 20px !important;
+
+        position: relative;
+    }
+
+    /* Hover */
+    .item-menu:hover {
+        background-color: #fe0000;
+        height: 100%;
+    }
+
+    // /* Active */
+    // .item-menu:active {
+    //     background-color: rgba(238, 19, 19, 0.996);
+    //     height: 100%;
+    // }
+
+    .item-menu span {
+        font-size: 14px;
+    }
+
+    /* Ẩn nút menu trên màn hình lớn */
+    .menu-button {
+        display: none;
+    }
+
+    /* Mặc định ẩn menu sidebar */
+    .mobile-menu {
+        display: none;
+    }
+
+    /* Submenu cho desktop */
+    .submenu-container {
+        position: relative;
+        cursor: pointer;
+        z-index: 9999999 !important;
+
+        .submenu-icon {
+            display: inline-block;
+            margin-left: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .submenu-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000 !important;
+            background: #ffffff;
+            // border-radius: 8px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding: 10px;
+
+            /* Quan trọng: Đừng để opacity/transform mặc định */
+            display: none;
+        }
+
+
+
+        .submenu.open {
+            display: block;
+            z-index: 1999999;
+
+            /* Nếu bạn muốn vẫn dùng transform rotateX thì thêm animation riêng (tùy chọn) */
+        }
+
+        .submenu-item {
+            display: block;
+            z-index: 1999999;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            transition: background 0.2s;
+            font-size: 13px;
+
+            &:hover {
+                background: #0196da;
+                color: white
+            }
+        }
+    }
+
+}
+
+@media (min-width: 0px) and (max-width: 1024px) {
+
+    /* Navbar chính */
+    .nav-menu {
+        background-color: #0196da;
+        position: relative;
+        transition: all 0.3s ease;
+        padding: 30px !important;
+        // z-index: 10000;
+
+        &.fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    }
+
+    .menu-button {
+        display: block;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: white;
+        z-index: 10001;
+    }
+
+    .menu-items {
+        display: none !important;
+    }
+
+    .nav-menu {
+        padding: 15px;
+        /* Giảm padding cho gọn trên mobile */
+    }
+
+    .mobile-menu {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 260px;
+        /* Tăng nhẹ chiều rộng cho thoải mái */
+        height: 100%;
+        background-color: #0196da;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 20000;
+        overflow-y: auto;
+        /* Cho phép cuộn nếu nội dung dài */
+    }
+
+    .mobile-menu.open {
+        transform: translateX(0);
+    }
+
+    .close-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #ffff;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+
+    .mobile-items {
+        padding-top: 60px;
+        /* Khoảng cách từ trên xuống để tránh nút close */
+    }
+
+    .item-menu {
+        padding: 0;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+    }
+
+    .item-menu a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        display: block;
+        padding: 15px 20px;
+        transition: background 0.2s ease;
+    }
+
+    // .item-menu a:hover {
+    //     background: #1abcdc;
+    // }
+
+    /* Hover */
+    .item-menu:hover {
+        background-color: #2b6cb0;
+        height: 100%;
+    }
+
+    .submenu-container {
+        width: 100%;
+    }
+
+    .submenu-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        font-weight: 700;
+        color: #ffffff;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .submenu-toggle:hover {
+        background: #2b6cb0;
+    }
+
+    .submenu-icon {
+        font-size: 12px;
+        transition: transform 0.3s ease;
+    }
+
+    .submenu-icon.open {
+        transform: rotate(180deg);
+    }
+
+    .submenu {
+        background: #2b6cb0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .submenu.open {
+        max-height: 500px;
+        /* Giá trị đủ lớn để chứa nội dung */
+    }
+
+    .submenu-item {
+        display: block;
+        padding: 12px 40px;
+        /* Thụt vào để phân cấp */
+        text-decoration: none;
+        color: #2b6cb0;
+        font-size: 15px;
+        transition: background 0.2s ease;
+    }
+
+    .submenu-item:hover {
+        background: #fe0000;
+    }
+
+
+
+    // icon
+
+    .close-button {
+        background: none;
+        border: none;
+        // padding: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .close-icon {
+            font-size: 22px;
+            /* Kích thước lớn tương đương fontSize="large" của MUI */
+            color: #ffffff;
+            /* Màu mặc định */
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #ff0000;
+                /* Màu đỏ khi hover, tùy chỉnh theo ý bạn */
+            }
+        }
+    }
+
+
+    .menu-button {
+        background: none;
+        border: none;
+        // padding: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .menu-icon {
+            font-size: 22px;
+            /* Kích thước lớn tương đương fontSize="large" của MUI */
+            color: #ffffff;
+            /* Màu mặc định */
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: #1e73be;
+                /* Màu khi hover, tùy chỉnh theo ý bạn */
+            }
+        }
+    }
+}

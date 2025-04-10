@@ -1,0 +1,83 @@
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0;
+    padding: 8px 16px;
+    background: #f9f9f9;
+    // border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.date-label {
+    font-weight: 600;
+    color: #333;
+}
+
+.datepicker-wrapper {
+    position: relative;
+    width: max-content;
+}
+
+.custom-datepicker {
+    padding: 6px 12px;
+    border-radius: 8px;
+
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 14px;
+    transition: border 0.2s ease;
+}
+
+.custom-datepicker:focus {
+    border-color: #3333;
+    // border-radius: 10px;
+}
+
+.react-datepicker-popper {
+    z-index: 9999 !important;
+    margin-top: 4px !important;
+    left: 0 !important;
+    top: 100% !important;
+    transform: none !important;
+    position: absolute !important;
+}
+
+.react-datepicker {
+    // border-radius: 12px;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    border: none;
+    font-size: 14px;
+}
+
+.react-datepicker__header {
+    background-color: #007aff;
+    color: white;
+    // border-top-left-radius: 12px;
+    // border-top-right-radius: 12px;
+}
+
+/* Mũi tên di chuyển sang bên trái */
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle {
+    left: 12px !important;
+    /* Đẩy mũi tên về bên trái */
+    fill: #007aff !important;
+
+    // transform: none !important; // mũi tên lật ngư
+    /* Xoá translate mặc định */
+    border-bottom-color: #007aff !important;
+}
+
+/* Màu mũi tên bên trong */
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::after {
+    left: 0px !important;
+    fill: #007aff !important;
+    /* Căn chỉnh lớp trong cho khớp lớp ngoài */
+    border-bottom-color: #007aff !important;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+    background-color: #007aff !important;
+    color: white !important;
+}

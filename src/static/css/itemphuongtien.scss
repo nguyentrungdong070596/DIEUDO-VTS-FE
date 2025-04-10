@@ -1,0 +1,159 @@
+.danhsach-phuongtien {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+
+    .itemphuongtien {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% - 40px);
+        max-width: 200px;
+        height: 250px;
+        box-shadow: 1px 1px 10px 1px #ccc;
+        text-align: center;
+        overflow: hidden;
+        border-radius: 10px;
+        transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        will-change: transform, box-shadow;
+        position: relative;
+
+        &:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease-out;
+            will-change: transform;
+            position: relative;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; // tràn viền
+                transition: transform 0.3s ease-out;
+            }
+
+            .eye-icon {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                font-size: 24px;
+                color: white;
+                background-color: rgba(0, 0, 0, 0.6);
+                padding: 10px;
+                border-radius: 50%;
+                transition: transform 0.3s ease;
+                cursor: pointer;
+                z-index: 10;
+            }
+        }
+
+        &:hover .image-wrapper img {
+            transform: scale(1.2) rotate(-6deg);
+        }
+
+        &:hover .eye-icon {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .itemphuongtien-info {
+            margin-top: 15px;
+            padding: 0 10px;
+
+            .itemphuongtien-name {
+                font-weight: 700;
+                font-size: 14px;
+                color: #333;
+            }
+        }
+    }
+}
+
+/* ✅ Lightbox (popup ảnh) */
+.image-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+
+    .image-modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        animation: scaleIn 0.3s ease;
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        background: rgba(0, 0, 0, 0);
+    }
+
+    to {
+        background: rgba(0, 0, 0, 0.8);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0.3;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ✅ Responsive */
+@media (max-width: 740px) {
+    .danhsach-phuongtien {
+        justify-content: center;
+
+        .itemphuongtien {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+}
+
+@media (min-width: 741px) and (max-width: 1023px) {
+    .danhsach-phuongtien {
+        justify-content: space-between;
+
+        .itemphuongtien {
+            width: calc(50% - 20px);
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .danhsach-phuongtien {
+        .itemphuongtien {
+            width: calc(33.33% - 20px);
+        }
+    }
+}

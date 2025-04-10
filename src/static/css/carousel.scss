@@ -1,0 +1,185 @@
+@media (max-width: 740px) {
+    .carousel-image {
+        width: 100%;
+        height: 180px !important;
+        object-fit: cover;
+        filter: brightness(50%);
+    }
+
+    .carousel-overlay {
+        display: none !important;
+    }
+
+}
+
+@media (min-width: 740px) and (max-width: 1024px) {
+    .carousel-overlay {
+        margin-left: 200px !important;
+
+    }
+
+}
+
+// .carousel-box2,
+// .slick-list,
+// .slick-track,
+// .slick-slide,
+// .carousel-slide2,
+// .carousel-overlay2 {
+//     z-index: 0 !important;
+// }
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    z-index: 1 !important; // đảm bảo nó không đè lên submenu
+
+}
+
+
+
+
+.carousel-slide {
+    position: relative;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    filter: brightness(50%);
+}
+
+.carousel-overlay {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+
+    transform: translateY(-50%);
+    text-align: left;
+    color: white;
+    width: 40%;
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+
+    .carousel-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    @media (min-width: 2000px) {
+
+        left: 45%;
+        /* Đưa overlay ra giữa theo chiều ngang */
+        transform: translate(-50%, -50%);
+        /* Căn giữa cả ngang và dọc */
+        width: 30%;
+        /* Giảm kích thước overlay (tùy chỉnh theo ý muốn) */
+        max-width: 600px;
+        /* Giới hạn chiều rộng tối đa để không quá to */
+    }
+}
+
+
+
+
+.company-title {
+    font-size: 24px;
+    text-align: center;
+    width: 680px;
+    font-weight: bold;
+    color: #007bff; // text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: -1px -1px 0 #ffffff,
+        1px -1px 0 #ffffff,
+        -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff;
+
+
+}
+
+.enterprise-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+
+    width: 680px;
+    text-align: center;
+    color: rgb(255, 0, 0);
+    // text-shadow: 2px 2px 4px rgb(240, 234, 234);
+
+    text-shadow:
+        -1px -1px 0 #ffffff,
+        1px -1px 0 #ffffff,
+        -1px 1px 0 #ffffff,
+        1px 1px 0 #ffffff;
+    margin-top: 10px;
+}
+
+.carousel-buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.primary-btn {
+    // background-color: #007bff;
+    background: linear-gradient(to right, #2b6cb0, #00bfff); // Word xanh
+    text-transform: uppercase;
+    color: white;
+    margin-right: 30px;
+    // border: 1px solid #e0e3e6;
+    width: 200px;
+
+}
+
+.primary-btn:hover {
+    background: white !important;
+    color: #007bff;
+    // animation: bounce;
+    box-shadow: 1px;
+    // animate__rubberBand
+    /* referring directly to the animation's @keyframe declaration */
+    animation: pulse;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-direction: alternate;
+    animation-iteration-count: none;
+    animation-fill-mode: none;
+    animation-play-state: running;
+}
+
+.secondary-btn {
+    text-transform: uppercase;
+
+    background-color: white;
+    color: #007bff;
+    width: 200px;
+
+    // border: 1px solid #007bff;
+}
+
+.secondary-btn:hover {
+    animation: pulse;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-direction: alternate;
+    animation-iteration-count: none;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    background: linear-gradient(to right, #2b6cb0, #00bfff); // Word xanh
+
+    color: white;
+}

@@ -1,0 +1,29 @@
+.danhsach-tuyenluong {
+    display: flex;
+    flex-direction: column;
+    /* xếp dọc */
+    align-items: flex-start;
+    /* căn trái */
+    gap: 12px;
+    /* khoảng cách giữa các dòng */
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.danhsach-tuyenluong p {
+    margin: 0;
+}
+
+.danhsach-tuyenluong a {
+    font-size: 18px;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.danhsach-tuyenluong a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
