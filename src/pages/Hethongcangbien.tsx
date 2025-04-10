@@ -8,8 +8,10 @@ import Apis, { endpoints, SERVER } from '../configs/Apis'
 import { HeThongCangBien } from '../interface/InterfaceCommon'
 import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai'
 import { FaHandPointRight } from 'react-icons/fa'
+import { useTranslation } from 'react-i18next'
 
 const Hethongcangbien = () => {
+    const { t } = useTranslation();
     // const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf";
     const [hethongcangbien, setGioDieuDong] = useState<HeThongCangBien[]>([]);
 
@@ -43,13 +45,13 @@ const Hethongcangbien = () => {
 
     return (
         <>
-            <Carousel2 name="Hệ thống cảng biển" />
+            <Carousel2 name={t("seaportSystem")} />
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
                     <div className='col-custom m-12 c-12 l-9'>
                         <div className=''>
-                            <Titlepage name='Hệ thống cảng biển' />
+                            <Titlepage name={t("seaportSystem")} />
 
                             {hethongcangbien.length > 0 ? (
                                 <div className="attention-wrapper">
@@ -80,7 +82,7 @@ const Hethongcangbien = () => {
                                     </a>
                                 </div>
                             ) : (
-                                <p>Đang tải tài liệu...</p>
+                                <p>{t("dangtaidulieu")}</p>
                             )}
                         </div>
                     </div>

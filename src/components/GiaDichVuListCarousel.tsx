@@ -4,6 +4,8 @@ import '../static/css/giadichvulistcarousel.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import Itemgiadichvu from './Itemgiadichvu';
+import { SERVER } from '../configs/Apis';
+import { useTranslation } from 'react-i18next';
 
 interface GiaDichVuListCarouselProps {
     items: GiaDichVu[];
@@ -14,12 +16,12 @@ interface GiaDichVuListCarouselProps {
 const GiaDichVuListCarousel: React.FC<GiaDichVuListCarouselProps> = ({
     items,
     onItemClick,
-    imageBaseUrl = '',
 }) => {
     const [visibleSlides, setVisibleSlides] = useState(2); // 👉 cố định 2 item
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(true);
     const trackRef = useRef<HTMLDivElement>(null);
+    const { t } = useTranslation();
 
     // 👉 Không cần resize nữa, nên bỏ đoạn này
     useEffect(() => {
@@ -111,16 +113,12 @@ const GiaDichVuListCarousel: React.FC<GiaDichVuListCarouselProps> = ({
                             >
                                 <Link
                                     to={`/gia-dich-vu/detail/${item.id}`}
-                                    state={{ giadichvuItem: item }}
+                                    state={{ giadichvuItem: item, key: item.id }}
                                     style={{ textDecoration: 'none', color: 'inherit' }}
                                     onClick={() => window.scrollTo(0, 0)}
                                 >
-                                    <Itemgiadichvu
-                                        name={item.title}
-                                        desc={item.content}
-                                        img={`${imageBaseUrl}/${item.image}`}
-                                        pdfurl={item.pdfurl}
-                                    />
+                                    <Itemgiadichvu index={index} name={t(`title_giadichvu_${item.id}`)} img={`${SERVER}/${item.image}`} />
+
                                 </Link>
                             </div>
                         ))}

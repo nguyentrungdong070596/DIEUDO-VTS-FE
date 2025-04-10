@@ -6,11 +6,14 @@ import Carousel2 from '../components/Carousel2'
 import DocViewerComponent from '../components/DocViewerComponent'
 import Apis, { endpoints, SERVER } from '../configs/Apis'
 import { GioDieuDong } from '../interface/InterfaceCommon'
+import { useTranslation } from 'react-i18next'
 // import DocViewerComponent from '../components/DocViewerComponent'
 
 
 
 const Giodieudong = () => {
+    const { t } = useTranslation();
+
     // const documentUrl = "https://pdftron.s3.amazonaws.com/downloads/pl/PDFTRON_about.pdf"; // Ví dụ PDF
     const [giodieudong, setGioDieuDong] = useState<GioDieuDong[]>([]);
 
@@ -47,7 +50,7 @@ const Giodieudong = () => {
     return (
 
         <>
-            <Carousel2 name="Giờ điều động mớn nước" />
+            <Carousel2 name={t("giodieudong")} />
             <div className="gridme wide">
 
                 <div className="row">
@@ -57,7 +60,7 @@ const Giodieudong = () => {
                         <div className=''>
 
 
-                            <Titlepage name='Giờ điều động mớn nước' />
+                            <Titlepage name={t("giodieudong")} />
 
                             {giodieudong.length > 0 ? (
                                 <DocViewerComponent documentUrl={`${SERVER}/${giodieudong[0].pdfurl}`} />
@@ -95,7 +98,7 @@ const Giodieudong = () => {
 
 
                             ) : (
-                                <p>Đang tải tài liệu...</p>
+                                <p>{t("dangtaidulieu")}</p>
                             )}
 
                         </div>

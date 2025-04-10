@@ -8,10 +8,14 @@ import Apis, { endpoints, SERVER } from '../configs/Apis';
 import CommonPagination from '../components/CommonPagination';
 import { Phuongtien } from '../interface/InterfaceCommon';
 import Itemphuongtien from '../components/Itemphuongtien';
+import { useTranslation } from 'react-i18next';
 
 
 
 const Danhsachphuongtien: React.FC = () => {
+    const { t } = useTranslation();
+
+
     const [phuongtiens, setPhuongtien] = useState<Phuongtien[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
@@ -52,12 +56,12 @@ const Danhsachphuongtien: React.FC = () => {
 
     return (
         <>
-            <Carousel2 name="Danh sách phương tiện" />
+            <Carousel2 name={t("transportVehicleList")} />
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
                     <div className="col-custom l-9 m-12 c-12">
-                        <Titlepage name="Danh sách phương tiện" />
+                        <Titlepage name={t("transportVehicleList")} />
                         <div className="danhsach-phuongtien ">
                             {phuongtiens.map((item, index) => (
                                 <Itemphuongtien

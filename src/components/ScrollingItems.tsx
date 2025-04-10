@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import '../static/css/ScrollingItems.scss'; // Import your CSS file
+// import './HorizontalScrollSection.css';
 
 const HorizontalScrollSection = () => {
     const containerRef = useRef<HTMLDivElement | null>(null);
@@ -16,27 +16,29 @@ const HorizontalScrollSection = () => {
 
         let isAnimating = false;
         let scrollAccumulator = 0;
+        let hasExited = false; // Cờ để theo dõi trạng thái thoát vùng
 
         const handleScroll = (e: WheelEvent) => {
-            if (isAnimating) return;
+            if (isAnimating || hasExited) return;
 
             const scrollPosition = window.scrollY;
             const containerTop = container.offsetTop;
             const windowHeight = window.innerHeight;
 
-            // Khi scroll vào vùng component
-            if (scrollPosition >= containerTop - 1 && scrollPosition < containerTop + windowHeight) {
-                e.preventDefault(); // Ngăn scroll mặc định
+            // Khi scroll trong vùng component
+            if (scrollPosition + windowHeight >= containerTop && scrollPosition <= containerTop) {
+                e.preventDefault();
                 isAnimating = true;
 
-                // Đảm bảo container phủ kín màn hình
-                window.scrollTo(0, containerTop);
+                // Giữ container ở đầu viewport
+                window.scrollTo({
+                    top: containerTop,
+                    behavior: 'instant',
+                });
 
                 // Tích lũy scroll từ wheel
                 scrollAccumulator += e.deltaY;
-
-                // Tính toán tiến trình dựa trên scroll tích lũy
-                const totalScrollDistance = windowHeight * items.length * 0.5; // Điều chỉnh tốc độ scroll ngang
+                const totalScrollDistance = windowHeight * items.length * 0.5; // Tốc độ scroll ngang
                 const progress = Math.min(Math.max(scrollAccumulator / totalScrollDistance, 0), 1);
 
                 // Dịch chuyển ngang
@@ -47,10 +49,14 @@ const HorizontalScrollSection = () => {
                     itemsContainer.style.transform = `translateX(-${translateX}px)`;
                 }
 
-                // Khi đến item cuối, cho phép scroll dọc bình thường
-                if (progress >= 1 && e.deltaY > 0) {
-                    scrollAccumulator = 0; // Reset accumulator
-                    window.scrollTo(0, containerTop + windowHeight); // Thoát vùng
+                // Khi đến item cuối, thoát vùng
+                if (progress >= 1) {
+                    scrollAccumulator = 0;
+                    hasExited = true; // Đánh dấu đã thoát
+                    window.scrollTo({
+                        top: containerTop + windowHeight,
+                        behavior: 'instant',
+                    });
                 }
 
                 requestAnimationFrame(() => {
@@ -59,8 +65,6 @@ const HorizontalScrollSection = () => {
             }
         };
 
-        // Đặt chiều cao container bằng 1 màn hình
-        container.style.height = `${window.innerHeight}px`;
         container.style.position = 'sticky';
         container.style.top = '0';
 

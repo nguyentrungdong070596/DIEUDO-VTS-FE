@@ -65,7 +65,7 @@
         &::placeholder {
             color: #999;
             /* Màu chữ placeholder */
-            font-style: italic;
+            // font-style: italic;
             /* Chữ nghiêng cho placeholder */
         }
     }
@@ -171,10 +171,12 @@
 
     .header-name {
 
-
         margin-left: 0px !important;
     }
 
+    .branch-name {
+        font-size: 1.2rem !important;
+    }
 
     .search-box {
         display: flex;
@@ -226,7 +228,7 @@
 
     .search-box {
         position: absolute;
-        bottom: 5px;
+        bottom: -55px;
         z-index: 1000;
         left: 50%;
         transform: translateX(-50%);

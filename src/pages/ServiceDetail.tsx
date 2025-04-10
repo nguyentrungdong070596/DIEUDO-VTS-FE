@@ -8,12 +8,14 @@ import '../static/css/servicedetail.scss';
 import SidebarMenu from '../layout/Sidebar';
 import Carousel2 from '../components/Carousel2';
 import { SERVER } from '../configs/Apis';
+import { useTranslation } from 'react-i18next';
 
 const ServiceDetail = () => {
     const location = useLocation();
     const serviceItem = location.state?.serviceItem; // Lấy dữ liệu từ state
     // const [dichvus, setDichvu] = useState<Dichvu[]>([]);
 
+    const { t } = useTranslation();
 
     // const loadDichVu = async () => {
     //     try {
@@ -74,7 +76,7 @@ const ServiceDetail = () => {
                             {/* <span className='detail-news-postdate'>Ngày đăng: {serviceItem.postdate}</span> */}
 
                             <span className="detail-news-postdate">
-                                Ngày đăng: {new Date(serviceItem.postdate).toLocaleDateString('vi-VN')}
+                                {t("ngay")}: {new Date(serviceItem.postdate).toLocaleDateString('vi-VN')}
                             </span>
                         </div>
                     </div>

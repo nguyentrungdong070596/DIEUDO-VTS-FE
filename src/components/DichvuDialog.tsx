@@ -3,6 +3,8 @@ import { Dichvu } from '../interface/InterfaceCommon';
 import { SERVER } from '../configs/Apis';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Dialog } from '@headlessui/react';
+import "../static/css/dichvuDialog.scss";
+import { useTranslation } from 'react-i18next';
 
 interface DichvuDialogProps {
     isOpen: boolean;
@@ -11,6 +13,8 @@ interface DichvuDialogProps {
 }
 
 const DichvuDialog: React.FC<DichvuDialogProps> = ({ isOpen, dichvuItem, onClose }) => {
+    const { t } = useTranslation();
+
     return (
         <AnimatePresence>
             {isOpen && dichvuItem && (
@@ -27,14 +31,13 @@ const DichvuDialog: React.FC<DichvuDialogProps> = ({ isOpen, dichvuItem, onClose
                             transition={{ duration: 0.3, ease: 'easeOut' }}
                             className="dichvu-dialog"
                         >
-                            {/* Close Button - Dấu X cố định góc phải */}
-                            <button
+                            {/* <button
                                 onClick={onClose}
                                 className="dichvu-dialog-close"
                                 aria-label="Đóng"
                             >
                                 ×
-                            </button>
+                            </button> */}
 
                             {/* Image */}
                             <img
@@ -45,19 +48,21 @@ const DichvuDialog: React.FC<DichvuDialogProps> = ({ isOpen, dichvuItem, onClose
 
                             {/* Title */}
                             <h3 className="dichvu-dialog-title">
-                                {dichvuItem.title}
+                                {/* {dichvuItem.title} */}
+                                {t(`title_dichvu_${dichvuItem.id}`) || dichvuItem.title}
                             </h3>
 
                             {/* Date */}
                             <p className="dichvu-dialog-date">
-                                Ngày đăng: {new Date(dichvuItem.postdate).toLocaleDateString('vi-VN')}
+                                {t("ngay")}: {new Date(dichvuItem.postdate).toLocaleDateString('vi-VN')}
                             </p>
 
                             {/* Content */}
                             <div
                                 className="dichvu-dialog-content"
                                 style={{ whiteSpace: 'pre-wrap' }}
-                                dangerouslySetInnerHTML={{ __html: dichvuItem.content || "" }}
+                                // dangerouslySetInnerHTML={{ __html: dichvuItem.content || "" }}
+                                dangerouslySetInnerHTML={{ __html: t(`content_dichvu_${dichvuItem.id}`) || dichvuItem.content }}
                             />
                         </motion.div>
                     </Dialog.Panel>

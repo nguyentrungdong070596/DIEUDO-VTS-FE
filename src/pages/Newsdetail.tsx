@@ -13,13 +13,16 @@ import Apis, { endpoints, SERVER } from '../configs/Apis';
 import NewsListCarousel from '../components/NewsListCarousel';
 import { Tintuc } from '../interface/InterfaceCommon';
 import FacebookComments from '../components/FacebookComment';
+import { useTranslation } from 'react-i18next';
 
 const Newsdetail = () => {
 
     const location = useLocation();
     // const currentPageUrl = window.location.href;
     const newsItem = location.state?.newsItem; // Lấy dữ liệu từ state
+    const key = location.state?.key; // Lấy dữ liệu từ state
     const [tintucs, setTintuc] = useState<Tintuc[]>([]);
+    const { t } = useTranslation();
 
     const loadTintuc = async (page: number) => {
         try {
@@ -62,20 +65,23 @@ const Newsdetail = () => {
 
     return (
         <>
-            <Carousel2 name="TIN TỨC" />
+            {/* <Carousel2 name="TIN TỨC" /> */}
+            <Carousel2 name={t("newsAndEvent")} />
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
                     <div className="col-custom l-9 m-12 c-12">
-                        <Titlepage name="Chi tiết" />
+                        <Titlepage name={t("detail")} />
                         <div className="detail-news">
                             <img src={`${SERVER}/${newsItem.image}`} alt={newsItem.title} />
-                            <h2>{newsItem.title}</h2>
-                            <p dangerouslySetInnerHTML={{ __html: newsItem.content || "" }} ></p>
+                            {/* <h2>{newsItem.title}</h2> */}
+                            <h2> {t(`title_tintuc_${key}`) ?? newsItem.title}</h2>
+                            {/* <p dangerouslySetInnerHTML={{ __html: newsItem.content || "" }} ></p> */}
+                            <p dangerouslySetInnerHTML={{ __html: t(`content_tintuc_${key}`) || "" }} ></p>
                             {/* <span className='detail-news-postdate'>Ngày đăng: {newsItem.postdate}</span> */}
 
                             <span className="detail-news-postdate">
-                                Ngày đăng: {new Date(newsItem.postdate).toLocaleDateString('vi-VN')}
+                                {t("ngay")}: {new Date(newsItem.postdate).toLocaleDateString('vi-VN')}
                             </span>
                         </div>
                     </div>
@@ -93,7 +99,9 @@ const Newsdetail = () => {
                         <FacebookComments url="https://www.vungtauship.com/" />
                         <br />
                         <hr className='hrbaiviet' />
-                        <Titlepage name="BÀI ĐĂNG LIÊN QUAN" />
+                        {/* <Titlepage name="BÀI ĐĂNG LIÊN QUAN" /> */}
+
+                        <Titlepage name={t("baidanglienquan")} />
 
                         <NewsListCarousel
                             items={tintucs} // Tintuc[]

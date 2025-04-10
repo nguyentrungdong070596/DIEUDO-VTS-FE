@@ -9,12 +9,15 @@ import Apis, { endpoints, SERVER } from '../configs/Apis';
 import CommonPagination from '../components/CommonPagination';
 import { HoaTieu } from '../interface/InterfaceCommon';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const Danhsachhoatieu: React.FC = () => {
     const [hoatieus, setHoatieu] = useState<HoaTieu[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
     const itemsPerPage = 6;
+    const { t } = useTranslation();
+
 
     const loadHoatieu = async (page: number) => {
         try {
@@ -36,6 +39,26 @@ const Danhsachhoatieu: React.FC = () => {
             setTotalItems(0);
         }
     };
+  
+
+   
+
+
+    // async function translateAndStore(text: any, targetLang: any) {
+    //     try {
+    //         const [translation] = await translate.translate(text, targetLang);
+    //         // Thêm bản dịch vào i18next
+    //         i18n.addResource(targetLang, 'translation', text, translation);
+    //         return translation;
+    //     } catch (error) {
+    //         console.error('Error translating:', error);
+    //         return text; // Trả về text gốc nếu lỗi
+    //     }
+    // }
+
+    // const changeLanguage = (lang) => {
+    //     i18n.changeLanguage(lang);
+    // };
 
     useEffect(() => {
         loadHoatieu(currentPage);
@@ -62,12 +85,12 @@ const Danhsachhoatieu: React.FC = () => {
 
     return (
         <>
-            <Carousel2 name="Danh sách hoa tiêu" />
+            <Carousel2 name={t("pilotList")} />
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
                     <div className="col-custom m-12 c-12 l-9">
-                        <Titlepage name="Danh sách hoa tiêu" />
+                        <Titlepage name={t("pilotList")} />
                         <motion.div
                             className="danhsach-hoatieu"
                             key={currentPage}

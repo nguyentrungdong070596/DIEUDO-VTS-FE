@@ -7,10 +7,12 @@ import Carousel2 from '../components/Carousel2'
 import Apis, { endpoints, SERVER } from '../configs/Apis'
 import { LichThuyTrieu } from '../interface/InterfaceCommon'
 import { AiFillFilePdf, AiFillFileWord } from 'react-icons/ai'
+import { useTranslation } from 'react-i18next'
 
 const Lichthuytrieu = () => {
     // const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf";
     const [lichthuytrieu, setLichthuytrieu] = useState<LichThuyTrieu[]>([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,13 +43,13 @@ const Lichthuytrieu = () => {
 
     return (
         <>
-            <Carousel2 name="Lịch thủy triều" />
+            <Carousel2 name={t("tideSchedule")} />
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
                     <div className='col-custom l-9 m-12 c-12'>
                         <div className=''>
-                            <Titlepage name='Lịch thủy triều' />
+                            <Titlepage name={t("tideSchedule")} />
 
                             {lichthuytrieu.length > 0 ? (
                                 lichthuytrieu.map((item, index) => (
@@ -80,7 +82,7 @@ const Lichthuytrieu = () => {
                                     </div>
                                 ))
                             ) : (
-                                <p>Đang tải tài liệu...</p>
+                                <p>{t("dangtaidulieu")}</p>
                             )}
 
                         </div>

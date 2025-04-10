@@ -231,13 +231,12 @@
 
         .footer-content {
             flex-direction: column;
-            text-align: center;
             gap: 20px;
 
             .footer-section {
-                text-align: center;
+                text-align: left !important;
                 min-width: 100%;
-                padding: 0;
+                padding: 5px 10px;
                 min-height: auto;
                 justify-content: center;
 

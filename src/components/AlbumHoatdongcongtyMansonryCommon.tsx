@@ -5,6 +5,7 @@ import Apis, { endpoints, SERVER } from '../configs/Apis';
 import { Link } from 'react-router-dom';
 import CommonPagination from './CommonPagination';
 import VideoCard from './VideoCard';
+import { useTranslation } from 'react-i18next';
 
 type AnimatedDivProps = AnimatedProps<React.HTMLAttributes<HTMLDivElement>>;
 const AnimatedDiv = animated.div as React.FC<AnimatedDivProps>;
@@ -16,6 +17,8 @@ function AlbumHoatdongcongtyMansonryCommon() {
     const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
     const ref = useRef<HTMLDivElement>(null);
     const observerRef = useRef<IntersectionObserver | null>(null);
+
+    const { t, i18n } = useTranslation();
 
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage = 16;
@@ -36,6 +39,31 @@ function AlbumHoatdongcongtyMansonryCommon() {
                 ...item,
                 height: heightOptions[index % heightOptions.length],
             }));
+
+
+
+            // Dịch 3 trường: title, subtitle, content
+            for (const item of response.data.data) {
+                // Dịch title
+                // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
+                i18n.addResource('vi', 'translation', `title_hoatdongcongty_${item.id}`, item.title);
+                // const englishTitle = await translateWithGoogle(item.title, 'English');
+                i18n.addResource('en', 'translation', `title_hoatdongcongty_${item.id}`, item.title_en);
+
+
+                // Dịch subtitle
+                // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
+                i18n.addResource('vi', 'translation', `subtitle_hoatdongcongty_${item.id}`, item.subtitle);
+                // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
+                i18n.addResource('en', 'translation', `subtitle_hoatdongcongty_${item.id}`, item.subtitle_en);
+
+                // Dịch content
+                // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
+                i18n.addResource('vi', 'translation', `content_hoatdongcongty_${item.id}`, item.content);
+                // const englishContent = await translateWithGoogle(item.content, 'English');
+                i18n.addResource('en', 'translation', `content_hoatdongcongty_${item.id}`, item.content_en);
+
+            }
             setData(dataWithHeight);
             setTotalItems(total);
         } catch (err) {
@@ -216,7 +244,8 @@ function AlbumHoatdongcongtyMansonryCommon() {
 
                                     <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition duration-300 z-10">
                                         <span className="text-center text-white text-xs font-semibold px-2 uppercase">
-                                            {item.title}
+                                            {/* {item.title} */}
+                                            {t(`title_hoatdongcongty_${item.id}`) ?? item.title}
                                         </span>
                                     </div>
                                 </div>

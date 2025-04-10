@@ -6,10 +6,12 @@ import SidebarMenu from '../layout/Sidebar'
 import Carousel2 from '../components/Carousel2'
 import Apis, { endpoints } from '../configs/Apis'
 import { ViTriDonTraHoaTieu } from '../interface/InterfaceCommon'
+import { useTranslation } from 'react-i18next'
 
 
 const Vitridontrahoatieu = () => {
     const [vitris, setVitri] = useState<ViTriDonTraHoaTieu[]>([]);
+    const { t, i18n } = useTranslation();
 
 
     const loadVitri = async () => {
@@ -20,6 +22,30 @@ const Vitridontrahoatieu = () => {
 
 
             if (response.data && Array.isArray(response.data.data)) {
+
+                // Dịch 3 trường: title, subtitle, content
+                for (const item of response.data.data) {
+                    // Dịch title
+                    // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
+                    i18n.addResource('vi', 'translation', `title_vitri_${item.id}`, item.title);
+                    // const englishTitle = await translateWithGoogle(item.title, 'English');
+                    i18n.addResource('en', 'translation', `title_vitri_${item.id}`, item.title_en);
+
+
+                    // Dịch subtitle
+                    // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
+                    i18n.addResource('vi', 'translation', `subtitle_vitri_${item.id}`, item.subtitle);
+                    // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
+                    i18n.addResource('en', 'translation', `subtitle_vitri_${item.id}`, item.subtitle_en);
+
+                    // Dịch content
+                    // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
+                    i18n.addResource('vi', 'translation', `content_vitri_${item.id}`, item.content);
+                    // const englishContent = await translateWithGoogle(item.content, 'English');
+                    i18n.addResource('en', 'translation', `content_vitri_${item.id}`, item.content_en);
+
+                }
+
                 setVitri(response.data.data);
 
                 // Sử dụng totalRecords từ API
@@ -125,7 +151,7 @@ const Vitridontrahoatieu = () => {
     return (
         <>
 
-            <Carousel2 name="Vị trí đón trả hoa tiêu" />
+            <Carousel2 name={t("pilotPosition")} />
             <div className="gridme wide">
 
                 <div className="row">
@@ -135,12 +161,12 @@ const Vitridontrahoatieu = () => {
                         <div className=''>
 
 
-                            <Titlepage name='Vị trí đón trả hoa tiêu' />
+                            <Titlepage name={t("pilotPosition")} />
                             <div className="quyet-dinh-container" >
 
                                 <div dangerouslySetInnerHTML={{
                                     __html: vitris[0]?.content?.trim()
-                                        ? vitris[0].content
+                                        ? t(`content_vitri_${vitris[0]?.id}`)
                                         : defaultContentHTML,
                                 }} />
                                 {/* <h2 className="text-center title">QUYẾT ĐỊNH</h2>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Tintuc } from '../interface/InterfaceCommon';
 import { SERVER } from '../configs/Apis';
 import '../static/css/newsdialog.scss';
+import { useTranslation } from 'react-i18next';
 
 // Định nghĩa props cho NewsDialog
 interface NewsDialogProps {
@@ -12,6 +13,7 @@ interface NewsDialogProps {
 
 const NewsDialog: React.FC<NewsDialogProps> = ({ isOpen, newsItem, onClose }) => {
     if (!isOpen || !newsItem) return null; // Không hiển thị nếu không mở hoặc không có dữ liệu
+    const { t } = useTranslation();
 
 
     return (
@@ -25,7 +27,7 @@ const NewsDialog: React.FC<NewsDialogProps> = ({ isOpen, newsItem, onClose }) =>
                 />
                 {/* {newsItem.content} */}
                 <p className="news-dialog-content" dangerouslySetInnerHTML={{ __html: newsItem.content || "" }} ></p>
-                <span className="news-dialog-date">Ngày đăng: {newsItem.postdate}</span>
+                <span className="news-dialog-date">{t("ngay")}: {newsItem.postdate}</span>
                 <button className="news-dialog-close" onClick={onClose}>
                     Đóng
                 </button>

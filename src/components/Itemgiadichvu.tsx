@@ -1,18 +1,17 @@
 import React from 'react'
 import '../static/css/itemgiadichvu.scss'
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next';
 
 interface ItemgiadichvuProps {
     name: string;
-    desc: string;
     img: string;
-    pdfurl: string;
 
     index?: number; // truyền từ component cha để tính delay
 }
 
 const Itemgiadichvu: React.FC<ItemgiadichvuProps> = ({ name, img, index = 0 }) => {
-
+    const { t } = useTranslation();
     return (
         <motion.div
             className="itemgiadichvu"
@@ -24,7 +23,7 @@ const Itemgiadichvu: React.FC<ItemgiadichvuProps> = ({ name, img, index = 0 }) =
             <img src={img} alt="Giá dịch vụ" />
             <div className="itemgiadichvu-info">
                 <p className='itemgiadichvu-name'>{name}</p>
-                <button className="custom-button">Đọc thêm</button>
+                <button className="custom-button">{t("viewDetail")}</button>
             </div>
         </motion.div>
     );

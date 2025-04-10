@@ -9,6 +9,8 @@ import Apis, { endpoints, SERVER } from '../configs/Apis'
 import CommonPagination from '../components/CommonPagination'
 import { Link } from 'react-router-dom'
 import { GiaDichVu } from '../interface/InterfaceCommon'
+import { useTranslation } from 'react-i18next'
+
 
 
 
@@ -17,27 +19,54 @@ const Giadichvu = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalItems, setTotalItems] = useState(0);
     const itemsPerPage = 4; // Limit gửi lên API
+    const { t, i18n } = useTranslation();
+
+
 
     const loadGiadichvu = async (page: number) => {
         try {
             const params = { limit: itemsPerPage, page };
             const response = await Apis.get(endpoints.APIServicePrice, { params });
 
-
-
             if (response.data && Array.isArray(response.data.data)) {
-                setHoatieu(response.data.data);
-                // Sử dụng totalRecords từ API
-                const total = response.data.totalRecords || response.data.data.length;
+                const data = response.data.data;
+
+                // Cập nhật totalItems
+                const total = response.data.totalRecords || data.length;
                 setTotalItems(total);
 
+                // Dịch 3 trường: title, subtitle, content
+                for (const item of response.data.data) {
+                    // Dịch title
+                    // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
+                    i18n.addResource('vi', 'translation', `title_giadichvu_${item.id}`, item.title);
+                    // const englishTitle = await translateWithGoogle(item.title, 'English');
+                    i18n.addResource('en', 'translation', `title_giadichvu_${item.id}`, item.title_en);
+
+
+                    // Dịch subtitle
+                    // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
+                    i18n.addResource('vi', 'translation', `subtitle_giadichvu_${item.id}`, item.subtitle);
+                    // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
+                    i18n.addResource('en', 'translation', `subtitle_giadichvu_${item.id}`, item.subtitle_en);
+
+                    // Dịch content
+                    // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
+                    i18n.addResource('vi', 'translation', `content_giadichvu_${item.id}`, item.content);
+                    // const englishContent = await translateWithGoogle(item.content, 'English');
+                    i18n.addResource('en', 'translation', `content_giadichvu_${item.id}`, item.content_en);
+
+                }
+
+                setHoatieu(data);
+
             } else {
-                console.error("Dữ liệu API không đúng định dạng:", response.data);
+                console.error('Dữ liệu API không đúng định dạng:', response.data);
                 setHoatieu([]);
                 setTotalItems(0);
             }
         } catch (error) {
-            console.error("Lỗi khi load hoa tiêu:", error);
+            console.error('Lỗi khi load hoa tiêu:', error);
             setHoatieu([]);
             setTotalItems(0);
         }
@@ -45,7 +74,12 @@ const Giadichvu = () => {
 
     useEffect(() => {
         loadGiadichvu(currentPage);
+
+
+
     }, [currentPage]);
+
+
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -57,7 +91,7 @@ const Giadichvu = () => {
 
     return (
         <>
-            <Carousel2 name="Bảng giá dịch vụ" />
+            <Carousel2 name={t("servicePrice")} />
             <div className="gridme wide">
 
                 <div className="row">
@@ -67,17 +101,21 @@ const Giadichvu = () => {
                         <div className=''>
 
 
-                            <Titlepage name='Bảng giá dịch vụ' />
+                            <Titlepage name={t("servicePrice")} />
 
                             <div className="danhsach-hoatieu">
                                 {giadichvus.map((item, index) => (
                                     <Link
                                         key={index}
                                         to={`/gia-dich-vu/detail/${item.id}`} // Chỉ truyền pathname
-                                        state={{ giadichvuItem: item }} // Truyền state riêng (v6)
+                                        state={{
+                                            giadichvuItem: item,
+                                            key: item.id  // Truyền key vào state
+
+                                        }} // Truyền state riêng (v6)
                                         style={{ textDecoration: 'none', color: 'inherit' }}
                                     >
-                                        <Itemgiadichvu index={index} key={index} name={item.title} desc={item.content} pdfurl={item.pdfurl} img={`${SERVER}/${item.image}`} />
+                                        <Itemgiadichvu index={index} name={t(`title_giadichvu_${item.id}`) ?? item.title} img={`${SERVER}/${item.image}`} />
                                     </Link>
                                 ))}
                             </div>

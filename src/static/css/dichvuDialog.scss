@@ -28,33 +28,48 @@
     position: relative;
     overflow-y: auto; // Cho phép cuộn dọc
 
-    &.closing {
-        animation: zoomOut 0.3s ease-out forwards;
-    }
+    // &.closing {
+    //     animation: zoomOut 0.3s ease-out forwards;
+    // }
 
-    // Tùy chỉnh thanh cuộn
+    // // Tùy chỉnh thanh cuộn
+    // &::-webkit-scrollbar {
+    //     width: 10px; // Chiều rộng thanh cuộn
+    // }
+
+    // &::-webkit-scrollbar-track {
+    //     background: transparent; // Nền trong suốt để hòa với dialog
+    //     border-radius: 20px; // Bo tròn theo dialog
+    //     margin: 10px 0; // Khoảng cách trên dưới để không sát viền
+    // }
+
+    // &::-webkit-scrollbar-thumb {
+    //     background: rgba(0, 0, 0, 0.3); // Màu xám nhạt cho thanh cuộn
+    //     border-radius: 20px; // Bo tròn thanh cuộn
+    // }
+
+    // &::-webkit-scrollbar-thumb:hover {
+    //     background: rgba(0, 0, 0, 0.5); // Đậm hơn khi hover
+    // }
+
+    // Ẩn thanh scroll
+
+
+    // // Tùy chỉnh cho Firefox
+    // scrollbar-width: thin; // Thanh cuộn mỏng
+    // scrollbar-color: rgba(0, 0, 0, 0.3) transparent; // Màu thanh cuộn và nền
+
+    -ms-overflow-style: none; // Ẩn thanh scroll trên IE và Edge
+    scrollbar-width: none; // Ẩn thanh scroll trên Firefox
+
+    // Ẩn thanh scroll trên Webkit (Chrome, Safari)
     &::-webkit-scrollbar {
-        width: 10px; // Chiều rộng thanh cuộn
+        display: none !important; // Ẩn hoàn toàn thanh scroll
     }
 
-    &::-webkit-scrollbar-track {
-        background: transparent; // Nền trong suốt để hòa với dialog
-        border-radius: 20px; // Bo tròn theo dialog
-        margin: 10px 0; // Khoảng cách trên dưới để không sát viền
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: rgba(0, 0, 0, 0.3); // Màu xám nhạt cho thanh cuộn
-        border-radius: 20px; // Bo tròn thanh cuộn
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-        background: rgba(0, 0, 0, 0.5); // Đậm hơn khi hover
-    }
-
-    // Tùy chỉnh cho Firefox
-    scrollbar-width: thin; // Thanh cuộn mỏng
-    scrollbar-color: rgba(0, 0, 0, 0.3) transparent; // Màu thanh cuộn và nền
+    // &.closing {
+    //     animation: zoomOut 0.3s ease-out forwards;
+    // }
 
     .dichvu-dialog-title {
         font-size: 32px;

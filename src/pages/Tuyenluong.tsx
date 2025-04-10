@@ -4,13 +4,16 @@ import '../static/css/tuyenluong.scss'
 import SidebarMenu from '../layout/Sidebar'
 import Carousel2 from '../components/Carousel2'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 
 
 const Tuyenluong = () => {
+    const { t } = useTranslation();
+
     return (
         <>
-            <Carousel2 name="Tuyến luồng" />
+            <Carousel2 name={t("route")} />
             <div className="gridme wide">
 
                 <div className="row">
@@ -20,7 +23,7 @@ const Tuyenluong = () => {
                         <div className=''>
 
 
-                            <Titlepage name='Tuyến luồng' />
+                            <Titlepage name={t("route")} />
 
                             <div className="danhsach-tuyenluong">
                                 <p><span className="menu-icon">📍</span><Link to={'/tuyen-luong-thi-vai'}>Tuyến luồng thị vải Vũng tàu</Link></p>

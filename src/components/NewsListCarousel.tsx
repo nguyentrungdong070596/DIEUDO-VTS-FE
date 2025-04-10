@@ -5,6 +5,7 @@ import '../static/css/newslistcarousel.scss';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import NewsDichVuBaiDangLienQuan from './NewsBaiDangLienQuan';
+import { useTranslation } from 'react-i18next';
 
 interface NewsListCarouselProps {
     items: Tintuc[];
@@ -21,6 +22,7 @@ const NewsListCarousel: React.FC<NewsListCarouselProps> = ({
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isTransitioning, setIsTransitioning] = useState(true);
     const trackRef = useRef<HTMLDivElement>(null);
+    const { t } = useTranslation();
 
     // ✨ Update visibleSlides based on screen size
     useEffect(() => {
@@ -154,7 +156,7 @@ const NewsListCarousel: React.FC<NewsListCarouselProps> = ({
                                 <Link
                                     key={index}
                                     to={`/tin-tuc/detail/${item.id}`} // Chỉ truyền pathname
-                                    state={{ newsItem: item }} // Truyền state riêng (v6)
+                                    state={{ newsItem: item, key: item.id }} // Truyền state riêng (v6)
                                     style={{ textDecoration: 'none', color: 'inherit' }}
                                     onClick={() => window.scrollTo(0, 0)} // ✅ scroll lên đầu ngay khi click
 
@@ -168,10 +170,12 @@ const NewsListCarousel: React.FC<NewsListCarouselProps> = ({
                                     /> */}
 
                                     <NewsDichVuBaiDangLienQuan
-                                        title={item.title}
+                                        title={t(`title_tintuc_${item.id}`)}
+                                        // title={item.title}
 
 
-                                        desc={(item.content)}
+                                        desc={t(`content_tintuc_${item.id}`)}
+                                        // desc={t(`content_tintuc_${item.id}`)}
                                         time={item.postdate}
                                         img={`${imageBaseUrl}/${item.image}`}
                                     />

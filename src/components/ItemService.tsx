@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../static/css/itemservice.scss';
 import '../static/css/gridme.scss';
+import { useTranslation } from 'react-i18next';
 
 interface ItemgiadichvuProps {
     name: string;
@@ -11,6 +12,7 @@ interface ItemgiadichvuProps {
 const ItemService: React.FC<ItemgiadichvuProps> = ({ name, desc, img }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [isVisible, setIsVisible] = useState(false);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -45,7 +47,7 @@ const ItemService: React.FC<ItemgiadichvuProps> = ({ name, desc, img }) => {
             <div className="service-info">
                 <p className="service-name">{name}</p>
                 <p className="service-content" dangerouslySetInnerHTML={{ __html: desc }} />
-                <a className="service-button-detail" href="#">XEM CHI TIẾT</a>
+                <a className="service-button-detail" href="#">{t("viewDetail")}</a>
             </div>
         </div>
     );

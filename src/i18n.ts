@@ -31,8 +31,61 @@ i18n.use(initReactI18next).init({
                 transportVehicleList: "Transport Vehicle List",
                 subTitleService: "Practical – Fast – Cost-effective Solution",
 
-                subTitleNews: "Our Latest News & Events"
+                subTitleNews: "Our Latest News & Events",
+                giodieudong: "Time dispatching pilotage",
+                kehoachdantau: "Pilot Plan",
+                gioithieu: "Introduction",
+                libImg: "Library Image",
+                libVid: "Library Video",
+                servicePriceNor: "Service Price",
+                tauden: "Arriving ship",
+                tauroi: "Departing ship",
+                taudichchuyen: "Transiting ship",
+                lienketnhanh: "Quick Links",
+                dangkybantin: "Subscribe to Newsletter",
+                dangkybantinsub: "Subscribe to receive the latest news and events from us!",
+                phattrienboi: "Development by",
+                dangtaidulieu: "Loading data...",
+                baidanglienquan: "Related Posts",
+                comment: "Comment",
+                nhapemail: "Input your email...",
+                excel: "Excel",
+                export: "Export",
+                ngay: "Date",
+                chonngay: "Choose date",
+                detail: "Detail",
+                dichvu: "Service",
 
+                categories: [
+                    {
+                        title: "CATEGORIES",
+                        items: [
+                            { name: "📰 News", path: "/tin-tuc" },
+                            { name: "📘 About Us", path: "/gioi-thieu-cong-ty" },
+                            { name: "💼 Business Sector", path: "/" }
+                        ]
+                    },
+                    {
+                        title: "WEBSITE LINKS",
+                        items: [
+                            { name: "📈 Stock Exchange", path: "https://www.ssc.gov.vn/webcenter/portal/ubck" },
+                            { name: "🛃 Customs", path: "https://www.customs.gov.vn/" },
+                            { name: "🌦️ Southern Hydro-Meteorology", path: "http://www.kttv-nb.org.vn/" },
+                            { name: "🌐 Government Website", path: "https://chinhphu.vn/" },
+                            { name: "🚦 Ministry of Transport", path: "https://www.mt.gov.vn/" },
+                            { name: "📄 Legal Documents", path: "https://luatvietnam.vn/" },
+                            { name: "🚢 Vietnam Maritime Administration", path: "https://www.vinamarine.gov.vn/" },
+                            { name: "📰 Ba Ria - Vung Tau Newspaper", path: "https://baria-vungtau.gov.vn/sphere/baria/vungtau/page/trang-chu.cpx" }
+                        ]
+                    },
+                    {
+                        title: "UTILITIES",
+                        items: [
+                            { name: "🌊 Tide Table", path: "/bang-thuy-trieu" },
+                            { name: "☁️ Weather", path: "https://www.24h.com.vn/du-bao-thoi-tiet-c568.html" }
+                        ]
+                    }
+                ]
 
             }
         },
@@ -65,7 +118,65 @@ i18n.use(initReactI18next).init({
 
                 transportVehicleList: "Phương tiện",
                 subTitleService: "giải pháp thực tế - nhanh chóng - tiết kiệm",
-                subTitleNews: "tin tức & sự kiện mới nhất của chúng tôi"
+                subTitleNews: "tin tức & sự kiện mới nhất của chúng tôi",
+                giodieudong: "Giờ diều động mớn nước",
+                gioithieu: "Giới thiệu",
+                libImg: "Thư viện hình ảnh",
+                libVid: "Thư viện video",
+                servicePriceNor: "Giá dịch vụ",
+                tauden: "Tàu đến",
+                tauroi: "Tàu rời",
+                taudichchuyen: "Tàu dịch chuyển",
+                lienketnhanh: "Liên kết nhanh",
+                dangkybantin: "Đăng ký bản tin",
+                phattrienboi: "Phát triển bởi",
+                dangtaidulieu: "Đang tải dữ liệu...",
+                baidanglienquan: "Bài đăng liên quan",
+                comment: "Bình luận",
+                nhapemail: "Nhập email...",
+                excel: "Excel",
+                export: "Xuất",
+                ngay: "Ngày đăng",
+                detail: "Chi tiết",
+
+                chonngay: "Chọn ngày",
+                dichvu: "Dịch vụ của chúng tôi",
+
+
+                dangkybantinsub: "Đăng ký để nhận các tin tức, sự kiện mới từ chúng tôi!",
+                categories: [
+                    {
+                        title: "DANH MỤC",
+                        items: [
+                            { name: "📰 Tin tức", path: "/tin-tuc" },
+                            { name: "📘 Giới thiệu", path: "/gioi-thieu-cong-ty" },
+                            { name: "💼 Ngành nghề kinh doanh", path: "/" }
+                        ]
+                    },
+                    {
+                        title: "LIÊN KẾT WEBSITE",
+                        items: [
+                            { name: "📈 Sàn Giao Dịch Chứng Khoán", path: "https://www.ssc.gov.vn/webcenter/portal/ubck" },
+                            { name: "🛃 Cục Hải Quan", path: "https://www.customs.gov.vn/" },
+                            { name: "🌦️ Khí Tượng Thủy Văn Nam Bộ", path: "http://www.kttv-nb.org.vn/" },
+                            { name: "🌐 Web Chính Phủ", path: "https://chinhphu.vn/" },
+                            { name: "🚦 Bộ Giao Thông", path: "https://www.mt.gov.vn/" },
+                            { name: "📄 Văn Bản Pháp Luật", path: "https://luatvietnam.vn/" },
+                            { name: "🚢 Cục Hàng Hải Việt Nam", path: "https://www.vinamarine.gov.vn/" },
+                            { name: "📰 Báo Bà Rịa - Vũng Tàu", path: "https://baria-vungtau.gov.vn/sphere/baria/vungtau/page/trang-chu.cpx" }
+                        ]
+                    },
+                    {
+                        title: "TIỆN ÍCH",
+                        items: [
+                            { name: "🌊 Bảng Thủy Triều", path: "/bang-thuy-trieu" },
+                            { name: "☁️ Thời Tiết", path: "https://www.24h.com.vn/du-bao-thoi-tiet-c568.html" }
+                        ]
+                    }
+                ]
+
+
+
 
             }
         }
@@ -76,5 +187,7 @@ i18n.use(initReactI18next).init({
         escapeValue: false
     }
 });
+
+
 
 export default i18n;

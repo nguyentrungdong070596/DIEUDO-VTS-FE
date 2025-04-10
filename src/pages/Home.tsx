@@ -1,3 +1,7 @@
+
+
+
+
 import { useEffect, useRef, useState } from "react";
 import Carousel from "../components/Carousel";
 import "../static/css/home.scss";
@@ -8,7 +12,7 @@ import ItemService from "../components/ItemService";
 import "../static/css/itemservice.scss";
 import "../static/css/gridme.scss";
 import Apis, { endpoints, SERVER } from '../configs/Apis';
-import { BanLanhDao, Dichvu, Tintuc } from "../interface/InterfaceCommon";
+import { BanLanhDao, Dichvu, Lichsu, Tintuc } from "../interface/InterfaceCommon";
 import NewsDialog from "../components/NewsDialog";
 
 import 'swiper/swiper-bundle.css';
@@ -21,6 +25,7 @@ import "aos/dist/aos.css";
 import "animate.css";
 import { useSearchContext } from "../context/SearchContext";
 import { useTranslation } from "react-i18next";
+import { BounceInView } from "../components/BounceInView";
 
 
 
@@ -34,6 +39,15 @@ const Home = () => {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const serviceRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
+
+
+
+  // const { ref, inView } = useInView({
+  //   triggerOnce: true, // chỉ animate 1 lần
+  //   threshold: 0.2,    // phần trăm phần tử cần hiển thị trong viewport (0.2 = 20%)
+  // });
+
+
 
 
   useEffect(() => {
@@ -53,6 +67,7 @@ const Home = () => {
       contactRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [keyword]);
+
 
 
   const paragraphDichVuRef = useRef<HTMLParagraphElement>(null);
@@ -172,17 +187,45 @@ const Home = () => {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const [selectedNews, setSelectedNews] = useState<Tintuc | null>(null);
   const [selectedDichvu, setSelectedDichvu] = useState<Dichvu | null>(null);
+  const [gioithieu, setGioiThieu] = useState<Lichsu>();
 
-  // const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   // Giả lập API loading
-  //   setTimeout(() => setLoading(false), 2000);
-  // }, []);
-  // useEffect(() => {
-  //   // Giả lập API loading
-  //   setTimeout(() => setLoading(false), 2000);
-  // }, []);
+
+  const loadLichsucongty = async () => {
+    try {
+      const params = { limit: 1000, page: 1, itemType: "7" };
+      const response = await Apis.get(endpoints.APIItems, { params });
+
+
+
+      if (response.data && Array.isArray(response.data.data)) {
+
+        setGioiThieu(response.data.data[0]);
+        // console.log("GioiThieu", response.data.data[0]);
+        i18n.addResource("vi", "translation", `content_gioithieucongty_${response.data.data[0].id}`, response.data.data[0].content);
+        i18n.addResource("en", "translation", `content_gioithieucongty_${response.data.data[0].id}`, response.data.data[0].content_en);
+
+
+        // Sử dụng totalRecords từ API
+        // const total = response.data.totalRecords || response.data.data.length;
+
+      } else {
+        console.error("Dữ liệu API không đúng định dạng:", response.data);
+        setGioiThieu(gioithieu);
+      }
+    } catch (error) {
+      console.error("Lỗi khi load hoa tiêu:", error);
+      setGioiThieu(gioithieu);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadLichsucongty();
+    };
+
+    fetchData();
+  }, []);
 
   const loadTintuc = async () => {
     try {
@@ -192,6 +235,28 @@ const Home = () => {
 
 
       if (response.data && Array.isArray(response.data.data)) {
+        for (const item of response.data.data) {
+          // Dịch title
+          // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
+          i18n.addResource('vi', 'translation', `title_tintuc_${item.id}`, item.title);
+          // const englishTitle = await translateWithGoogle(item.title, 'English');
+          i18n.addResource('en', 'translation', `title_tintuc_${item.id}`, item.title_en);
+
+
+
+          // Dịch subtitle
+          // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
+          i18n.addResource('vi', 'translation', `subtitle_tintuc_${item.id}`, item.subtitle);
+          // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
+          i18n.addResource('en', 'translation', `subtitle_tintuc_${item.id}`, item.subtitle_en);
+
+          // Dịch content
+          // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
+          i18n.addResource('vi', 'translation', `content_tintuc_${item.id}`, item.content);
+          // const englishContent = await translateWithGoogle(item.content, 'English');
+          i18n.addResource('en', 'translation', `content_tintuc_${item.id}`, item.content_en);
+
+        }
         setTintuc(response.data.data);
         // Sử dụng totalRecords từ API
 
@@ -204,6 +269,7 @@ const Home = () => {
       setTintuc([]);
     }
   };
+  const { i18n } = useTranslation();
 
 
 
@@ -215,6 +281,29 @@ const Home = () => {
 
 
       if (response.data && Array.isArray(response.data.data)) {
+        // Dịch 3 trường: title, subtitle, content
+        for (const item of response.data.data) {
+          // Dịch title
+          // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
+          i18n.addResource('vi', 'translation', `title_dichvu_${item.id}`, item.title);
+          // const englishTitle = await translateWithGoogle(item.title, 'English');
+          i18n.addResource('en', 'translation', `title_dichvu_${item.id}`, item.title_en);
+
+
+
+          // Dịch subtitle
+          // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
+          i18n.addResource('vi', 'translation', `subtitle_dichvu_${item.id}`, item.subtitle);
+          // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
+          i18n.addResource('en', 'translation', `subtitle_dichvu_${item.id}`, item.subtitle_en);
+
+          // Dịch content
+          // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
+          i18n.addResource('vi', 'translation', `content_dichvu_${item.id}`, item.content);
+          // const englishContent = await translateWithGoogle(item.content, 'English');
+          i18n.addResource('en', 'translation', `content_dichvu_${item.id}`, item.content_en);
+
+        }
         setDichvu(response.data.data);
 
 
@@ -231,13 +320,7 @@ const Home = () => {
   };
 
 
-  useEffect(() => {
-    const fetchData = async () => {
-      await loadBanLanhDao();
-    };
 
-    fetchData();
-  }, []);
 
   const loadBanLanhDao = async () => {
     try {
@@ -263,10 +346,7 @@ const Home = () => {
   };
 
 
-  useEffect(() => {
-    loadTintuc();
 
-  }, []);
 
 
 
@@ -363,45 +443,19 @@ const Home = () => {
 
 
         <div className="row about-flex">
-          <div className="col-custom flex h-[500px] m-12 c-12 l-6 overflow-hidden relative">
-            <div className="flex flex-col animate-[marquee-up_10s_linear_infinite] gap-4 left-about">
-              {
-                banlanhdao.map((item, index) => (
-                  // <Link key={index} to={`/dich-vu/${item.Id}`} className="col-custom m-12 c-12 l-4" style={{
-                  //   textDecoration: 'none', color: 'inherit', width: '100%', height: '100%', display: "inherit"
-                  // }}>
-
-                  < div
-                    className="item-about"
-                    key={index}
-                  >
-
-                    <img src={`${SERVER}/${item.image}`}
-                      className="h-auto w-full" />
-                  </div>
-                  // </Link>
-                ))}
-
-              {/* {
-                banlanhdao.map((item, index) => {
-                  <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
-
-                })
-              } */}
-              {/* <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
-              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div>
-              <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
-              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div>
-              <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
-              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div>
-
-              <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
-              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div>
-              <div className="item-about"><img src="/tau1.png" className="h-auto w-full" /></div>
-              <div className="item-about"><img src="/tau2.png" className="h-auto w-full" /></div> */}
+          <div className="col-custom flex h-[680px] m-12 c-12 l-6 overflow-hidden relative group">
+            <div className="flex flex-col animate-marquee-up gap-1 left-about group-hover:animation-paused">
+              {[...banlanhdao, ...banlanhdao].map((item, index) => (
+                <div className="item-about h-[200px]" key={index}>
+                  <img
+                    src={`${SERVER}/${item.image}`}
+                    className="h-full w-full object-cover"
+                    alt={item.title || "Image"}
+                  />
+                </div>
+              ))}
             </div>
           </div>
-
 
 
 
@@ -415,16 +469,20 @@ const Home = () => {
               >{t('aboutUs')}</h2>
 
 
-              <p
+              {/* <p
                 className="animate__animated animate__fadeInRight content-text"
 
               >
-                {/* Công ty Dịch vụ và Vận tải biển Vũng Tàu (VUNGTAUSHIP) được thành lập ngày 10/02/1990 theo quyết định của UBND Đặc khu Vũng Tàu Côn Đảo. Công ty được thành lập lại là Doanh nghiệp nhà nước theo Quyết định số 12/QĐ-UBT ngày 27/11/1992 của UBND tỉnh Bà Rịa – Vũng Tàu với vốn điều lệ ban đầu là: 7.467.638.393 đồng.
-                <br /><br />
-                Từ một doanh nghiệp Nhà nước trực thuộc Sở Giao thông Vận tải tỉnh với hoạt động ban đầu chỉ là cung ứng tàu biển và dịch vụ hàng hải, VUNGTAUSHIP đã dần mở rộng kinh doanh, phát triển thêm nhiều hoạt động dịch vụ mới như logistics, hoạt động hoa tiêu hàng hải, cung ứng và quản lý nguồn nhân lực, kinh doanh dịch vụ khách sạn và mở rộng hoạt động ra nhiều tỉnh thành khác như TPHCM, Hà Nội, Đồng Nai, Kiên Giang đạt được hiệu quả kinh tế cao trong nhiều năm liền, nhận được nhiều bằng khen của tỉnh Bà Rịa - Vũng Tàu và Bộ Giao thông Vận tải. Năm 2004, VUNGTAUSHIP vinh dự nhận được Huân chương Lao động hạng Nhất do Thủ tướng Chính phủ trao tặng... */}
-
+              
                 {t('aboutUsParagraph')}
-              </p>
+              </p> */}
+
+              {gioithieu && (
+
+                <p dangerouslySetInnerHTML={{
+                  __html: t(`content_gioithieucongty_${gioithieu?.id}`) || t(`aboutUs`)
+                }} className="animate__animated animate__fadeInRight content-text"></p>
+              )}
 
 
               {/* <p
@@ -435,7 +493,7 @@ const Home = () => {
                 Hiển thị nội dung gõ tại đây
               </p> */}
               <Link to='/gioi-thieu-cong-ty'>
-                <button className="custom-button" >
+                <button className="custom-button docthemgioithieu-btn" >
                   {t('viewDetail')}
                 </button>
               </Link>
@@ -453,7 +511,30 @@ const Home = () => {
         <div className="gridme wide">
           <div className="row">
             <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
+              <div className="flex items-center justify-center  " >
 
+                {/* <BounceInView delay={0.2}>
+                  <img src="/iconcloud.gif" className="w-24 h-24" />
+                </BounceInView> */}
+              </div>
+
+              {/* <div className="flex items-center justify-center">
+                <motion.img
+                  ref={ref}
+                  src="/iconcloud.gif"
+                  alt="cloud"
+                  className="w-24 h-24"
+                  initial={{ opacity: 0, scale: 0.5, y: -100 }}
+                  animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
+                  transition={{
+                    type: "spring",
+                    stiffness: 180,
+                    damping: 12,
+                    delay: 0.3, // 👉 Delay để người dùng kịp nhìn thấy
+                    duration: 1.2, // 👉 Cho cảm giác chậm rãi, nổi bật hơn
+                  }}
+                />
+              </div> */}
               <h2
                 // className="text-2xl animate__animated animate__fadeInDown drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase"
                 className={`text-2xl  drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase ${isVisible ? 'animate__animated animate__fadeInDown' : 'opacity-0'}`}
@@ -468,7 +549,7 @@ const Home = () => {
               <p
                 className="text-base text-gray-700 animate__animated animate__fadeInUp font-light italic leading-relaxed md:text-lg mx-auto sub-title tracking-widest"
                 ref={paragraphDichVuRef}
-                data-aos="fade-up"
+              // data-aos="fade-up"
               >
               </p>
 
@@ -488,9 +569,10 @@ const Home = () => {
                 key={index}
                 onClick={() => handleOpenDialogDichVu(item)}
                 style={{ cursor: 'pointer' }} >
+                <ItemService key={index} name={t(`title_dichvu_${item.id}`)} desc={t(`content_dichvu_${item.id}`)} img={`${SERVER}/${item.image}`} />
 
-                < ItemService key={index} name={item.title} desc={item.content} img={`${SERVER}/${item.image}`}
-                />
+                {/* < ItemService key={index} name={item.title} desc={item.content} img={`${SERVER}/${item.image}`} */}
+                {/* /> */}
               </div>
               // </Link>
             ))}
@@ -514,13 +596,43 @@ const Home = () => {
         style={{ marginTop: '10px', height: '10px' }}
       >
       </div>
-      {/* <ScrollingItems /> */}
+
+      {/* <HorizontalScrollSection /> */}
 
       <div className="gridme newsofus wide">
+
         <div className="row">
 
-          <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
 
+          <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
+            {/* <div className="flex items-center justify-center animate__animated animate__fadeInUp ">
+              <img src="/global.png" alt="" className="w-24 h-24" />
+
+            </div> */}
+            <div className="flex items-center justify-center">
+
+              {/* <BounceInView delay={0.2}>
+                <img src="/iconglobal.png" className="w-24 h-24" />
+              </BounceInView> */}
+            </div>
+
+            {/* <div className="flex items-center justify-center">
+              <motion.img
+                ref={ref}
+                src="/iconglobal.png"
+                alt="globe"
+                className="w-24 h-24"
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={inView ? { opacity: 1, scale: 1 } : {}}
+                transition={{
+                  type: "spring",
+                  stiffness: 180,
+                  damping: 12,
+                  delay: 0.3, // 👉 Delay để người dùng kịp nhìn thấy
+                  duration: 1.2, // 👉 Cho cảm giác chậm rãi, nổi bật hơn
+                }}
+              />
+            </div> */}
             <h2
               className={`text-2xl  drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase ${isVisible ? 'animate__animated animate__fadeInDown' : 'opacity-0'}`}
               data-aos="fade-up"

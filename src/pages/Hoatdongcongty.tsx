@@ -8,8 +8,11 @@ import '../static/css/giodieudong.scss';
 import Carousel2 from '../components/Carousel2';
 
 import AlbumHoatdongcongtyMansonryCommon from '../components/AlbumHoatdongcongtyMansonryCommon';
+import { useTranslation } from 'react-i18next';
 
 const Hoatdongcongty = () => {
+    const { t } = useTranslation();
+
     // const documentUrl = "/CHUONG 6 - CAC VAN DE MARKETING.pdf"; // Ví dụ PDF
     // const [hoatdongcongty, setHoatdongcongty] = useState<HoatDongCongTy[]>([]);
     // const itemsPerPage = 10;
@@ -58,13 +61,13 @@ const Hoatdongcongty = () => {
         <>
             {/* <BubbleBackground /> */}
 
-            <Carousel2 name="Hoạt động công ty" />
+            <Carousel2 name={t("activity")} />
             <div className="gridme wide2">
                 <div className="row">
                     {/* <SidebarMenu /> */}
                     <div className='col-custom m-12 c-12 l-12'>
                         <div>
-                            <Titlepage name='Hoạt động công ty' />
+                            <Titlepage name={t("activity")} />
                             <AlbumHoatdongcongtyMansonryCommon />
                         </div>
                     </div>

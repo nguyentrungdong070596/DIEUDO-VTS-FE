@@ -5,6 +5,8 @@ import "animate.css";
 import Apis, { endpoints } from "../configs/Apis";
 import { Dichvu } from "../interface/InterfaceCommon";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 interface Footer {
   id: number;
@@ -15,6 +17,7 @@ interface Footer {
   number_phone?: string;
   mst?: string;
   branch_name?: string;
+  linkfb?: string; // Added linkfb property
 }
 
 const Footer: React.FC = () => {
@@ -22,12 +25,35 @@ const Footer: React.FC = () => {
   const [footers, setFooters] = useState<Footer[]>([]);
   const [loading, setLoading] = useState(true); // Add loading state
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   const loadDichVu = async () => {
     try {
-      const params = { limit: 7, page: 1 };
+      const params = { limit: 6, page: 1 };
       const response = await Apis.get(endpoints.APIDichvu, { params });
       if (response.data && Array.isArray(response.data.data)) {
+        for (const item of response.data.data) {
+          // Dịch title
+          // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
+          i18n.addResource('vi', 'translation', `title_dichvu_${item.id}`, item.title);
+          // const englishTitle = await translateWithGoogle(item.title, 'English');
+          i18n.addResource('en', 'translation', `title_dichvu_${item.id}`, item.title_en);
+
+
+
+          // Dịch subtitle
+          // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
+          i18n.addResource('vi', 'translation', `subtitle_dichvu_${item.id}`, item.subtitle);
+          // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
+          i18n.addResource('en', 'translation', `subtitle_dichvu_${item.id}`, item.subtitle_en);
+
+          // Dịch content
+          // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
+          i18n.addResource('vi', 'translation', `content_dichvu_${item.id}`, item.content);
+          // const englishContent = await translateWithGoogle(item.content, 'English');
+          i18n.addResource('en', 'translation', `content_dichvu_${item.id}`, item.content_en);
+
+        }
         setDichvu(response.data.data);
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);
@@ -92,12 +118,12 @@ const Footer: React.FC = () => {
       <div className="footer-content">
         {/* Cột 1: Về chúng tôi */}
         <div className="about footer-section">
-          <h3>Về chúng tôi</h3>
+          <h3>{t("aboutUs")}</h3>
           {loading ? (
             <p>Đang tải...</p> // Show loading indicator
           ) : footers.length > 0 ? (
             <>
-              <p className="company-name">{footers[0].company_name}</p>
+              <p className="company-name">{t("companyName")}</p>
               <p>🏢 {footers[0].address}</p>
               <p>
                 <span className="shake-icon">📞</span> {footers[0].number_phone} - Fax: {footers[0].fax} - MST: {footers[0].mst}
@@ -111,7 +137,7 @@ const Footer: React.FC = () => {
 
         {/* Cột 2: Dịch vụ cung cấp */}
         <div className="footer-section services">
-          <h3>Dịch vụ cung cấp</h3>
+          <h3>{t("dichvu")}</h3>
           <ul>
             {dichvus.map((item, index) => (
               <li key={index}>
@@ -121,7 +147,8 @@ const Footer: React.FC = () => {
                   style={{ textDecoration: "none", color: "inherit" }}
                   onClick={() => window.scrollTo(0, 0)}
                 >
-                  {item.title}
+                  {t(`title_dichvu_${item.id}`) || item.title}
+                  {/* {t(`title_dichvu_${item.id}`)} */}
                 </Link>
               </li>
             ))}
@@ -130,20 +157,21 @@ const Footer: React.FC = () => {
 
         {/* Cột 3: Liên kết nhanh */}
         <div className="footer-section links">
-          <h3>Liên kết nhanh</h3>
+          <h3>{t("lienketnhanh")}</h3>
+
           <ul>
-            <li><Link to="/gioi-thieu-cong-ty">Giới thiệu</Link></li>
-            <li><Link to="/tin-tuc">Tin tức</Link></li>
-            <li><a href="#">Thư viện ảnh</a></li>
-            <li><a href="#">Thư viện video</a></li>
-            <li><Link to="/gia-dich-vu">Bảng giá dịch vụ</Link></li>
+            <li><Link to="/gioi-thieu-cong-ty">{t("gioithieu")}</Link></li>
+            <li><Link to="/tin-tuc">{t("newsAndEvent")}</Link></li>
+            <li><a href="/hoat-dong-cong-ty">{t("libImg")}</a></li>
+            <li><a href="/hoat-dong-cong-ty">{t("libVid")}</a></li>
+            <li><Link to="/gia-dich-vu">{t("servicePriceNor")}</Link></li>
           </ul>
         </div>
 
         {/* Cột 4: Đăng ký bản tin */}
         <div className="footer-section newsletter">
-          <h3>Đăng ký bản tin</h3>
-          <p>Đăng ký để nhận các tin tức, sự kiện mới từ chúng tôi!</p>
+          <h3>{t("dangkybantin")}</h3>
+          <p>{t("dangkybantinsub")}</p>
           {/* <motion.div
             variants={item}
             onSubmit={handleSubmit}
@@ -166,33 +194,39 @@ const Footer: React.FC = () => {
 
 
           <div className="newsletter-container">
-            <input type="email" className="newsletter-input" placeholder="Nhập email..." />
+            <input type="email" className="newsletter-input" placeholder={t("nhapemail")} />
             <button className="newsletter-button">📩</button>
           </div>
           {/* <p className="text-center text-white mt-2">Tôi muốn liên hệ</p> */}
 
           <div className="social-links">
-            <a href="#" className="social-icon">
-              <FaFacebookF />
-            </a>
-            <a href="#" className="social-icon">
-              <FaInstagram />
-            </a>
-            <a href="#" className="social-icon">
-              <FaLinkedinIn />
-            </a>
-            <a href="#" className="social-icon">
-              <FaTwitter />
-            </a>
+            {footers.length > 0 ? (
+              <>
+                <Link to={footers[0].linkfb || "#"} className="social-icon">
+                  <FaFacebookF />
+                </Link>
+                <a href="#" className="social-icon">
+                  <FaInstagram />
+                </a>
+                <a href="#" className="social-icon">
+                  <FaLinkedinIn />
+                </a>
+                <a href="#" className="social-icon">
+                  <FaTwitter />
+                </a>
+              </>
+            ) : null}
           </div>
         </div>
       </div>
 
       {/* Copyright */}
       <div className="footer-copyright">
-        © 2025 CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU
+        {/* © 2025 CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU */}
+        © 2025 {t("companyName")}
 
-        <Link to="https://ftisg.com.vn/">   |     Phát triển bởi  <span style={{ "color": "#F0A500" }}>FTI SÀI GÒN</span></Link>
+        {/* <Link to="https://ftisg.com.vn/">   |     Phát triển bởi  <span style={{ "color": "#F0A500" }}>FTI SÀI GÒN</span></Link> */}
+        <Link to="https://ftisg.com.vn/">   |     {t("phattrienboi")}  <span style={{ "color": "#F0A500" }}>FTI SÀI GÒN</span></Link>
       </div>
     </footer>
   );

@@ -44,23 +44,37 @@
 
 
 
-@keyframes marquee-up {
-    0% {
-        transform: translateY(0);
-    }
-
-    100% {
-        transform: translateY(-50%);
-    }
+.left-about {
+    animation: marquee-up 10s linear infinite;
 }
 
+/* styles.css hoặc file CSS của bạn */
+.animation-paused {
+    animation-play-state: paused;
+}
+
+.left-about:hover {
+    animation-play-state: paused;
+}
+
+@layer utilities {
+    @keyframes marquee-up {
+        0% {
+            transform: translateY(0);
+        }
+
+        100% {
+            transform: translateY(-50%);
+        }
+    }
+}
 
 .about-flex {
     display: flex !important;
     flex-direction: row;
     flex-wrap: wrap-reverse;
     justify-content: space-around;
-    align-items: center;
+    // align-items: center;
     align-content: center;
     box-sizing: border-box;
     margin-top: 50px;
@@ -70,18 +84,24 @@
 
 
 .left-about .item-about {
-    width: 250px !important;
-    height: 150px;
+    width: 300px !important;
+    height: 200px;
     // padding: 5px 10px;
 }
 
 .title-right-box {
     font-size: 30px;
     font-weight: 900;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     color: #007CF9;
+    padding-left: 10px;
+    text-align: left;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
 
+}
+
+.docthemgioithieu-btn {
+    margin-left: 10px;
 }
 
 .right-about p.content-text {
@@ -89,8 +109,8 @@
     // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
     text-align: justify;
-    font-weight: 500;
-    line-height: 1.9;
+    font-weight: 900;
+    line-height: 2.4;
     font-size: 16px;
     color: #333;
     margin-bottom: 1rem;
@@ -105,7 +125,6 @@
 .right-about {
     // padding: 10px;
     padding-bottom: 20px;
-    margin-left: -20px;
 
 }
 
@@ -168,6 +187,19 @@
         padding: 0px 20px;
     }
 
+    .left-about {
+
+        margin-right: 0px !important;
+    }
+
+
+
+    .title-right-box {
+
+        text-align: center;
+
+
+    }
 
 }
 

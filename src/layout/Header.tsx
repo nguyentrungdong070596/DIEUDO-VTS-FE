@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import "../static/css/gridme.scss";
 import "../static/css/header.scss";
-import logo from "../static/img/logo.png";
-import vn from "../static/img/vn.png";
-import eng from "../static/img/eng.png";
 // import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 import { FaSearch } from "react-icons/fa"; // Import biểu tượng tìm kiếm từ FontAwesome
 import Navbar from "./Navbar";
@@ -90,7 +87,7 @@ const Header: React.FC<HeaderProps> = () => {
           <div className="col-custom m-12 c-12 l-5 header-left" >
             <div className="contain-logo">
               <img
-                src={logo}
+                src="/logo.png"
                 width={50}
                 height={50}
                 alt="Logo"
@@ -136,14 +133,14 @@ const Header: React.FC<HeaderProps> = () => {
 
           <div className="col-custom m-2 c-2 changelanguage l-1">
             <img
-              src={vn}
+              src="/vn.png"
               alt="VN"
               className="animate__animated animate__backInDown avatar vietnam"
               onClick={() => changeLanguage("vi")}
               style={{ cursor: "pointer" }}
             />
             <img
-              src={eng}
+              src="/eng.png"
               alt="ENG"
               className="animate__animated animate__backInDown avatar english"
               onClick={() => changeLanguage("en")}
