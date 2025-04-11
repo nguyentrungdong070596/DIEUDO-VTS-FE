@@ -188,7 +188,10 @@ const Home = () => {
   const [selectedDichvu, setSelectedDichvu] = useState<Dichvu | null>(null);
   const [gioithieu, setGioiThieu] = useState<Lichsu>();
 
-
+  // Get the content
+  const content = t(`content_gioithieucongty_${gioithieu?.id}`) || t(`aboutUs`);
+  const maxLength = 999; // Độ dài tối đa của nội dung hiển thị
+  const displayContent = content.length > maxLength ? `${content.slice(0, maxLength)}...` : content;
 
   const loadLichsucongty = async () => {
     try {
@@ -475,12 +478,19 @@ const Home = () => {
               
                 {t('aboutUsParagraph')}
               </p> */}
-
+              {/* 
               {gioithieu && (
 
                 <p dangerouslySetInnerHTML={{
                   __html: t(`content_gioithieucongty_${gioithieu?.id}`) || t(`aboutUs`)
                 }} className="animate__animated animate__fadeInRight content-text"></p>
+              )} */}
+
+              {gioithieu && (
+                <p
+                  dangerouslySetInnerHTML={{ __html: displayContent }}
+                  className="animate__animated animate__fadeInRight content-text"
+                ></p>
               )}
 
 
