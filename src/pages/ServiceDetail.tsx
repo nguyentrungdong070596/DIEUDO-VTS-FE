@@ -7,12 +7,17 @@ import '../static/css/danhsachhoatieu.scss';
 import '../static/css/servicedetail.scss';
 import SidebarMenu from '../layout/Sidebar';
 import Carousel2 from '../components/Carousel2';
-import { SERVER } from '../configs/Apis';
+// import Apis, { endpoints, SERVER } from '../configs/Apis';
 import { useTranslation } from 'react-i18next';
+import { SERVER } from '../configs/Apis';
+// import { useEffect, useState } from 'react';
+// import { Dichvu } from '../interface/InterfaceCommon';
+// import i18n from '../i18n';
 
 const ServiceDetail = () => {
     const location = useLocation();
     const serviceItem = location.state?.serviceItem; // Lấy dữ liệu từ state
+    const key = location.state?.key; // Lấy dữ liệu từ state
     // const [dichvus, setDichvu] = useState<Dichvu[]>([]);
 
     const { t } = useTranslation();
@@ -25,6 +30,28 @@ const ServiceDetail = () => {
 
 
     //         if (response.data && Array.isArray(response.data.data)) {
+    //             // Dịch 3 trường: title, subtitle, content
+    //             for (const item of response.data.data) {
+    //                 // Dịch title
+    //                 // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
+    //                 i18n.addResource('vi', 'translation', `title_dichvu_${item.id}`, item.title);
+    //                 // const englishTitle = await translateWithGoogle(item.title, 'English');
+    //                 i18n.addResource('en', 'translation', `title_dichvu_${item.id}`, item.title_en);
+
+
+    //                 // Dịch subtitle
+    //                 // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
+    //                 i18n.addResource('vi', 'translation', `subtitle_dichvu_${item.id}`, item.subtitle);
+    //                 // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
+    //                 i18n.addResource('en', 'translation', `subtitle_dichvu_${item.id}`, item.subtitle_en);
+
+    //                 // Dịch content
+    //                 // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
+    //                 i18n.addResource('vi', 'translation', `content_dichvu_${item.id}`, item.content);
+    //                 // const englishContent = await translateWithGoogle(item.content, 'English');
+    //                 i18n.addResource('en', 'translation', `content_dichvu_${item.id}`, item.content_en);
+
+    //             }
     //             setDichvu(response.data.data);
 
 
@@ -63,15 +90,16 @@ const ServiceDetail = () => {
 
     return (
         <>
-            <Carousel2 name="DỊCH VỤ" />
+            <Carousel2 name={t(`dichvu`)} />
             <div className="gridme wide">
                 <div className="row">
                     <SidebarMenu />
                     <div className="col-custom l-9 m-12 c-12">
-                        <Titlepage name="Chi tiết" />
+                        <Titlepage name={t(`detail`)} />
                         <div className="detail-news">
                             <img src={`${SERVER}/${serviceItem.image}`} alt={serviceItem.title} />
-                            <h2>{serviceItem.title}</h2>
+                            {/* <h2>{serviceItem.title}</h2> */}
+                            <h2>{t(`title_dichvu_${key}`)}</h2>
                             <p dangerouslySetInnerHTML={{ __html: serviceItem.content || "" }} ></p>
                             {/* <span className='detail-news-postdate'>Ngày đăng: {serviceItem.postdate}</span> */}
 

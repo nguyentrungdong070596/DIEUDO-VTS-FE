@@ -158,11 +158,10 @@ const Home = () => {
           }
           // else {
           //   setIsVisible(false); // để khi scroll ra khỏi, lần sau vào lại sẽ trigger lại animation
-
           // }
         });
       },
-      { threshold: 0 }
+      { threshold: 0 } // 10% của phần tử phải hiển thị mới trigger
     );
 
     if (sectionRef.current) {
@@ -189,7 +188,10 @@ const Home = () => {
   const [selectedDichvu, setSelectedDichvu] = useState<Dichvu | null>(null);
   const [gioithieu, setGioiThieu] = useState<Lichsu>();
 
-
+  // Get the content
+  const content = t(`content_gioithieucongty_${gioithieu?.id}`) || t(`aboutUs`);
+  const maxLength = 999; // Độ dài tối đa của nội dung hiển thị
+  const displayContent = content.length > maxLength ? `${content.slice(0, maxLength)}...` : content;
 
   const loadLichsucongty = async () => {
     try {
@@ -476,12 +478,19 @@ const Home = () => {
               
                 {t('aboutUsParagraph')}
               </p> */}
-
+              {/* 
               {gioithieu && (
 
                 <p dangerouslySetInnerHTML={{
                   __html: t(`content_gioithieucongty_${gioithieu?.id}`) || t(`aboutUs`)
                 }} className="animate__animated animate__fadeInRight content-text"></p>
+              )} */}
+
+              {gioithieu && (
+                <p
+                  dangerouslySetInnerHTML={{ __html: displayContent }}
+                  className="animate__animated animate__fadeInRight content-text"
+                ></p>
               )}
 
 
@@ -513,9 +522,9 @@ const Home = () => {
             <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
               <div className="flex items-center justify-center  " >
 
-                {/* <BounceInView delay={0.2}>
+                <BounceInView delay={0.2}>
                   <img src="/iconcloud.gif" className="w-24 h-24" />
-                </BounceInView> */}
+                </BounceInView>
               </div>
 
               {/* <div className="flex items-center justify-center">
@@ -604,16 +613,15 @@ const Home = () => {
         <div className="row">
 
 
-          <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
-            {/* <div className="flex items-center justify-center animate__animated animate__fadeInUp ">
+          <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">            {/* <div className="flex items-center justify-center animate__animated animate__fadeInUp ">
               <img src="/global.png" alt="" className="w-24 h-24" />
 
             </div> */}
             <div className="flex items-center justify-center">
 
-              {/* <BounceInView delay={0.2}>
+              <BounceInView delay={0.2}>
                 <img src="/iconglobal.png" className="w-24 h-24" />
-              </BounceInView> */}
+              </BounceInView>
             </div>
 
             {/* <div className="flex items-center justify-center">
