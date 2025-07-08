@@ -117,7 +117,8 @@
     padding: 0 10px;
     font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
     font-style: italic;
-
+    /* Ensure text doesn’t overflow */
+    overflow-wrap: break-word;
 
     /* Điều chỉnh khoảng cách giữa các dòng */
 }
