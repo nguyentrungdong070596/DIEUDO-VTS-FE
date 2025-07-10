@@ -1,21 +1,21 @@
-
-
-
-
 import { useEffect, useRef, useState } from "react";
 import Carousel from "../components/Carousel";
 import "../static/css/home.scss";
-
 
 import ItemService from "../components/ItemService";
 
 import "../static/css/itemservice.scss";
 import "../static/css/gridme.scss";
-import Apis, { endpoints, SERVER } from '../configs/Apis';
-import { BanLanhDao, Dichvu, Lichsu, Tintuc } from "../interface/InterfaceCommon";
+import Apis, { endpoints, SERVER } from "../configs/Apis";
+import {
+  BanLanhDao,
+  Dichvu,
+  Lichsu,
+  Tintuc,
+} from "../interface/InterfaceCommon";
 import NewsDialog from "../components/NewsDialog";
 
-import 'swiper/swiper-bundle.css';
+import "swiper/swiper-bundle.css";
 import NewsListCarousel from "../components/NewsListCarousel";
 import { Link } from "react-router-dom";
 import DichvuDialog from "../components/DichvuDialog";
@@ -27,10 +27,6 @@ import { useSearchContext } from "../context/SearchContext";
 import { useTranslation } from "react-i18next";
 import { BounceInView } from "../components/BounceInView";
 
-
-
-
-
 const Home = () => {
   const { t } = useTranslation();
 
@@ -40,35 +36,34 @@ const Home = () => {
   const serviceRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
 
-
-
   // const { ref, inView } = useInView({
   //   triggerOnce: true, // chỉ animate 1 lần
   //   threshold: 0.2,    // phần trăm phần tử cần hiển thị trong viewport (0.2 = 20%)
   // });
 
-
-
-
   useEffect(() => {
-    if (keyword.trim() === '') return;
+    if (keyword.trim() === "") return;
 
     const search = keyword.toLowerCase().trim();
 
-    const aboutKeywords = ['giới thiệu', 'về chúng tôi', 'about us', 'about'];
-    const serviceKeywords = ['dịch vụ', 'service', 'services'];
-    const newsKeywords = ['tin tức', 'news'];
+    const aboutKeywords = ["giới thiệu", "về chúng tôi", "about us", "about"];
+    const serviceKeywords = ["dịch vụ", "service", "services"];
+    const newsKeywords = ["tin tức", "news"];
 
-    if (aboutKeywords.some(k => search.includes(k)) && aboutRef.current) {
-      aboutRef.current.scrollIntoView({ behavior: 'smooth' });
-    } else if (serviceKeywords.some(k => search.includes(k)) && serviceRef.current) {
-      serviceRef.current.scrollIntoView({ behavior: 'smooth' });
-    } else if (newsKeywords.some(k => search.includes(k)) && contactRef.current) {
-      contactRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (aboutKeywords.some((k) => search.includes(k)) && aboutRef.current) {
+      aboutRef.current.scrollIntoView({ behavior: "smooth" });
+    } else if (
+      serviceKeywords.some((k) => search.includes(k)) &&
+      serviceRef.current
+    ) {
+      serviceRef.current.scrollIntoView({ behavior: "smooth" });
+    } else if (
+      newsKeywords.some((k) => search.includes(k)) &&
+      contactRef.current
+    ) {
+      contactRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [keyword]);
-
-
 
   const paragraphDichVuRef = useRef<HTMLParagraphElement>(null);
   const paragraphTinTucRef = useRef<HTMLParagraphElement>(null);
@@ -81,18 +76,15 @@ const Home = () => {
 
   useEffect(() => {
     AOS.init({
-      duration: 1000,   // thời gian hiệsu ứng (ms)
-      once: false,       // chỉ animate 1 lần khi scroll
+      duration: 1000, // thời gian hiệsu ứng (ms)
+      once: false, // chỉ animate 1 lần khi scroll
       mirror: true, // ✅ chạy lại khi cuộn từ dưới lên
-
     });
 
     // Nếu DOM có thể thay đổi sau này, gọi AOS.refresh
     setTimeout(() => {
       AOS.refresh(); // đảm bảo cập nhật lại nếu DOM thay đổi sau vài giây
     }, 300);
-
-
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -104,7 +96,10 @@ const Home = () => {
               return;
             }
             if (i <= fullTextDichVu.length) {
-              paragraphDichVuRef.current.innerText = fullTextDichVu.substring(0, i);
+              paragraphDichVuRef.current.innerText = fullTextDichVu.substring(
+                0,
+                i,
+              );
               i++;
             } else {
               clearInterval(interval);
@@ -120,27 +115,27 @@ const Home = () => {
               return;
             }
             if (i <= fullTextTinTuc.length) {
-              paragraphTinTucRef.current.innerText = fullTextTinTuc.substring(0, i);
+              paragraphTinTucRef.current.innerText = fullTextTinTuc.substring(
+                0,
+                i,
+              );
               i++;
             } else {
               clearInterval(interval);
             }
           }, 20);
         }
-
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
-    if (paragraphTinTucRef.current) observer.observe(paragraphTinTucRef.current);
-    if (paragraphDichVuRef.current) observer.observe(paragraphDichVuRef.current);
-
-
-
+    if (paragraphTinTucRef.current)
+      observer.observe(paragraphTinTucRef.current);
+    if (paragraphDichVuRef.current)
+      observer.observe(paragraphDichVuRef.current);
 
     return () => observer.disconnect();
   }, []);
-
 
   // scroll tới đâu hiệu ứng =========================================
 
@@ -150,8 +145,8 @@ const Home = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
+      (entries) => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(true);
             // observer.unobserve(entry.target);
@@ -161,7 +156,7 @@ const Home = () => {
           // }
         });
       },
-      { threshold: 0 } // 10% của phần tử phải hiển thị mới trigger
+      { threshold: 0 }, // 10% của phần tử phải hiển thị mới trigger
     );
 
     if (sectionRef.current) {
@@ -172,10 +167,6 @@ const Home = () => {
       if (sectionRef.current) observer.unobserve(sectionRef.current);
     };
   }, []);
-
-
-
-
 
   const [tintucs, setTintuc] = useState<Tintuc[]>([]);
   const [dichvus, setDichvu] = useState<Dichvu[]>([]);
@@ -191,26 +182,32 @@ const Home = () => {
   // Get the content
   const content = t(`content_gioithieucongty_${gioithieu?.id}`) || t(`aboutUs`);
   const maxLength = 999; // Độ dài tối đa của nội dung hiển thị
-  const displayContent = content.length > maxLength ? `${content.slice(0, maxLength)}...` : content;
+  const displayContent =
+    content.length > maxLength ? `${content.slice(0, maxLength)}...` : content;
 
   const loadLichsucongty = async () => {
     try {
       const params = { limit: 1000, page: 1, itemType: "7" };
       const response = await Apis.get(endpoints.APIItems, { params });
 
-
-
       if (response.data && Array.isArray(response.data.data)) {
-
         setGioiThieu(response.data.data[0]);
         // console.log("GioiThieu", response.data.data[0]);
-        i18n.addResource("vi", "translation", `content_gioithieucongty_${response.data.data[0].id}`, response.data.data[0].content);
-        i18n.addResource("en", "translation", `content_gioithieucongty_${response.data.data[0].id}`, response.data.data[0].content_en);
-
+        i18n.addResource(
+          "vi",
+          "translation",
+          `content_gioithieucongty_${response.data.data[0].id}`,
+          response.data.data[0].content,
+        );
+        i18n.addResource(
+          "en",
+          "translation",
+          `content_gioithieucongty_${response.data.data[0].id}`,
+          response.data.data[0].content_en,
+        );
 
         // Sử dụng totalRecords từ API
         // const total = response.data.totalRecords || response.data.data.length;
-
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);
         setGioiThieu(gioithieu);
@@ -234,34 +231,58 @@ const Home = () => {
       const params = { limit: itemsPerPage, page: 1 };
       const response = await Apis.get(endpoints.APINews, { params });
 
-
-
       if (response.data && Array.isArray(response.data.data)) {
         for (const item of response.data.data) {
           // Dịch title
           // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
-          i18n.addResource('vi', 'translation', `title_tintuc_${item.id}`, item.title);
+          i18n.addResource(
+            "vi",
+            "translation",
+            `title_tintuc_${item.id}`,
+            item.title,
+          );
           // const englishTitle = await translateWithGoogle(item.title, 'English');
-          i18n.addResource('en', 'translation', `title_tintuc_${item.id}`, item.title_en);
-
-
+          i18n.addResource(
+            "en",
+            "translation",
+            `title_tintuc_${item.id}`,
+            item.title_en,
+          );
 
           // Dịch subtitle
           // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
-          i18n.addResource('vi', 'translation', `subtitle_tintuc_${item.id}`, item.subtitle);
+          i18n.addResource(
+            "vi",
+            "translation",
+            `subtitle_tintuc_${item.id}`,
+            item.subtitle,
+          );
           // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
-          i18n.addResource('en', 'translation', `subtitle_tintuc_${item.id}`, item.subtitle_en);
+          i18n.addResource(
+            "en",
+            "translation",
+            `subtitle_tintuc_${item.id}`,
+            item.subtitle_en,
+          );
 
           // Dịch content
           // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
-          i18n.addResource('vi', 'translation', `content_tintuc_${item.id}`, item.content);
+          i18n.addResource(
+            "vi",
+            "translation",
+            `content_tintuc_${item.id}`,
+            item.content,
+          );
           // const englishContent = await translateWithGoogle(item.content, 'English');
-          i18n.addResource('en', 'translation', `content_tintuc_${item.id}`, item.content_en);
-
+          i18n.addResource(
+            "en",
+            "translation",
+            `content_tintuc_${item.id}`,
+            item.content_en,
+          );
         }
         setTintuc(response.data.data);
         // Sử dụng totalRecords từ API
-
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);
         setTintuc([]);
@@ -273,44 +294,65 @@ const Home = () => {
   };
   const { i18n } = useTranslation();
 
-
-
   const loadDichVu = async () => {
     try {
       const params = { limit: itemsPerPage, page: 1 };
       const response = await Apis.get(endpoints.APIDichvu, { params });
-
-
 
       if (response.data && Array.isArray(response.data.data)) {
         // Dịch 3 trường: title, subtitle, content
         for (const item of response.data.data) {
           // Dịch title
           // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
-          i18n.addResource('vi', 'translation', `title_dichvu_${item.id}`, item.title);
+          i18n.addResource(
+            "vi",
+            "translation",
+            `title_dichvu_${item.id}`,
+            item.title,
+          );
           // const englishTitle = await translateWithGoogle(item.title, 'English');
-          i18n.addResource('en', 'translation', `title_dichvu_${item.id}`, item.title_en);
-
-
+          i18n.addResource(
+            "en",
+            "translation",
+            `title_dichvu_${item.id}`,
+            item.title_en,
+          );
 
           // Dịch subtitle
           // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
-          i18n.addResource('vi', 'translation', `subtitle_dichvu_${item.id}`, item.subtitle);
+          i18n.addResource(
+            "vi",
+            "translation",
+            `subtitle_dichvu_${item.id}`,
+            item.subtitle,
+          );
           // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
-          i18n.addResource('en', 'translation', `subtitle_dichvu_${item.id}`, item.subtitle_en);
+          i18n.addResource(
+            "en",
+            "translation",
+            `subtitle_dichvu_${item.id}`,
+            item.subtitle_en,
+          );
 
           // Dịch content
           // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
-          i18n.addResource('vi', 'translation', `content_dichvu_${item.id}`, item.content);
+          i18n.addResource(
+            "vi",
+            "translation",
+            `content_dichvu_${item.id}`,
+            item.content,
+          );
           // const englishContent = await translateWithGoogle(item.content, 'English');
-          i18n.addResource('en', 'translation', `content_dichvu_${item.id}`, item.content_en);
-
+          i18n.addResource(
+            "en",
+            "translation",
+            `content_dichvu_${item.id}`,
+            item.content_en,
+          );
         }
         setDichvu(response.data.data);
 
-
         // Sử dụng totalRecords từ API
-
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);
         setDichvu([]);
@@ -321,22 +363,15 @@ const Home = () => {
     }
   };
 
-
-
-
   const loadBanLanhDao = async () => {
     try {
       const params = { limit: 1000, page: 1, itemType: "5" };
       const response = await Apis.get(endpoints.APIItems, { params });
 
-
-
       if (response.data && Array.isArray(response.data.data)) {
         setBanLanhDao(response.data.data);
 
-
         // Sử dụng totalRecords từ API
-
       } else {
         console.error("Dữ liệu API không đúng định dạng:", response.data);
         setBanLanhDao([]);
@@ -347,36 +382,25 @@ const Home = () => {
     }
   };
 
-
-
-
-
-
   useEffect(() => {
     loadBanLanhDao();
   }, []);
 
-
   useEffect(() => {
     loadDichVu();
     // console.log("dichvu", dichvus)
-
   }, []);
-
-
 
   useEffect(() => {
     loadTintuc();
   }, []);
-
-
 
   // Mở dialog và truyền dữ liệu
   const handleOpenDialogNews = (item: Tintuc) => {
     // Tạo bản sao của item với content đã được xử lý
     const updatedItem = {
       ...item, // Copy tất cả thuộc tính của item
-      content: (item.content), // Ghi đè content bằng giá trị đã xử lý
+      content: item.content, // Ghi đè content bằng giá trị đã xử lý
     };
 
     setSelectedNews(updatedItem); // Truyền bản sao đã xử lý vào state
@@ -388,7 +412,7 @@ const Home = () => {
     // Tạo bản sao của item với content đã được xử lý
     const updatedItem = {
       ...item, // Copy tất cả thuộc tính của item
-      content: (item.content), // Ghi đè content bằng giá trị đã xử lý
+      content: item.content, // Ghi đè content bằng giá trị đã xử lý
     };
 
     setSelectedDichvu(updatedItem); // Truyền bản sao đã xử lý vào state
@@ -401,18 +425,12 @@ const Home = () => {
     setSelectedDichvu(null);
   };
 
-
-
-
-
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = (currentIndex: any) => {
-    currentIndex
+    currentIndex;
     setCurrentIndex((prev) => (prev + 1) % tintucs.length);
   };
-
-
 
   // Auto slide mỗi 5s
   useEffect(() => {
@@ -421,6 +439,7 @@ const Home = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, [tintucs.length]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
     <>
@@ -428,11 +447,7 @@ const Home = () => {
 
       <Carousel />
 
-
-
-
       <div className="gridme about wide">
-
         {/* <iframe
           title="Astronaut 3D Model"
           className="sketchfab-embed"
@@ -443,33 +458,71 @@ const Home = () => {
         ></iframe> */}
         {/* <Scene /> */}
 
-
         <div className="row about-flex">
-          <div className="col-custom flex h-[680px] m-12 c-12 l-6 overflow-hidden relative group">
+          {/* <div className="col-custom flex h-[680px] m-12 c-12 l-6 overflow-hidden relative group">
             <div className="flex flex-col animate-marquee-up gap-1 left-about group-hover:animation-paused">
               {[...banlanhdao, ...banlanhdao].map((item, index) => (
                 <div className="item-about h-[200px]" key={index}>
                   <img
                     src={`${SERVER}/${item.image}`}
                     className="h-full w-full object-cover"
+                    // className="max-h-full w-auto object-contain mx-auto"
                     alt={item.title || "Image"}
+                    style={{ imageRendering: "crisp-edges" }}
                   />
+                 
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
 
+          <>
+            <div className="col-custom flex h-[680px] m-12 c-12 l-6 overflow-hidden relative group">
+              <div className="flex flex-col animate-marquee-up gap-1 left-about group-hover:animation-paused">
+                {[...banlanhdao, ...banlanhdao].map((item, index) => (
+                  <div className="item-about h-[200px]" key={index}>
+                    <img
+                      src={`${SERVER}/${item.image}`}
+                      // className="max-h-full w-auto object-contain mx-auto transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer"
+                      className="h-full w-full object-cover    transition-transform duration-300 ease-in-out cursor-pointer"
+                      alt={item.title || "Image"}
+                      style={{ imageRendering: "crisp-edges" }}
+                      onClick={() =>
+                        setSelectedImage(`${SERVER}/${item.image}`)
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
 
-
-
-          <div className="col-custom m-12 c-12 l-6" >
+            {/* Overlay full màn hình khi click */}
+            {selectedImage && (
+              <div
+                className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center cursor-zoom-out"
+                onClick={() => setSelectedImage(null)} // Click nền sẽ đóng
+              >
+                {/* Ảnh nằm bên trong, không bị dính onClick */}
+                <img
+                  src={selectedImage}
+                  alt="Zoomed"
+                  className="max-w-[90%] max-h-[90%] object-contain rounded-lg shadow-xl transition-transform duration-300 transform "
+                  style={{ imageRendering: "crisp-edges" }}
+                  onClick={(e) => e.stopPropagation()} // Ngăn sự kiện lan ra ngoài
+                />
+              </div>
+            )}
+          </>
+          <div className="col-custom m-12 c-12 l-6">
             <div className="right-about">
-              <h2 className="animate__animated animate__backInUp title-right-box"
-                data-aos="fade-up" data-aos-once="false"
+              <h2
+                className="animate__animated animate__backInUp title-right-box"
+                data-aos="fade-up"
+                data-aos-once="false"
                 ref={aboutRef}
-
-              >{t('aboutUs')}</h2>
-
+              >
+                {t("aboutUs")}
+              </h2>
 
               {/* <p
                 className="animate__animated animate__fadeInRight content-text"
@@ -493,7 +546,6 @@ const Home = () => {
                 ></p>
               )}
 
-
               {/* <p
                 ref={paragraphRef}
                 data-aos="fade-up"
@@ -501,27 +553,21 @@ const Home = () => {
               >
                 Hiển thị nội dung gõ tại đây
               </p> */}
-              <Link to='/gioi-thieu-cong-ty'>
-                <button className="custom-button docthemgioithieu-btn" >
-                  {t('viewDetail')}
+              <Link to="/gioi-thieu-cong-ty">
+                <button className="custom-button docthemgioithieu-btn">
+                  {t("viewDetail")}
                 </button>
               </Link>
             </div>
           </div>
-        </div >
-      </div >
-      <div
-        ref={serviceRef}
-        style={{ marginTop: '50px', height: '50px' }}
-      >
-
+        </div>
       </div>
-      <div className="serviceofus" >
+      <div ref={serviceRef} style={{ marginTop: "50px", height: "50px" }}></div>
+      <div className="serviceofus">
         <div className="gridme wide">
           <div className="row">
             <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
-              <div className="flex items-center justify-center  " >
-
+              <div className="flex items-center justify-center  ">
                 <BounceInView delay={0.2}>
                   <img src="/iconcloud.gif" className="w-24 h-24" />
                 </BounceInView>
@@ -546,25 +592,26 @@ const Home = () => {
               </div> */}
               <h2
                 // className="text-2xl animate__animated animate__fadeInDown drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase"
-                className={`text-2xl  drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase ${isVisible ? 'animate__animated animate__fadeInDown' : 'opacity-0'}`}
+                className={`text-2xl  drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase ${
+                  isVisible
+                    ? "animate__animated animate__fadeInDown"
+                    : "opacity-0"
+                }`}
                 data-aos="fade-up"
                 data-aos-once="false"
               >
                 {/* DỊCH VỤ CỦA CHÚNG TÔI */}
-                {t('UsService')}
+                {t("UsService")}
               </h2>
-
 
               <p
                 className="text-base text-gray-700 animate__animated animate__fadeInUp font-light italic leading-relaxed md:text-lg mx-auto sub-title tracking-widest"
                 ref={paragraphDichVuRef}
-              // data-aos="fade-up"
-              >
-              </p>
+                // data-aos="fade-up"
+              ></p>
 
               {/* <div className="bg-[#0196da] h-1 rounded-full w-16 mt-2 mx-auto"></div> */}
             </div>
-
           </div>
 
           <div className="row service-itemes">
@@ -577,8 +624,14 @@ const Home = () => {
                 className="col-custom m-12 c-12 l-4 service-item1"
                 key={index}
                 onClick={() => handleOpenDialogDichVu(item)}
-                style={{ cursor: 'pointer' }} >
-                <ItemService key={index} name={t(`title_dichvu_${item.id}`)} desc={t(`content_dichvu_${item.id}`)} img={`${SERVER}/${item.image}`} />
+                style={{ cursor: "pointer" }}
+              >
+                <ItemService
+                  key={index}
+                  name={t(`title_dichvu_${item.id}`)}
+                  desc={t(`content_dichvu_${item.id}`)}
+                  img={`${SERVER}/${item.image}`}
+                />
 
                 {/* < ItemService key={index} name={item.title} desc={item.content} img={`${SERVER}/${item.image}`} */}
                 {/* /> */}
@@ -596,34 +649,25 @@ const Home = () => {
 
         </div> */}
         </div>
-      </div >
-
-
-
-      <div
-        ref={contactRef}
-        style={{ marginTop: '10px', height: '10px' }}
-      >
       </div>
+
+      <div ref={contactRef} style={{ marginTop: "10px", height: "10px" }}></div>
 
       {/* <HorizontalScrollSection /> */}
 
       <div className="gridme newsofus wide">
-
         <div className="row">
-
-
-          <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">            {/* <div className="flex items-center justify-center animate__animated animate__fadeInUp ">
+          <div className="col-custom m-12 text-center c-12 l-12 relative sec-title space-y-4">
+            {" "}
+            {/* <div className="flex items-center justify-center animate__animated animate__fadeInUp ">
               <img src="/global.png" alt="" className="w-24 h-24" />
 
             </div> */}
             <div className="flex items-center justify-center">
-
               <BounceInView delay={0.2}>
                 <img src="/iconglobal.png" className="w-24 h-24" />
               </BounceInView>
             </div>
-
             {/* <div className="flex items-center justify-center">
               <motion.img
                 ref={ref}
@@ -642,36 +686,32 @@ const Home = () => {
               />
             </div> */}
             <h2
-              className={`text-2xl  drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase ${isVisible ? 'animate__animated animate__fadeInDown' : 'opacity-0'}`}
+              className={`text-2xl  drop-shadow-md font-extrabold md:text-4xl sm:text-3xl sm:tracking-wider title-box tracking-normal uppercase ${
+                isVisible
+                  ? "animate__animated animate__fadeInDown"
+                  : "opacity-0"
+              }`}
               data-aos="fade-up"
               data-aos-once="false"
             >
               {/* TIN TỨC & SỰ KIỆN */}
-              {t('newsAndEvent')}
+              {t("newsAndEvent")}
             </h2>
-
-
             <p
               className="text-base text-gray-700 animate__animated animate__fadeInUp font-light italic leading-relaxed md:text-lg mx-auto sub-title tracking-widest"
               ref={paragraphTinTucRef}
               data-aos="fade-up"
-            >
-            </p>
-
+            ></p>
             {/* <div className="bg-[#0196da] h-1 rounded-full w-16 mt-2 mx-auto"></div> */}
           </div>
-
         </div>
         {/* <RollingGallery autoplay={true} pauseOnHover={true} dragSensitivity={0.03} /> */}
 
-
         <div className="row news-itemes">
-
           {/* {tintucs.map((item, index) => (
            
             <Itemgiadichvu key={index} name={item.title} desc={item.content} img={`${SERVER}/${item.image}`} />
           ))} */}
-
 
           {/* {tintucs.map((item, index) => (
             <div
@@ -695,17 +735,7 @@ const Home = () => {
             onItemClick={handleOpenDialogNews} // (item: Tintuc) => void
             imageBaseUrl={SERVER}
           />
-
-
-
-
-
-
-
-
         </div>
-
-
       </div>
 
       {/* Sử dụng component NewsDialog */}
