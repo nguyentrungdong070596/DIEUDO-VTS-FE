@@ -1,135 +1,121 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 // import Titlepage from '../components/Titlepage'
-import '../static/css/gioithieucongty.scss'
+import "../static/css/gioithieucongty.scss";
+import "../quill.custom.scss";
 import { motion } from "framer-motion";
-
-import SidebarMenu from '../layout/Sidebar'
-import Carousel2 from '../components/Carousel2'
-import Apis, { endpoints } from '../configs/Apis'
-import { Lichsu } from '../interface/InterfaceCommon'
+import "quill/dist/quill.snow.css"; // Import CSS của Quill
+import SidebarMenu from "../layout/Sidebar";
+import Carousel2 from "../components/Carousel2";
+import Apis, { endpoints } from "../configs/Apis";
+import { Lichsu } from "../interface/InterfaceCommon";
 
 // import LeafletMap from '../components/Leafletmap'
-import { FaAnchor } from 'react-icons/fa'
-import { useTranslation } from 'react-i18next';
-
+import { FaAnchor } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const Gioithieucongty = () => {
+  const [gioithieu, setGioiThieu] = useState<Lichsu>();
+  const { t } = useTranslation();
 
-    const [gioithieu, setGioiThieu] = useState<Lichsu>();
-    const { t } = useTranslation();
+  const item = {
+    hidden: { opacity: 0, y: 30 },
+    show: { opacity: 1, y: 0 },
+  };
 
-    const item = {
-        hidden: { opacity: 0, y: 30 },
-        show: { opacity: 1, y: 0 },
+  const loadLichsucongty = async () => {
+    try {
+      const params = { limit: 1000, page: 1, itemType: "7" };
+      const response = await Apis.get(endpoints.APIItems, { params });
+
+      if (response.data && Array.isArray(response.data.data)) {
+        setGioiThieu(response.data.data[0]);
+
+        // Sử dụng totalRecords từ API
+        // const total = response.data.totalRecords || response.data.data.length;
+      } else {
+        console.error("Dữ liệu API không đúng định dạng:", response.data);
+        setGioiThieu(gioithieu);
+      }
+    } catch (error) {
+      console.error("Lỗi khi load hoa tiêu:", error);
+      setGioiThieu(gioithieu);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await loadLichsucongty();
     };
 
-    const loadLichsucongty = async () => {
-        try {
-            const params = { limit: 1000, page: 1, itemType: "7" };
-            const response = await Apis.get(endpoints.APIItems, { params });
+    fetchData();
+  }, []);
+  return (
+    <>
+      <Carousel2 name={t("companyName")} subtitle={t("branchName")} />
+      <div className="gridme wide">
+        <div className="row">
+          <SidebarMenu />
 
+          <div className="col-custom l-9 m-12 c-12">
+            {/* <Titlepage name="CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU " /> */}
+            {/* <Titlepage name="XÍ NGHIỆP HOA TIÊU VŨNG TÀU " /> */}
 
+            <div className="titlepage-container">
+              <p className={`titlepage  animate__animated animate__fadeInUp`}>
+                <FaAnchor className="my-anchor-icon" />
+                {/* CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU <br /> */}
+                {t("companyName")} <br />
+                {/* XÍ NGHIỆP HOA TIÊU VŨNG TÀU */}
+                {t("branchName")}
+              </p>
 
-            if (response.data && Array.isArray(response.data.data)) {
-                setGioiThieu(response.data.data[0]);
+              <hr className={`animate__animated animate__fadeInRight`} />
+            </div>
+            <div className="hoa-tieu-container">
+              {/* <LeafletMap /> */}
 
-                // Sử dụng totalRecords từ API
-                // const total = response.data.totalRecords || response.data.data.length;
+              <motion.div
+                variants={item}
+                className="rounded-2xl overflow-hidden shadow-md backdrop-blur-md border border-cyan-700/30"
+                style={{ minHeight: "400px" }}
+              >
+                <iframe
+                  title="Google Map"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.0887454972744!2d107.06934841012219!3d10.334782867143058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31756f8a011f1159%3A0x1cada2fcb0187b1e!2zODggSOG6oSBMb25nLCBQaMaw4budbmcgMiwgVsWpbmcgVMOgdSwgQsOgIFLhu4thIC0gVsWpbmcgVMOgdSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1743663556964!5m2!1svi!2s"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: "400px" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </motion.div>
 
-            } else {
-                console.error("Dữ liệu API không đúng định dạng:", response.data);
-                setGioiThieu(gioithieu);
-            }
-        } catch (error) {
-            console.error("Lỗi khi load hoa tiêu:", error);
-            setGioiThieu(gioithieu);
-        }
-    };
+              {/* <h2 className="text-xl font-bold mb-2 text-center">Địa chỉ công ty</h2> */}
 
+              {
+                // stripHtmlWithFormat(gioithieu?.content || "")
+                // gioithieu?.content || ""
 
-    useEffect(() => {
-        const fetchData = async () => {
-            await loadLichsucongty();
-        };
+                // < pre style={{ whiteSpace: 'pre-wrap' }}>
+                //     {stripHtmlWithFormat(gioithieu?.content || "")}
+                // </pre>
+                <div
+                  style={{ paddingTop: "20px" }}
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      t(`content_gioithieucongty_${gioithieu?.id}`) ||
+                      t(`aboutUs`),
+                  }}
+                />
 
-        fetchData();
-    }, []);
-    return (
-        <>
-            <Carousel2 name={t("companyName")} subtitle={t("branchName")} />
-            <div className="gridme wide">
+                // <ReactMarkdown >{stripHtmlWithFormat(gioithieu?.content || "")}</ReactMarkdown>
 
-                <div className="row">
-                    <SidebarMenu />
-
-                    <div className='col-custom l-9 m-12 c-12'>
-                        {/* <Titlepage name="CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU " /> */}
-                        {/* <Titlepage name="XÍ NGHIỆP HOA TIÊU VŨNG TÀU " /> */}
-
-                        <div className="titlepage-container">
-                            <p className={`titlepage  animate__animated animate__fadeInUp`}>
-                                <FaAnchor className="my-anchor-icon" />
-                                {/* CÔNG TY CỔ PHẦN DỊCH VỤ VÀ VẬN TẢI BIỂN VŨNG TÀU <br /> */}
-                                {t("companyName")} <br />
-                                {/* XÍ NGHIỆP HOA TIÊU VŨNG TÀU */}
-                                {t("branchName")}
-                            </p>
-
-                            <hr className={`animate__animated animate__fadeInRight`} />
-                        </div>
-                        <div className="hoa-tieu-container">
-                            {/* <LeafletMap /> */}
-
-
-
-
-                            <motion.div
-                                variants={item}
-                                className="rounded-2xl overflow-hidden shadow-md backdrop-blur-md border border-cyan-700/30"
-                                style={{ minHeight: "400px" }}
-                            >
-
-
-
-                                <iframe
-                                    title="Google Map"
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3925.0887454972744!2d107.06934841012219!3d10.334782867143058!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31756f8a011f1159%3A0x1cada2fcb0187b1e!2zODggSOG6oSBMb25nLCBQaMaw4budbmcgMiwgVsWpbmcgVMOgdSwgQsOgIFLhu4thIC0gVsWpbmcgVMOgdSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1743663556964!5m2!1svi!2s"
-                                    width="100%"
-                                    height="100%"
-                                    style={{ border: 0, minHeight: "400px" }}
-                                    allowFullScreen
-                                    loading="lazy"
-                                    referrerPolicy="no-referrer-when-downgrade"
-                                ></iframe>
-
-
-
-                            </motion.div>
-
-
-
-                            {/* <h2 className="text-xl font-bold mb-2 text-center">Địa chỉ công ty</h2> */}
-
-
-                            {
-                                // stripHtmlWithFormat(gioithieu?.content || "")
-                                // gioithieu?.content || ""
-
-                                // < pre style={{ whiteSpace: 'pre-wrap' }}>
-                                //     {stripHtmlWithFormat(gioithieu?.content || "")}
-                                // </pre>
-                                <div style={{ textAlign: 'justify', "paddingTop": "20px" }} dangerouslySetInnerHTML={{
-                                    __html: t(`content_gioithieucongty_${gioithieu?.id}`) || t(`aboutUs`)
-                                }} />
-
-
-                                // <ReactMarkdown >{stripHtmlWithFormat(gioithieu?.content || "")}</ReactMarkdown>
-
-                                // <div style={{ whiteSpace: 'pre-wrap' }}>
-                                //     <ReactMarkdown>{stripHtmlWithFormat(gioithieu?.content || "")}</ReactMarkdown>
-                                // </div>
-                            }
-                            {/* <p className="paragraph">
+                // <div style={{ whiteSpace: 'pre-wrap' }}>
+                //     <ReactMarkdown>{stripHtmlWithFormat(gioithieu?.content || "")}</ReactMarkdown>
+                // </div>
+              }
+              {/* <p className="paragraph">
                                 Xí nghiệp Hoa tiêu Vũng Tàu là đơn vị trực thuộc Công ty CP Dịch vụ và Vận tải biển Vũng Tàu, có bề dày kinh
                                 nghiệm hoạt động trong lĩnh vực hoa tiêu hàng hải. Xí nghiệp Hoa tiêu Vũng Tàu được thành lập theo Quyết định số
                                 236/QĐ-UBT ngày 5/5/1995 của UBND tỉnh BRVT. Theo Quyết định số 813/QĐ-CHHVNN ngày 01/01/2012, Xí nghiệp Hoa tiêu
@@ -190,18 +176,12 @@ const Gioithieucongty = () => {
                                 Hàng năm XNHT dẫn an toàn 9.000 – 12.000 lượt tàu ra, vào các cảng trong khu vực. Năm 2014: 10.803 lượt tàu; năm
                                 2015: 11.147 lượt tàu; năm 2016: 11.106 lượt tàu.
                             </p> */}
-                        </div>
-                    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
-                </div>
-
-
-
-            </div >
-        </>
-
-
-    )
-}
-
-export default Gioithieucongty
+export default Gioithieucongty;

@@ -2,34 +2,30 @@
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css'; */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 /* @import "tailwindcss/preflight";
 @import "tailwindcss/utilities"; */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;700&display=swap");
 
 .serif-text {
-  font-family: 'Roboto Serif', serif;
+  font-family: "Roboto Serif", serif;
   text-align: justify;
 }
 
 @import "tailwindcss";
 
-
 @font-face {
-  font-family: 'lora-regular';
-  src: url('static/font/Lora-Regular.ttf') format('woff2');
+  font-family: "lora-regular";
+  src: url("static/font/Lora-Regular.ttf") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
-
-
 
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  font-family: 'lora-regular', sans-serif;
-
+  font-family: "lora-regular", sans-serif;
 }
 
 html,
@@ -39,4 +35,5 @@ body {
   /* Chặn scroll ngang */
 }
 
-body {}
+body {
+}
