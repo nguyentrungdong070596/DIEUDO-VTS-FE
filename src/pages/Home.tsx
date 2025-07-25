@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import Carousel from "../components/Carousel";
 import "../static/css/home.scss";
-
+import "../quill.custom.scss";
+import "quill/dist/quill.snow.css"; // Import CSS của Quill
 import ItemService from "../components/ItemService";
 
 import "../static/css/itemservice.scss";

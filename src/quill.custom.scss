@@ -1,0 +1,178 @@
+/* === CĂN LỀ (ALIGN) === */
+.ql-align-left {
+  text-align: left;
+}
+.ql-align-center {
+  text-align: center;
+}
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-justify {
+  text-align: justify;
+}
+
+/* === CĂN LỀ (ALIGN) === */
+/* Ensure images within these parent elements are styled correctly */
+.ql-align-left img,
+.ql-align-center img,
+.ql-align-right img,
+.ql-align-justify img {
+  display: inline-block; /* Ensures images respect text-align */
+  max-width: 100%; /* Prevents images from overflowing their container */
+  height: auto; /* Maintains aspect ratio */
+}
+
+/* Specific tweaks for each alignment */
+.ql-align-left img {
+  margin-right: auto; /* Prevents unintended centering */
+}
+
+.ql-align-center img {
+  margin-left: auto;
+  margin-right: auto; /* Centers the image horizontally */
+}
+
+.ql-align-right img {
+  margin-left: auto; /* Aligns image to the right */
+}
+
+.ql-align-justify img {
+  margin-right: auto; /* Similar to left alignment for images */
+}
+/* === CỠ CHỮ (SIZE) === */
+.ql-size-small {
+  font-size: 0.75em;
+}
+.ql-size-large {
+  font-size: 1.5em;
+}
+.ql-size-huge {
+  font-size: 2.5em;
+}
+
+/* === TIÊU ĐỀ (HEADER) === */
+.ql-header-1 {
+  font-size: 2em;
+  font-weight: bold;
+}
+.ql-header-2 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.ql-header-3 {
+  font-size: 1.17em;
+  font-weight: bold;
+}
+.ql-header-4 {
+  font-size: 1em;
+  font-weight: bold;
+}
+.ql-header-5 {
+  font-size: 0.83em;
+  font-weight: bold;
+}
+.ql-header-6 {
+  font-size: 0.67em;
+  font-weight: bold;
+}
+
+/* === MÀU CHỮ & NỀN === */
+[class^="ql-color-"] {
+  color: inherit; /* cần override riêng nếu có danh sách màu */
+}
+[class^="ql-background-"] {
+  background-color: inherit;
+}
+
+/* === DANH SÁCH (LISTS) === */
+.ql-editor ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+}
+.ql-editor ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+}
+
+/* === ĐỊNH DẠNG VĂN BẢN === */
+.ql-bold {
+  font-weight: bold;
+}
+.ql-italic {
+  font-style: italic;
+}
+.ql-underline {
+  text-decoration: underline;
+}
+.ql-strike {
+  text-decoration: line-through;
+}
+
+/* === BLOCKQUOTE & CODE BLOCK === */
+.ql-blockquote {
+  border-left: 4px solid #ccc;
+  margin: 1em 0;
+  padding-left: 1em;
+  color: #666;
+}
+.ql-code-block {
+  font-family: monospace;
+  background-color: #f5f5f5;
+  padding: 0.75em 1em;
+  border-radius: 4px;
+  margin: 1em 0;
+  overflow-x: auto;
+}
+
+/* === CHỈ SỐ TRÊN/DƯỚI (SCRIPT) === */
+.ql-script-sub {
+  vertical-align: sub;
+  font-size: smaller;
+}
+.ql-script-super {
+  vertical-align: super;
+  font-size: smaller;
+}
+
+/* === THỤT DÒNG (INDENT) === */
+.ql-indent-1 {
+  padding-left: 2em;
+}
+.ql-indent-2 {
+  padding-left: 4em;
+}
+.ql-indent-3 {
+  padding-left: 6em;
+}
+.ql-indent-4 {
+  padding-left: 8em;
+}
+.ql-indent-5 {
+  padding-left: 10em;
+}
+
+/* === HƯỚNG VĂN BẢN (RTL) === */
+.ql-direction-rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* === ẢNH & VIDEO === */
+.ql-editor img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1em 0;
+}
+.ql-editor iframe {
+  width: 100%;
+  height: 400px;
+  border: none;
+  margin: 1em 0;
+}
+
+/* === DẠNG KHÁC === */
+.ql-clean {
+  all: unset;
+}
