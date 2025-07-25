@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 // import Titlepage from '../components/Titlepage'
 import "../static/css/gioithieucongty.scss";
-import "../quill.custom.scss";
 import { motion } from "framer-motion";
+import "../quill.custom.scss";
+import "../ng-editor.scss";
 import "quill/dist/quill.snow.css"; // Import CSS của Quill
+
 import SidebarMenu from "../layout/Sidebar";
 import Carousel2 from "../components/Carousel2";
 import Apis, { endpoints } from "../configs/Apis";

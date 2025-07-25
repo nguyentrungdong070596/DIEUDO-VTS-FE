@@ -1,0 +1,121 @@
+// ngx-editor-viewer.scss
+
+.ngx-editor-content {
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #333;
+  font-family: "Segoe UI", sans-serif;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: bold;
+    margin: 1rem 0 0.5rem;
+  }
+
+  p {
+    margin: 0 0 1em;
+  }
+
+  strong,
+  b {
+    font-weight: bold;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  u {
+    text-decoration: underline;
+  }
+
+  strike,
+  s {
+    text-decoration: line-through;
+  }
+
+  blockquote {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left: 4px solid #ccc;
+    color: #666;
+    font-style: italic;
+  }
+
+  code {
+    background: #f4f4f4;
+    padding: 2px 4px;
+    font-family: monospace;
+    font-size: 0.95em;
+  }
+
+  pre {
+    background: #f8f8f8;
+    padding: 1em;
+    overflow: auto;
+    font-family: monospace;
+    font-size: 0.95em;
+    white-space: pre-wrap;
+  }
+
+  ul,
+  ol {
+    padding-left: 2em;
+    margin: 1em 0;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  ol {
+    list-style-type: decimal;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: underline;
+
+    &:hover {
+      color: #0056b3;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 2em 0;
+  }
+
+  .align-left {
+    text-align: left !important;
+  }
+
+  .align-center {
+    text-align: center;
+  }
+
+  .align-right {
+    text-align: right !important;
+  }
+
+  .text-color-red {
+    color: red;
+  }
+
+  .background-color-yellow {
+    background-color: yellow;
+  }
+}
