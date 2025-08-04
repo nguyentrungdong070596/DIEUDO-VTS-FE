@@ -12,6 +12,7 @@ import NewsListCarousel from "../components/NewsListCarousel";
 import { Tintuc } from "../interface/InterfaceCommon";
 import FacebookComments from "../components/FacebookComment";
 import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 const Newsdetail = () => {
   const location = useLocation();
@@ -27,6 +28,56 @@ const Newsdetail = () => {
       const response = await Apis.get(endpoints.APINews, { params });
 
       if (response.data && Array.isArray(response.data.data)) {
+        for (const item of response.data.data) {
+          // Dịch title
+          // const vietnameseTitle = await translateWithGoogle(item.title, 'Vietnamese');
+          i18n.addResource(
+            "vi",
+            "translation",
+            `title_tintuc_${item.id}`,
+            item.title,
+          );
+          // const englishTitle = await translateWithGoogle(item.title, 'English');
+          i18n.addResource(
+            "en",
+            "translation",
+            `title_tintuc_${item.id}`,
+            item.title_en,
+          );
+
+          // Dịch subtitle
+          // const vietnameseSubtitle = await translateWithGoogle(item.subtitle, 'Vietnamese');
+          i18n.addResource(
+            "vi",
+            "translation",
+            `subtitle_tintuc_${item.id}`,
+            item.subtitle,
+          );
+          // const englishSubtitle = await translateWithGoogle(item.subtitle, 'English');
+          i18n.addResource(
+            "en",
+            "translation",
+            `subtitle_tintuc_${item.id}`,
+            item.subtitle_en,
+          );
+
+          // Dịch content
+          // const vietnameseContent = await translateWithGoogle(item.content, 'Vietnamese');
+          i18n.addResource(
+            "vi",
+            "translation",
+            `content_tintuc_${item.id}`,
+            item.content,
+          );
+          // const englishContent = await translateWithGoogle(item.content, 'English');
+          i18n.addResource(
+            "en",
+            "translation",
+            `content_tintuc_${item.id}`,
+            item.content_en,
+          );
+        }
+
         setTintuc(response.data.data);
         // Sử dụng totalRecords từ API
         // const total = response.data.totalRecords || response.data.data.length;
@@ -67,7 +118,7 @@ const Newsdetail = () => {
             <div className="detail-news">
               <img src={`${SERVER}/${newsItem.image}`} alt={newsItem.title} />
               {/* <h2>{newsItem.title}</h2> */}
-              <h2> {t(`title_tintuc_${key}`) ?? newsItem.title}</h2>
+              <h2> {t(`title_tintuc_${key}`)}</h2>
               {/* <p dangerouslySetInnerHTML={{ __html: newsItem.content || "" }} ></p> */}
               <p
                 dangerouslySetInnerHTML={{
