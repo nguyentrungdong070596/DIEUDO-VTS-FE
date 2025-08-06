@@ -6,6 +6,7 @@ import '@fontsource/roboto/700.css'; */
 /* @import "tailwindcss/preflight";
 @import "tailwindcss/utilities"; */
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Serif:wght@400;700&display=swap");
+@import "../node_modules/quill/dist/quill.snow.css"; /* Import Quill CSS */
 
 .serif-text {
   font-family: "Roboto Serif", serif;
