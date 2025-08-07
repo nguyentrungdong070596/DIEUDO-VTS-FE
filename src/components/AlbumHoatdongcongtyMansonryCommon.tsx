@@ -122,7 +122,7 @@ function AlbumHoatdongcongtyMansonryCommon() {
 
   useEffect(() => {
     const updateColumns = () => {
-      if (window.innerWidth >= 1500) setColumns(5);
+      if (window.innerWidth >= 1500) setColumns(4);
       else if (window.innerWidth >= 1000) setColumns(4);
       else if (window.innerWidth >= 600) setColumns(3);
       else setColumns(1);
@@ -146,7 +146,7 @@ function AlbumHoatdongcongtyMansonryCommon() {
 
   const [heights, gridItems] = useMemo(() => {
     const heights = new Array(columns).fill(0);
-    const items = data.map((item, index) => {
+    const items = data.map((item, _index) => {
       const column = heights.indexOf(Math.min(...heights));
       const x =
         ((width - (columns - 1) * gap) / columns) * column + gap * column;
