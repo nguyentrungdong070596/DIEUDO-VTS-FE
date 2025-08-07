@@ -242,12 +242,11 @@ function AlbumHoatdongcongtyMansonryCommon() {
                                         </div>
                                     )}
 
-                                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition duration-300 z-10">
-                                        <span className="text-center text-white text-xs font-semibold px-2 uppercase">
-                                            {/* {item.title} */}
+                                    {/* <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/50 transition duration-300 z-10">
+                                        <span className="absolute text-center text-white text-xs font-semibold px-2 uppercase bottom-1/12 padding-2">
                                             {t(`title_hoatdongcongty_${item.id}`) ?? item.title}
                                         </span>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </Link>
                         </AnimatedDiv>

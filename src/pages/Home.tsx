@@ -471,7 +471,7 @@ const Home = () => {
                     alt={item.title || "Image"}
                     style={{ imageRendering: "crisp-edges" }}
                   />
-                 
+
                 </div>
               ))}
             </div>
@@ -529,10 +529,10 @@ const Home = () => {
                 className="animate__animated animate__fadeInRight content-text"
 
               >
-              
+
                 {t('aboutUsParagraph')}
               </p> */}
-              {/* 
+              {/*
               {gioithieu && (
 
                 <p dangerouslySetInnerHTML={{
@@ -710,7 +710,7 @@ const Home = () => {
 
         <div className="row news-itemes">
           {/* {tintucs.map((item, index) => (
-           
+
             <Itemgiadichvu key={index} name={item.title} desc={item.content} img={`${SERVER}/${item.image}`} />
           ))} */}
 
