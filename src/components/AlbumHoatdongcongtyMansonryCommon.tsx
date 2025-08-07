@@ -6,10 +6,17 @@ import { Link } from "react-router-dom";
 import CommonPagination from "./CommonPagination";
 import VideoCard from "./VideoCard";
 import { useTranslation } from "react-i18next";
-import "../static/css/hoatdongcongty.scss";
 
 type AnimatedDivProps = AnimatedProps<React.HTMLAttributes<HTMLDivElement>>;
 const AnimatedDiv = animated.div as React.FC<AnimatedDivProps>;
+
+// Define interface for grid items, extending HoatDongCongTy with layout properties
+interface GridItem extends HoatDongCongTy {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
 
 function AlbumHoatdongcongtyMansonryCommon() {
   const [columns, setColumns] = useState<number>(2);
@@ -122,7 +129,7 @@ function AlbumHoatdongcongtyMansonryCommon() {
 
   useEffect(() => {
     const updateColumns = () => {
-      if (window.innerWidth >= 1500) setColumns(4);
+      if (window.innerWidth >= 1500) setColumns(5);
       else if (window.innerWidth >= 1000) setColumns(4);
       else if (window.innerWidth >= 600) setColumns(3);
       else setColumns(1);
@@ -144,7 +151,7 @@ function AlbumHoatdongcongtyMansonryCommon() {
   const gap = 16;
   const fixedHeight = 300; // Same fixed height as set in data
 
-  const [heights, gridItems] = useMemo(() => {
+  const [heights, gridItems] = useMemo((): [number[], GridItem[]] => {
     const heights = new Array(columns).fill(0);
     const items = data.map((item, index) => {
       const column = heights.indexOf(Math.min(...heights));
@@ -193,8 +200,8 @@ function AlbumHoatdongcongtyMansonryCommon() {
   }, [gridItems]);
 
   const transitions = useTransition(gridItems, {
-    keys: (item) => item.id,
-    from: (item) => ({
+    keys: (item: GridItem) => item.id,
+    from: (item: GridItem) => ({
       x: item.x,
       y: item.y,
       width: item.width,
@@ -204,7 +211,7 @@ function AlbumHoatdongcongtyMansonryCommon() {
         randomTransforms[item.id] ||
         "translate(0px, 0px) scale(1) rotate(0deg)",
     }),
-    enter: (item) => ({
+    enter: (item: GridItem) => ({
       x: item.x,
       y: item.y,
       width: item.width,
@@ -212,11 +219,12 @@ function AlbumHoatdongcongtyMansonryCommon() {
       opacity: 1,
       transform: "translate(0px, 0px) scale(1) rotate(0deg)",
     }),
-    update: (item) => ({
+    update: (item: GridItem) => ({
       x: item.x,
       y: item.y,
       width: item.width,
       height: item.height,
+      opacity: 1,
     }),
     leave: { height: 0, opacity: 0 },
     config: { mass: 1.5, tension: 300, friction: 35 },
@@ -234,55 +242,62 @@ function AlbumHoatdongcongtyMansonryCommon() {
     <>
       <div
         ref={ref}
-        className="h-full w-full relative"
+        className="h-full w-full relative album-hoatdongcongty-masonry"
         style={{ height: Math.max(...heights, 0) }}
       >
-        {transitions((style: any, item) => {
-          const isVisible = visibleItems.has(item.id);
-          return (
-            <AnimatedDiv
-              key={item.id}
-              data-id={item.id}
-              className="[will-change:transform,width,height,opacity] absolute"
-              style={{
-                ...style,
-                opacity: isVisible ? style.opacity : 0,
-                transform: isVisible
-                  ? style.transform
-                  : randomTransforms[item.id],
-                transition: "opacity 0.6s ease, transform 0.6s ease",
-              }}
-            >
-              <Link
-                to={`/hoat-dong-cong-ty/detail/${item.id}`}
-                state={{ hoatdongItem: item }}
+        {transitions(
+          (style: AnimatedProps<React.CSSProperties>, item: GridItem) => {
+            const isVisible = visibleItems.has(item.id);
+            return (
+              <AnimatedDiv
+                key={item.id}
+                data-id={item.id}
+                className="[will-change:transform,width,height,opacity] absolute"
+                style={{
+                  ...style,
+                  opacity: isVisible
+                    ? (style as { opacity?: number }).opacity ?? 1
+                    : 0,
+                  transform: isVisible
+                    ? (style.transform as string)
+                    : randomTransforms[item.id],
+                  transition: "opacity 0.6s ease, transform 0.6s ease",
+                }}
               >
-                <div
-                  className="h-full rounded-xl shadow-md w-full duration-300 hover:scale-105 overflow-hidden relative transition group"
-                  style={{ marginBottom: `${gap}px`, aspectRatio: "1 / 1" }} // Square aspect ratio
+                <Link
+                  to={`/hoat-dong-cong-ty/detail/${item.id}`}
+                  state={{ hoatdongItem: item }}
                 >
-                  {item.videourl ? (
-                    <div className="w-full h-full">
-                      <VideoCard item={item} />
-                    </div>
-                  ) : item.image ? (
-                    <img
-                      src={`${SERVER}/${item.image}`}
-                      alt={t(`title_hoatdongcongty_${item.id}`) ?? item.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                      style={{ imageRendering: "auto" }} // Optimize rendering
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
-                      No Image
-                    </div>
-                  )}
-                </div>
-              </Link>
-            </AnimatedDiv>
-          );
-        })}
+                  <div
+                    className="h-full   w-full duration-300 hover:scale-105 overflow-hidden relative transition group"
+                    style={{
+                      marginBottom: `${gap}px`,
+                      aspectRatio: "1 / 1",
+                    }}
+                  >
+                    {item.videourl ? (
+                      <div className="w-full h-full">
+                        <VideoCard item={item} />
+                      </div>
+                    ) : item.image ? (
+                      <img
+                        src={`${SERVER}/${item.image}`}
+                        alt={t(`title_hoatdongcongty_${item.id}`) ?? item.title}
+                        className="w-full h-full object-contain"
+                        loading="lazy"
+                        style={{ imageRendering: "auto" }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+                        No Image
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              </AnimatedDiv>
+            );
+          },
+        )}
       </div>
 
       <CommonPagination
