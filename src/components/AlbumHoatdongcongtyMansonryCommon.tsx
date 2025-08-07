@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import CommonPagination from "./CommonPagination";
 import VideoCard from "./VideoCard";
 import { useTranslation } from "react-i18next";
+import "../static/css/hoatdongcongty.scss";
 
 type AnimatedDivProps = AnimatedProps<React.HTMLAttributes<HTMLDivElement>>;
 const AnimatedDiv = animated.div as React.FC<AnimatedDivProps>;
@@ -42,13 +43,12 @@ function AlbumHoatdongcongtyMansonryCommon() {
       const total = response?.data?.totalRecords || items.length;
 
       // Set fixed height for all items
-      const fixedHeight = 300; // Adjust this value as needed
+      const fixedHeight = 300; // Adjust as needed
       const dataWithHeight = items.map((item) => ({
         ...item,
         height: fixedHeight,
       }));
 
-      // Translation logic remains unchanged
       for (const item of response.data.data) {
         i18n.addResource(
           "vi",
@@ -122,7 +122,7 @@ function AlbumHoatdongcongtyMansonryCommon() {
 
   useEffect(() => {
     const updateColumns = () => {
-      if (window.innerWidth >= 1500) setColumns(5);
+      if (window.innerWidth >= 1500) setColumns(4);
       else if (window.innerWidth >= 1000) setColumns(4);
       else if (window.innerWidth >= 600) setColumns(3);
       else setColumns(1);
@@ -151,7 +151,7 @@ function AlbumHoatdongcongtyMansonryCommon() {
       const x =
         ((width - (columns - 1) * gap) / columns) * column + gap * column;
       const y = heights[column];
-      heights[column] += fixedHeight + gap; // Use fixed height
+      heights[column] += fixedHeight + gap;
       return {
         ...item,
         x,
@@ -259,20 +259,19 @@ function AlbumHoatdongcongtyMansonryCommon() {
               >
                 <div
                   className="h-full rounded-xl shadow-md w-full duration-300 hover:scale-105 overflow-hidden relative transition group"
-                  style={{ marginBottom: `${gap}px` }}
+                  style={{ marginBottom: `${gap}px`, aspectRatio: "1 / 1" }} // Square aspect ratio
                 >
                   {item.videourl ? (
                     <div className="w-full h-full">
                       <VideoCard item={item} />
                     </div>
                   ) : item.image ? (
-                    <div
-                      className="w-full h-full"
-                      style={{
-                        backgroundImage: `url(${SERVER}/${item.image})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
+                    <img
+                      src={`${SERVER}/${item.image}`}
+                      alt={t(`title_hoatdongcongty_${item.id}`) ?? item.title}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      style={{ imageRendering: "auto" }} // Optimize rendering
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
