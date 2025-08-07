@@ -2,8 +2,8 @@ import axios from "axios";
 import { Cookies } from "react-cookie";
 
 const SERVER_CONTEXT = "";
-export const SERVER = "http://localhost:3966/api/v1";
-// export const SERVER = "http://118.69.168.36:3966/api/v1";
+// export const SERVER = "http://localhost:3966/api/v1";
+export const SERVER = "http://118.69.168.36:3966/api/v1";
 
 // Định nghĩa các endpoint với SERVER_CONTEXT
 export const endpoints = {
