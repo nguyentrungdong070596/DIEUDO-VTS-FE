@@ -8,6 +8,7 @@ interface ItemhoatieuProps {
   name: string;
   chucdanh: string;
   img: string;
+  img2: string;
   content: string;
   content_en: string;
   index?: number;
@@ -18,6 +19,7 @@ const Itemhoatieu: React.FC<ItemhoatieuProps> = ({
   name,
   chucdanh,
   img,
+  img2,
   index = 0,
   content,
   content_en,
@@ -73,7 +75,7 @@ const Itemhoatieu: React.FC<ItemhoatieuProps> = ({
                 ✕
               </button>
 
-              <img src={img} alt={name} className="profile-image" />
+              <img src={img2} alt={name} className="profile-image" />
               <h2>{name}</h2>
               <h4>{chucdanh}</h4>
 

@@ -4,6 +4,7 @@ export interface HoaTieu {
   name: string;
   rank: string;
   image: string;
+  image2: string;
   content: string;
   content_en: string;
 }
