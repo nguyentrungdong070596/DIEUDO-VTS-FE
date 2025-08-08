@@ -93,9 +93,22 @@ const ServiceDetail = () => {
               />
               {/* <h2>{serviceItem.title}</h2> */}
               <h2>{t(`title_dichvu_${key}`)}</h2>
-              <p
+              {/* <p
                 dangerouslySetInnerHTML={{ __html: serviceItem.content || "" }}
-              ></p>
+              ></p> */}
+
+              <div className="ql-snow">
+                <div
+                  className="ql-editor"
+                  dangerouslySetInnerHTML={{
+                    __html: (serviceItem.content || "")
+                      .replace(/<br\s*\/?>/gi, "<br />")
+                      .replace(/&nbsp;/g, " ") // ✅ Chuyển &nbsp; sang khoảng trắng thường
+                      .replace(/(\w+)(?=\w{1,2}$)/gi, "$1\u200B") // 👈 Tùy chọn cải thiện xuống dòng (zero-width space)
+                      .trim(),
+                  }}
+                />
+              </div>
               {/* <span className='detail-news-postdate'>Ngày đăng: {serviceItem.postdate}</span> */}
 
               <span className="detail-news-postdate">

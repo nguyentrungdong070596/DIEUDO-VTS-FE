@@ -3,11 +3,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import "../static/css/itemhoatieu.scss";
 import "../static/css/profilemodal.scss"; // style popup
 import { useTranslation } from "react-i18next";
+import { AiFillFilePdf, AiFillFileWord } from "react-icons/ai";
 
 interface ItemhoatieuProps {
   name: string;
   chucdanh: string;
   img: string;
+  img2: string;
   content: string;
   content_en: string;
   index?: number;
@@ -18,14 +20,15 @@ const Itemhoatieu: React.FC<ItemhoatieuProps> = ({
   name,
   chucdanh,
   img,
+  img2,
   index = 0,
   content,
   content_en,
 }) => {
   const [open, setOpen] = useState(false);
   const { i18n } = useTranslation(); // lấy ngôn ngữ hiện tại
+  const [isHovered, setIsHovered] = useState(false);
 
-  // Chọn nội dung theo ngôn ngữ
   const displayContent = i18n.language === "en" ? content_en : content;
 
   return (
@@ -89,6 +92,29 @@ const Itemhoatieu: React.FC<ItemhoatieuProps> = ({
                   }}
                 />
               </div>
+
+              <a
+                href={`${img2}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-pdf-link"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                <span className="btn-content">
+                  {isHovered ? (
+                    <>
+                      <AiFillFileWord className="btn-icon" />
+                      <span className="btn-text">Xem Word</span>
+                    </>
+                  ) : (
+                    <>
+                      <AiFillFilePdf className="btn-icon" />
+                      <span className="btn-text">Xem PDF</span>
+                    </>
+                  )}
+                </span>
+              </a>
 
               {/* Nút đóng dạng text phía dưới */}
               <div className="modal-footer">

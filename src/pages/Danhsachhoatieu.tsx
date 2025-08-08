@@ -209,6 +209,7 @@ const Danhsachhoatieu: React.FC = () => {
                   content={item.content}
                   content_en={item.content_en}
                   img={`${SERVER}/${item.image}`}
+                  img2={`${SERVER}/${item.image2}`}
                   onClick={() => setSelectedHoatieu(item)}
                 />
               ))}

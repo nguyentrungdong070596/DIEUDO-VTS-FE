@@ -102,14 +102,30 @@ const Gioithieucongty = () => {
                 // < pre style={{ whiteSpace: 'pre-wrap' }}>
                 //     {stripHtmlWithFormat(gioithieu?.content || "")}
                 // </pre>
-                <div
-                  style={{ paddingTop: "20px" }}
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      t(`content_gioithieucongty_${gioithieu?.id}`) ||
-                      t(`aboutUs`),
-                  }}
-                />
+                // <div
+                //   style={{ paddingTop: "20px" }}
+                //   dangerouslySetInnerHTML={{
+                //     __html:
+                //       t(`content_gioithieucongty_${gioithieu?.id}`) ||
+                //       t(`aboutUs`),
+                //   }}
+                // />
+
+                <div className="ql-snow">
+                  <div
+                    className="ql-editor"
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        t(`content_gioithieucongty_${gioithieu?.id}`) ||
+                        ""
+                          //       t(`aboutUs`),
+                          .replace(/<br\s*\/?>/gi, "<br />")
+                          .replace(/&nbsp;/g, " ") // ✅ Chuyển &nbsp; sang khoảng trắng thường
+                          .replace(/(\w+)(?=\w{1,2}$)/gi, "$1\u200B") // 👈 Tùy chọn cải thiện xuống dòng (zero-width space)
+                          .trim(),
+                    }}
+                  />
+                </div>
 
                 // <ReactMarkdown >{stripHtmlWithFormat(gioithieu?.content || "")}</ReactMarkdown>
 
