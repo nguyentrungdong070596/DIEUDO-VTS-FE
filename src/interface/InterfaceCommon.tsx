@@ -1,169 +1,149 @@
 export interface HoaTieu {
-    id: string;
+  id: string;
 
-    name: string;
-    rank: string;
-    image: string;
+  name: string;
+  rank: string;
+  image: string;
+  content: string;
+  content_en: string;
 }
-
 
 export interface Tintuc {
-    id: number;
-    title: string;
-    subtitle?: string;
-    content: string;
-    postdate: string;
-    image: string;
-    status?: string;
+  id: number;
+  title: string;
+  subtitle?: string;
+  content: string;
+  postdate: string;
+  image: string;
+  status?: string;
 }
-
 
 export interface HoatDongCongTy {
-    id: number;
-    title: string;
-    subtitle?: string;
-    content: string;
-    postdate: string;
-    image: string;
-    videourl: string;
-    status?: string;
-    height: number;
+  id: number;
+  title: string;
+  subtitle?: string;
+  content: string;
+  postdate: string;
+  image: string;
+  videourl: string;
+  status?: string;
+  height: number;
 }
-
 
 export interface LinkDathangdichvu {
-    id: number;
-    title: string;
-    status?: string;
+  id: number;
+  title: string;
+  status?: string;
 }
-
-
 
 // import { Tintuc } from 'path/to/your/types'; (nếu bạn có file type riêng)
 
-
-
 export interface Phuongtien {
-    id: string;
+  id: string;
 
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    content: string;
-    postdate: string;
-
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  content: string;
+  postdate: string;
 }
 
-
 export interface Dichvu {
-    id: string;
+  id: string;
 
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    content: string;
-    postdate: string;
-
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  content: string;
+  postdate: string;
 }
 
 export interface BanLanhDao {
-    id: string;
+  id: string;
 
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    content: string;
-    postdate: string;
-
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  content: string;
+  postdate: string;
 }
-
 
 export interface ViTriDonTraHoaTieu {
-    id: string;
+  id: string;
 
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    content: string;
-    postdate: string;
-
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  content: string;
+  postdate: string;
 }
-
 
 export interface VungHoaTieu {
-    id: string;
+  id: string;
 
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    content: string;
-    postdate: string;
-
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  content: string;
+  postdate: string;
 }
 export interface GioDieuDong {
-    id: string;
-    pdfurl: string;
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    content: string;
-    postdate: string;
-
+  id: string;
+  pdfurl: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  content: string;
+  postdate: string;
 }
 
 export interface HeThongCangBien {
-    id: string;
-    pdfurl: string;
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    content: string;
-    postdate: string;
-
+  id: string;
+  pdfurl: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  content: string;
+  postdate: string;
 }
 
 export interface LichThuyTrieu {
-    id: string;
-    pdfurl: string;
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    content: string;
-    postdate: string;
-
+  id: string;
+  pdfurl: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  content: string;
+  postdate: string;
 }
 
-
-
 export interface Lichsu {
-    id: string;
+  id: string;
 
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    content: string;
-    postdate: string;
-
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  content: string;
+  postdate: string;
 }
 
 export interface GiaDichVu {
-    id: string;
+  id: string;
 
-    title: string;
-    subtitle: string;
-    image: string;
-    status: string;
-    pdfurl: string;
-    content: string;
-    postdate: string;
-
+  title: string;
+  subtitle: string;
+  image: string;
+  status: string;
+  pdfurl: string;
+  content: string;
+  postdate: string;
 }
