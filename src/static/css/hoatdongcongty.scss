@@ -1,0 +1,35 @@
+.album-hoatdongcongty-masonry {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  > * {
+    box-sizing: border-box;
+    width: 24%;
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+
+  .group {
+    overflow: hidden;
+    transition: transform 0.3s ease;
+
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      object-position: center;
+      image-rendering: auto;
+      max-height: 400px;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+
+      img {
+        transform: none;
+      }
+    }
+  }
+}

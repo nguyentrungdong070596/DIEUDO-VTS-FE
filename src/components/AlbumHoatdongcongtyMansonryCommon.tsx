@@ -1,18 +1,24 @@
-import { useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useTransition, animated, AnimatedProps } from "@react-spring/web";
-import { HoatDongCongTy } from "../interface/InterfaceCommon";
+import { HoatDongCongTy as HoatDongCongTyBase } from "../interface/InterfaceCommon";
 import Apis, { endpoints, SERVER } from "../configs/Apis";
 import { Link } from "react-router-dom";
 import CommonPagination from "./CommonPagination";
 import VideoCard from "./VideoCard";
 import { useTranslation } from "react-i18next";
 
+// Extend HoatDongCongTy to include aspectRatio
+interface HoatDongCongTy extends HoatDongCongTyBase {
+  aspectRatio?: number;
+  title_en?: string;
+  subtitle_en?: string;
+  content_en?: string;
+}
+
 type AnimatedDivProps = AnimatedProps<React.HTMLAttributes<HTMLDivElement>>;
 const AnimatedDiv = animated.div as React.FC<AnimatedDivProps>;
 
 function AlbumHoatdongcongtyMansonryCommon() {
-  const [columns, setColumns] = useState<number>(2);
-  const [width, setWidth] = useState<number>(0);
   const [data, setData] = useState<HoatDongCongTy[]>([]);
   const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set());
   const ref = useRef<HTMLDivElement>(null);
@@ -41,15 +47,7 @@ function AlbumHoatdongcongtyMansonryCommon() {
         : [];
       const total = response?.data?.totalRecords || items.length;
 
-      // Set fixed height for all items
-      const fixedHeight = 300; // Adjust this value as needed
-      const dataWithHeight = items.map((item) => ({
-        ...item,
-        height: fixedHeight,
-      }));
-
-      // Translation logic remains unchanged
-      for (const item of response.data.data) {
+      for (const item of items) {
         i18n.addResource(
           "vi",
           "translation",
@@ -60,37 +58,37 @@ function AlbumHoatdongcongtyMansonryCommon() {
           "en",
           "translation",
           `title_hoatdongcongty_${item.id}`,
-          item.title_en,
+          item.title_en ?? "",
         );
         i18n.addResource(
           "vi",
           "translation",
           `subtitle_hoatdongcongty_${item.id}`,
-          item.subtitle,
+          item.subtitle ?? "",
         );
         i18n.addResource(
           "en",
           "translation",
           `subtitle_hoatdongcongty_${item.id}`,
-          item.subtitle_en,
+          item.subtitle_en ?? "",
         );
         i18n.addResource(
           "vi",
           "translation",
           `content_hoatdongcongty_${item.id}`,
-          item.content,
+          item.content ?? "",
         );
         i18n.addResource(
           "en",
           "translation",
           `content_hoatdongcongty_${item.id}`,
-          item.content_en,
+          item.content_en ?? "",
         );
       }
-      setData(dataWithHeight);
+      setData(items);
       setTotalItems(total);
     } catch (err) {
-      console.error("Lỗi load:", err);
+      console.error("Error loading:", err);
       setData([]);
       setTotalItems(0);
     } finally {
@@ -105,63 +103,6 @@ function AlbumHoatdongcongtyMansonryCommon() {
   useEffect(() => {
     setVisibleItems(new Set());
   }, [data]);
-
-  const randomTransforms = useMemo(() => {
-    const transforms: Record<number, string> = {};
-    data.forEach((item) => {
-      const translateX = Math.random() * 20 - 10;
-      const translateY = Math.random() * 20 - 10;
-      const rotate = Math.random() * 6 - 3;
-      const scale = 0.95 + Math.random() * 0.05;
-      transforms[
-        item.id
-      ] = `translate(${translateX}px, ${translateY}px) scale(${scale}) rotate(${rotate}deg)`;
-    });
-    return transforms;
-  }, [data]);
-
-  useEffect(() => {
-    const updateColumns = () => {
-      if (window.innerWidth >= 1500) setColumns(4);
-      else if (window.innerWidth >= 1000) setColumns(4);
-      else if (window.innerWidth >= 600) setColumns(3);
-      else setColumns(1);
-    };
-    updateColumns();
-    window.addEventListener("resize", updateColumns);
-    return () => window.removeEventListener("resize", updateColumns);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (ref.current) setWidth(ref.current.offsetWidth);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const gap = 16;
-  const fixedHeight = 300; // Same fixed height as set in data
-
-  const [heights, gridItems] = useMemo(() => {
-    const heights = new Array(columns).fill(0);
-    const items = data.map((item, _index) => {
-      const column = heights.indexOf(Math.min(...heights));
-      const x =
-        ((width - (columns - 1) * gap) / columns) * column + gap * column;
-      const y = heights[column];
-      heights[column] += fixedHeight + gap; // Use fixed height
-      return {
-        ...item,
-        x,
-        y,
-        width: (width - (columns - 1) * gap) / columns,
-        height: fixedHeight,
-      };
-    });
-    return [heights, items];
-  }, [columns, data, width]);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -190,37 +131,15 @@ function AlbumHoatdongcongtyMansonryCommon() {
     return () => {
       targets.forEach((el) => observer.unobserve(el));
     };
-  }, [gridItems]);
+  }, [data]);
 
-  const transitions = useTransition(gridItems, {
-    keys: (item) => item.id,
-    from: (item) => ({
-      x: item.x,
-      y: item.y,
-      width: item.width,
-      height: item.height,
-      opacity: 0,
-      transform:
-        randomTransforms[item.id] ||
-        "translate(0px, 0px) scale(1) rotate(0deg)",
-    }),
-    enter: (item) => ({
-      x: item.x,
-      y: item.y,
-      width: item.width,
-      height: item.height,
-      opacity: 1,
-      transform: "translate(0px, 0px) scale(1) rotate(0deg)",
-    }),
-    update: (item) => ({
-      x: item.x,
-      y: item.y,
-      width: item.width,
-      height: item.height,
-    }),
-    leave: { height: 0, opacity: 0 },
-    config: { mass: 1.5, tension: 300, friction: 35 },
-    trail: 5,
+  const transitions = useTransition(data, {
+    keys: (item: HoatDongCongTy) => item.id,
+    from: { opacity: 0, transform: "translateY(20px)" },
+    enter: { opacity: 1, transform: "translateY(0px)" },
+    leave: { opacity: 0, transform: "translateY(20px)" },
+    config: { mass: 1, tension: 280, friction: 30 },
+    trail: 50,
   });
 
   const handlePageChange = (page: number) => {
@@ -234,56 +153,50 @@ function AlbumHoatdongcongtyMansonryCommon() {
     <>
       <div
         ref={ref}
-        className="h-full w-full relative"
-        style={{ height: Math.max(...heights, 0) }}
+        className="w-full flex flex-row flex-wrap gap-5 album-hoatdongcongty-masonry"
       >
-        {transitions((style: any, item) => {
-          const isVisible = visibleItems.has(item.id);
-          return (
-            <AnimatedDiv
-              key={item.id}
-              data-id={item.id}
-              className="[will-change:transform,width,height,opacity] absolute"
-              style={{
-                ...style,
-                opacity: isVisible ? style.opacity : 0,
-                transform: isVisible
-                  ? style.transform
-                  : randomTransforms[item.id],
-                transition: "opacity 0.6s ease, transform 0.6s ease",
-              }}
-            >
-              <Link
-                to={`/hoat-dong-cong-ty/detail/${item.id}`}
-                state={{ hoatdongItem: item }}
+        {transitions(
+          (style: AnimatedProps<React.CSSProperties>, item: HoatDongCongTy) => {
+            const isVisible = visibleItems.has(item.id);
+            return (
+              <AnimatedDiv
+                key={item.id}
+                data-id={item.id}
+                className="w-full sm:w-[48%] lg:w-[24%] flex-grow-0 flex-shrink-0"
+                style={{
+                  ...style,
+                  opacity: isVisible ? style.opacity : 0,
+                  transition: "opacity 0.6s ease, transform 0.6s ease",
+                }}
               >
-                <div
-                  className="h-full rounded-xl shadow-md w-full duration-300 hover:scale-105 overflow-hidden relative transition group"
-                  style={{ marginBottom: `${gap}px` }}
+                <Link
+                  to={`/hoat-dong-cong-ty/detail/${item.id}`}
+                  state={{ hoatdongItem: item }}
                 >
-                  {item.videourl ? (
-                    <div className="w-full h-full">
-                      <VideoCard item={item} />
-                    </div>
-                  ) : item.image ? (
-                    <div
-                      className="w-full h-full"
-                      style={{
-                        backgroundImage: `url(${SERVER}/${item.image})`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
-                      No Image
-                    </div>
-                  )}
-                </div>
-              </Link>
-            </AnimatedDiv>
-          );
-        })}
+                  <div className="group rounded-lg shadow-md hover:shadow-xl overflow-hidden relative transition w-full h-auto">
+                    {item.videourl ? (
+                      <div className="w-full h-auto">
+                        <VideoCard item={item} />
+                      </div>
+                    ) : item.image ? (
+                      <img
+                        src={`${SERVER}/${item.image}`}
+                        alt={t(`title_hoatdongcongty_${item.id}`) ?? item.title}
+                        className="w-full h-auto object-contain transition-all duration-300 group-hover:brightness-110"
+                        loading="lazy"
+                        style={{ imageRendering: "auto" }}
+                      />
+                    ) : (
+                      <div className="w-full h-auto bg-gray-100 flex items-center justify-center text-gray-500 rounded-lg">
+                        No Image
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              </AnimatedDiv>
+            );
+          },
+        )}
       </div>
 
       <CommonPagination
