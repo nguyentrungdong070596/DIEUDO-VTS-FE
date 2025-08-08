@@ -124,11 +124,26 @@ const GiadichvuDetail = () => {
               <h2>{t(`title_giadichvu_${key}`)}</h2>
 
               {/* <p dangerouslySetInnerHTML={{ __html: giadichvuItem.content || "" }} ></p> */}
-              <p
+              {/* <p
                 dangerouslySetInnerHTML={{
                   __html: t(`content_giadichvu_${key}`) || "",
                 }}
-              ></p>
+              ></p> */}
+
+              <div className="ql-snow">
+                <div
+                  className="ql-editor"
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      t(`content_giadichvu_${key}`) ||
+                      ""
+                        .replace(/<br\s*\/?>/gi, "<br />")
+                        .replace(/&nbsp;/g, " ") // ✅ Chuyển &nbsp; sang khoảng trắng thường
+                        .replace(/(\w+)(?=\w{1,2}$)/gi, "$1\u200B") // 👈 Tùy chọn cải thiện xuống dòng (zero-width space)
+                        .trim(),
+                  }}
+                />
+              </div>
               {/* <span className='detail-dichvu-postdate'>Ngày đăng: {dichvuItem.postdate}</span> */}
 
               <img
