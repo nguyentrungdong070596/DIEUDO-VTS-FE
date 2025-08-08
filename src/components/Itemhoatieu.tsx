@@ -64,10 +64,18 @@ const Itemhoatieu: React.FC<ItemhoatieuProps> = ({
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Nút đóng ở góc trên bên phải */}
+              <button
+                className="close-btn"
+                onClick={() => setOpen(false)}
+                aria-label="Đóng"
+              >
+                ✕
+              </button>
+
               <img src={img} alt={name} className="profile-image" />
               <h2>{name}</h2>
               <h4>{chucdanh}</h4>
-              {/* <p>{displayContent}</p> */}
 
               <div className="ql-snow">
                 <div
@@ -75,15 +83,22 @@ const Itemhoatieu: React.FC<ItemhoatieuProps> = ({
                   dangerouslySetInnerHTML={{
                     __html: (displayContent || "")
                       .replace(/<br\s*\/?>/gi, "<br />")
-                      .replace(/&nbsp;/g, " ") // ✅ Chuyển &nbsp; sang khoảng trắng thường
-                      .replace(/(\w+)(?=\w{1,2}$)/gi, "$1\u200B") // 👈 Tùy chọn cải thiện xuống dòng (zero-width space)
+                      .replace(/&nbsp;/g, " ")
+                      .replace(/(\w+)(?=\w{1,2}$)/gi, "$1\u200B")
                       .trim(),
                   }}
                 />
               </div>
-              <button className="close-btn" onClick={() => setOpen(false)}>
-                ✕
-              </button>
+
+              {/* Nút đóng dạng text phía dưới */}
+              <div className="modal-footer">
+                <button
+                  className="btn-close-popup"
+                  onClick={() => setOpen(false)}
+                >
+                  Đóng
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}
